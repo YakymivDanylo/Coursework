@@ -15,7 +15,7 @@ protected:
 public:
     People();
     People(string name, string surname,string last_name);
-    ~People();
+   virtual ~People();
     friend ostream &operator <<(ostream &os, const People &obj);
 
     virtual string getName()=0;

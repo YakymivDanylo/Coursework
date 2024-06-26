@@ -12,17 +12,18 @@ using namespace std;
 
 class Author final : public People{
 private:
-    vector<Book> books;
+    Book books;
 public:
     Author();
-    Author(string name,string surname,string last_name, vector<Book>& books);
+    Author(string name,string surname,string last_name, Book books);
     friend ostream &operator <<(ostream &os, Author &obj);
     friend istream &operator >>(istream &is, Author &obj);
     string getName() override;
     string getSurname() override;
     string getLastName() override;
     virtual void print(ostream &os) override;
-    vector<Book>& getBooks();
+    Book getBook();
+
 };
 
 
