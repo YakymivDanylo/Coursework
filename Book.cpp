@@ -11,8 +11,12 @@ Book::Book(string name, float price, int id)
 :name(name),price(price),id(id){}
 
 ostream &operator<<(ostream &os, Book &obj){
-    os<<obj.getName()<<"\t"<<obj.getPrice()<<" \t"<<obj.getId();
+    os<<obj.name<<"\t"<<obj.price<<" \t"<<obj.id;
     return os;
+}
+istream &operator>>(istream &is, Book& obj){
+    is>>obj.name>>obj.price>>obj.id;
+    return is;
 }
 
 Book Book::operator=(const Book &rhs) {

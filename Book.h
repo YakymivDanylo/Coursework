@@ -18,6 +18,7 @@ public:
     Book();
     Book(string name, float price, int id);
     friend ostream &operator <<(ostream &os, Book &obj);
+    friend istream &operator >>(istream &is, Book &obj);
     Book operator=(const Book &rhs);
     Book(const Book& other);
     Book( Book&& other);

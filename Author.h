@@ -16,7 +16,8 @@ private:
 public:
     Author();
     Author(string name,string surname,string last_name, vector<Book>& books);
-    friend ostream &operator <<(ostream &os,const Author &obj);
+    friend ostream &operator <<(ostream &os, Author &obj);
+    friend istream &operator >>(istream &is, Author &obj);
     string getName() override;
     string getSurname() override;
     string getLastName() override;
