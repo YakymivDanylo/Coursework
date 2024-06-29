@@ -13,8 +13,11 @@ private:
 public:
     Bookstand();
     Bookstand(int id, Book book);
+    ~Bookstand();
     friend ostream &operator <<(ostream &os, Bookstand &obj);
     friend istream &operator >>(istream &is, Bookstand &obj);
+    Bookstand(const Bookstand &other);
+    Bookstand(Bookstand &&other);
     int getId() const;
     void setId(int id);
 

@@ -5,8 +5,14 @@
 #include "Bookstand.h"
 Bookstand::Bookstand()
 : id(0),book(){};
+
 Bookstand::Bookstand(int id, Book book)
 :id{id},book(){}
+
+Bookstand::~Bookstand() {
+    cout<<"Object of class Bookstand was deleted";
+}
+
  ostream &operator <<(ostream &os, Bookstand &obj){
      os << " \t" << obj.id;
      os<<obj.book;
@@ -17,6 +23,16 @@ Bookstand::Bookstand(int id, Book book)
      return is;
 }
 
+Bookstand::Bookstand(const Bookstand &other)
+:id(other.id),book(other.book){}
+
+Bookstand::Bookstand(Bookstand &&other)
+:id(other.id),book(other.book){
+    other.id=0;
+    other.book=Book();
+}
+
 int Bookstand::getId() const {return id;}
 void Bookstand::setId(int id) {this->id=id;}
+
 
