@@ -19,7 +19,7 @@ public:
     People(string name, string surname,string last_name);
     People(const People &other);
     People(People &&other);
-    virtual ~People() = 0;
+     ~People() = default;
     friend ostream &operator <<(ostream &os, const People &obj);
     friend istream &operator >>(istream &is, People &obj);
     virtual string getName()=0;

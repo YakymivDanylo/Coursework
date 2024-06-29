@@ -16,7 +16,7 @@ Book::~Book() {
 }
 
 ostream &operator<<(ostream &os, Book &obj){
-    os<<obj.name<<"\t"<<obj.price<<" \t"<<obj.id;
+    os<<obj.name<<"\t"<<obj.price<<" \t"<<obj.id<<endl;
     return os;
 }
 istream &operator>>(istream &is, Book& obj){
