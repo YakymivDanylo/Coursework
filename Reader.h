@@ -14,13 +14,16 @@ private:
     Book books;
 public:
     Reader();
-    Reader( string name, string surname, string last_name, Book books);
+    Reader( string &name, string &surname, string &last_name, Book &books);
+    ~Reader();
     friend ostream &operator <<(ostream &os, Reader &obj);
     friend istream &operator >>(istream &is, Reader &obj);
+    Reader(const Reader &other);
+    Reader( Reader &&other);
     string getName() override;
     string getSurname() override;
     string getLastName() override;
-    virtual void print(ostream &os) override;
+
     Book getBook();
 };
 

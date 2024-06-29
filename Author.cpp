@@ -12,7 +12,7 @@ Author::Author()
 Author::Author(string &name, string &surname, string &last_name, Book &books)
 :books{books}, People(name,surname,last_name){}
 
-Author::~Author()
+Author::~Author() noexcept
 {cout<<"Object of class Author was deleted";}
 
 

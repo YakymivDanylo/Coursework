@@ -14,6 +14,7 @@ private:
     string last_name;
 public:
     friend class Author;
+    friend class Reader;
     People();
     People(string name, string surname,string last_name);
     People(const People &other);
