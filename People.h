@@ -8,20 +8,21 @@
 #include <string>
 using namespace std;
 class People {
-protected:
+private:
     string name;
     string surname;
     string last_name;
 public:
     People();
     People(string name, string surname,string last_name);
-    ~People()=default;
+    People(const People &other);
+    People(People &&other);
+    virtual ~People() = 0;
     friend ostream &operator <<(ostream &os, const People &obj);
-
+    friend istream &operator >>(istream &is, People &obj);
     virtual string getName()=0;
     virtual string getSurname()=0;
     virtual string getLastName()=0;
-    virtual void print(ostream &os)=0;
 };
 
 

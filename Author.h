@@ -15,13 +15,15 @@ private:
     Book books;
 public:
     Author();
-    Author(string name,string surname,string last_name, Book books);
+    Author(string &name,string &surname,string &last_name, Book &books);
+    ~Author();
     friend ostream &operator <<(ostream &os, Author &obj);
     friend istream &operator >>(istream &is, Author &obj);
+    Author(const Author &other);
+    Author( Author &&other);
     string getName() override;
     string getSurname() override;
     string getLastName() override;
-    virtual void print(ostream &os) override;
     Book getBook();
 
 };
