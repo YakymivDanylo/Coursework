@@ -10,7 +10,7 @@
 #include "vector"
 using namespace std;
 
-class Author final : public People{
+class Author final : private People{
 private:
     Book books;
 public:

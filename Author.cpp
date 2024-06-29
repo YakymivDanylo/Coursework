@@ -27,8 +27,14 @@ istream &operator>>(istream &is,Author &obj ){
     return is;
 }
 Author::Author(const Author &other)
-{
-   People(other),
+ : People(other),books(other.books) {}
+
+ Author::Author(Author &&other)
+ : People(other),books(other.books){
+    other.name="unknown";
+    other.surname="unknown";
+    other.last_name="unknown";
+    other.books=Book();
 }
 
 string Author::getName() {return name;}
