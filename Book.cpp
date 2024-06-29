@@ -7,8 +7,13 @@
 
 Book::Book()
         :Book("unknown",0.0,0){}
+
 Book::Book(string name, float price, int id)
 :name(name),price(price),id(id){}
+
+Book::~Book() {
+    cout<<"Object of class Book was deleted";
+}
 
 ostream &operator<<(ostream &os, Book &obj){
     os<<obj.name<<"\t"<<obj.price<<" \t"<<obj.id;
