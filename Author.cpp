@@ -13,7 +13,7 @@ Author::Author(string &name, string &surname, string &last_name, Book &books)
 :books{books}, People(name,surname,last_name){}
 
 Author::~Author() noexcept
-{cout<<"Object of class Author was deleted";}
+{cout<<name<<" "<<surname<<" "<<last_name<<" was deleted";}
 
 
 ostream &operator<<(ostream &os,  Author &obj){
@@ -41,6 +41,11 @@ string Author::getName() {return name;}
 string Author::getSurname() {return surname;}
 string Author::getLastName() {return  last_name;}
 Book Author::getBook() {return books;}
+
+void Author::getAuthor() const {
+    cout<<"Name of the author: "<<name<<" Surname of the author: "<<surname<<" Last name of the author "<<last_name<<endl;
+    books.getBook();
+}
 
 
 

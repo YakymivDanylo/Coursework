@@ -12,7 +12,7 @@ Book::Book(string name, float price, int id)
 :name(name),price(price),id(id){}
 
 Book::~Book() {
-    cout<<"Object of class Book was deleted";
+    cout<<"Book: "<<name<<" "<<id<<" was deleted";
 }
 
 ostream &operator<<(ostream &os, Book &obj){
@@ -50,5 +50,9 @@ float Book::getPrice() {
 }
 int Book::getId() {
     return id;
+}
+
+void Book::getBook() const {
+    cout<<" Name of the book: "<<name<<" Price: "<<price<<" ID: "<<id<<endl;
 }
 

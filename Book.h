@@ -6,7 +6,6 @@
 #define COURSEWORK_BOOK_H
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
 class Book {
@@ -15,6 +14,7 @@ private:
     float price;
     int id;
 public:
+//    friend class Reader;
     Book();
     Book(string name, float price, int id);
     ~Book();
@@ -23,10 +23,10 @@ public:
     Book operator=(const Book &rhs);
     Book(const Book& other);
     Book( Book&& other);
-
     string getName();
     float getPrice();
     int getId();
+    void getBook() const;
 };
 
 

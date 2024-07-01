@@ -20,6 +20,7 @@ public:
     Bookstand(Bookstand &&other);
     int getId() const;
     void setId(int id);
+    void getBookstand () const;
 
 };
 

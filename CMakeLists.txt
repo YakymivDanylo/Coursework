@@ -8,4 +8,5 @@ add_executable(Coursework main.cpp
         People.cpp
         Author.cpp
         Book.cpp
-        Bookstand.h)
+        Bookstand.h
+        Reader.h)
