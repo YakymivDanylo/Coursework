@@ -16,7 +16,7 @@ private:
     Book books;
 public:
     Reader();
-    Reader( string &name, string &surname, string &last_name,string& password, Book &books);
+    Reader( string name, string surname, string last_name,string password, Book books);
     ~Reader();
     friend ostream &operator <<(ostream &os, Reader &obj);
     friend istream &operator >>(istream &is, Reader &obj);

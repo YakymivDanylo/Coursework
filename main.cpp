@@ -1,9 +1,7 @@
 #include <iostream>
 #include <memory>
-#include "vector"
 #include "fstream"
 #include <vector>
-#include "People.h"
 #include "Reader.h"
 #include "Bookstand.h"
 #include "Author.h"
@@ -18,18 +16,17 @@ void clearConsole(){
 }
 
 vector<Reader> readersFromFile(){
-    shared_ptr<Reader> reader{new Reader()};
+    shared_ptr<Reader> reader;
     vector <Reader> readers;
     ifstream fin(R"("D:\Coursework\Database\Reader.txt")");
-    while (fin>>*reader){
+    while (fin >> *reader)
         readers.push_back(*reader);
-    }
     fin.close();
     return readers;
 }
 
 vector<Author> authorFromFile(){
-    shared_ptr<Author> author{new Author()};
+    shared_ptr<Author> author;
     vector<Author> authors;
     ifstream fin(R"("D:\Coursework\Database\Author.txt")");
     while(fin>>*author){
@@ -40,7 +37,7 @@ vector<Author> authorFromFile(){
 }
 
 vector<Book> bookFromFile(){
-    shared_ptr<Book> book{new Book()};
+    shared_ptr<Book> book;
     vector<Book> books;
     ifstream fin(R"("D:\Coursework\Database\Books.txt")");
     while (fin>>*book){
@@ -52,10 +49,9 @@ vector<Book> bookFromFile(){
 
 void addBook(){
     unique_ptr  <Book> newBook  {new Book()};
-    unique_ptr<int> number {new int{1}};
     cin>>*newBook;
     ofstream fout(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
-    fout<<*number<<*newBook;
+    fout<<*newBook;
     fout.close();
 }
 
@@ -91,18 +87,29 @@ bool registration(){
     unique_ptr<string> nameOfBook{new string {"unknown"}};
     unique_ptr<double> price{new double{0.0}};
     unique_ptr<int> id {new int {0}};
-    cout<<"Enter your full name(name,surname,last name)"<<endl;
-    cin>>*name;
-    cin>>*surname;
-    cin>>*last_name;
-    cout<<"Enter your password"<<endl;
-    cin>>*password;
-    Reader newReader()
+    unique_ptr<int> idOfBook {new int {0}};
+    cout<<"Enter ID of book wich you you want to take"<<endl;
+    cin>>*idOfBook;
+    ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
+    while(finBook>>*nameOfBook>>*price>>*idOfBook){
+        if(*idOfBook==*id){
+            Book newBook(*nameOfBook,*price,*id);
+            ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)",ios_base::app);
+            cout<<"Enter your full name(name,surname,last name)"<<endl;
+            cin>>*name>>*surname>>*last_name;
+            cout<<"Enter your password"<<endl;
+            Reader newReader(*name,*surname,*last_name,*password,newBook);
+            return newReader.search();
+            foutReader.close();
+        }
+        finBook.close();
+    }
 }
 
 
 
 int main() {
-
+    cout<<"Welcome to our library"<<"\t\t";
+    cout<<"Choose what you want to do: "<<endl;
     return 0;
 }

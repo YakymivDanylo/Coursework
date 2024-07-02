@@ -59,7 +59,5 @@ void Book::getBook() const {
     cout<<" Name of the book: "<<name<<" Price: "<<price<<" ID: "<<id<<endl;
 }
 
-//void Book::showCounter() {
-//    cout<<counter<<" books";
-//}
+
 

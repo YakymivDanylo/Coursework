@@ -6,8 +6,8 @@
 Reader::Reader()
     :People(),password("uknown"),books(){}
 
-Reader::Reader(string &name, string &surname, string &last_name,string& password, Book &book)
-    :books(book),password(password), People(name,surname,last_name){}
+Reader::Reader(string name, string surname, string last_name,string password, Book book)
+    :People(name,surname,last_name),books(book),password(password) {}
 
     Reader::~Reader() noexcept {
     cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted";
