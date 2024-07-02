@@ -4,15 +4,16 @@
 
 #include "Book.h"
 #include "iostream"
-
+using namespace std;
 Book::Book()
-        :Book("unknown",0.0,0){}
+        :Book("unknown",0.0,0){operator++();}
 
 Book::Book(string name, float price, int id)
-:name(name),price(price),id(id){}
+:name(name),price(price),id(id){operator++();}
 
 Book::~Book() {
     cout<<"Book: "<<name<<" "<<id<<" was deleted";
+    operator--();
 }
 
 ostream &operator<<(ostream &os, Book &obj){
@@ -33,6 +34,7 @@ Book Book::operator=(const Book &rhs) {
         id=rhs.id;
         return *this;
     }
+
 }
 Book::Book(const Book &other)
 :name(other.name),price(other.price),id(other.id){}
@@ -45,14 +47,18 @@ Book::Book(Book &&other)
 string Book::getName() {
     return name;
 }
-float Book::getPrice() {
+float Book::getPrice() const {
     return price;
 }
-int Book::getId() {
+int Book::getId() const{
     return id;
 }
 
 void Book::getBook() const {
     cout<<" Name of the book: "<<name<<" Price: "<<price<<" ID: "<<id<<endl;
+}
+
+void Book::showCounter() {
+    cout<<counter<<" books";
 }
 
