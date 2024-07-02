@@ -7,10 +7,9 @@
 #include <iostream>
 
 using namespace std;
-
+int counter =1;
 class Book {
 private:
-    static int counter;
     string name;
     float price;
     int id;
@@ -29,7 +28,7 @@ public:
     float getPrice() const;
     int getId() const ;
     void getBook() const;
-    void showCounter();
+//    void showCounter();
 
 };
 
