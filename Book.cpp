@@ -9,7 +9,7 @@ Book::Book()
         :Book("unknown",0.0,0){operator++();}
 
 Book::Book(string name, float price, int id)
-:name(name),price(price),id(id){operator++();}
+        :name(name),price(price),id(id){operator++();}
 
 Book::~Book() {
     cout<<"Book: "<<name<<" "<<id<<" was deleted";
