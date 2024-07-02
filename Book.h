@@ -5,11 +5,10 @@
 #ifndef COURSEWORK_BOOK_H
 #define COURSEWORK_BOOK_H
 #include <iostream>
-
 using namespace std;
-int counter = 1;
 class Book {
 private:
+    int counter = 1;
     string name;
     float price;
     int id;

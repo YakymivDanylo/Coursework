@@ -79,13 +79,13 @@ void addBookstand() {
     fout.close();
 }
 
-bool registration(){
+void registration(){
     unique_ptr<string> name{new string {"unknown"}};
     unique_ptr<string> surname{new string {"unknown"}};
     unique_ptr<string> last_name{new string {"unknown"}};
     unique_ptr<string> password{new string {"unknown"}};
     unique_ptr<string> nameOfBook{new string {"unknown"}};
-    unique_ptr<double> price{new double{0.0}};
+    unique_ptr<float> price{new float {0.0}};
     unique_ptr<int> id {new int {0}};
     unique_ptr<int> idOfBook {new int {0}};
     cout<<"Enter ID of book wich you you want to take"<<endl;
@@ -99,7 +99,6 @@ bool registration(){
             cin>>*name>>*surname>>*last_name;
             cout<<"Enter your password"<<endl;
             Reader newReader(*name,*surname,*last_name,*password,newBook);
-            return newReader.search();
             foutReader.close();
         }
         finBook.close();
@@ -109,7 +108,7 @@ bool registration(){
 
 
 int main() {
-    cout<<"Welcome to our library"<<"\t\t";
+    cout<<"Welcome to our library"<<endl;
     cout<<"Choose what you want to do: "<<endl;
     return 0;
 }
