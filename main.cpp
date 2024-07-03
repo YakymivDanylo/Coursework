@@ -6,6 +6,8 @@
 #include "Bookstand.h"
 #include "Author.h"
 #include "Book.h"
+#include "WrongChoice.h"
+#include "WrongPassword.h"
 using namespace std;
 
 void delimitation(){
@@ -108,7 +110,72 @@ void registration(){
 
 
 int main() {
+    delimitation();
     cout<<"Welcome to our library"<<endl;
     cout<<"Choose what you want to do: "<<endl;
+    cout<<"1. Administrator"<<endl;
+    cout<<"2. Client"<<endl;
+    cout<<"3. Instructions"<<endl;
+    cout<<"0. Exit"<<endl;
+    int choice;
+    cin>>choice;
+    try{
+        if(choice!=1 && choice!=2 && choice!=3)
+            throw WrongChoice();
+        if(choice==1)//Admin
+        {
+           string password;
+           int k=0;
+            while (k<3){
+                cout<<"Enter password"<<endl;
+                cin>>password;
+                if(password=="123") {
+                    cout << "Successful access!" << endl;
+                    cout<<"1. Action 1"<<endl;
+                    cout<<"2. Action 2"<<endl;
+                    cout<<"3. Action 3"<<endl;
+                    cout<<"0. Exit"<<endl;
+                    int choiceAd;
+                    cin>>choiceAd;
+                    switch (choiceAd) {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 0:
+                            exit(0);
+                            break;
+                        default:
+                            cout<<"Uknown choice"<<endl;
+                    }
+                    break;
+                }
+                else
+                {
+                  cout<<"Wrong password"<<endl;
+                  k++;
+                }
+            }
+            if(k==3){
+                cout<<"You have reached the maximum number of attempts. The program ends."<<endl;
+                return 1;
+            }
+
+        }
+        else if (choice == 2)// Reader
+        {
+
+        }
+        else//Instructions
+        {
+
+        }
+
+    }
+    catch (WrongPassword &Password){
+        cerr<<Password.what();
+    }
     return 0;
 }
