@@ -66,9 +66,6 @@ void addReader(){
 }
 
 void addAuthorAndBook() {
-    unique_ptr<Book> book{new Book()};
-    ifstream finBook(R"("D:\Coursework\Database\Books.txt")");
-    while (finBook >> *book) {
         unique_ptr<string> name{new string{"unknown"}};
         cout << "Enter the author`s name" << endl;
         cin >> *name;
@@ -94,10 +91,9 @@ void addAuthorAndBook() {
 
         ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
         foutBook<<book1;
-        foutBook << *nameOfBook << "\t" << *price << "\t" << *id << endl;
+//        foutBook << *nameOfBook << "\t" << *price << "\t" << *id << endl;
         foutBook.close();
-        finBook.close();
-    }
+
 }
 
 void addBookstand() {
@@ -150,9 +146,10 @@ int main() {
     cin>>choice;
     delimitation();
     try{
-        if(choice!=1 && choice!=2 && choice!=3 && choice != 0)
+        if(choice!=1 && choice!=2 && choice!=3 && choice != 0) {
             throw WrongChoice();
-        if(choice==1)//Admin
+        }
+            if(choice==1)//Admin
         {
            string password;
            int k=0;

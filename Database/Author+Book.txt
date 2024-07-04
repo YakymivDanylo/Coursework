@@ -1,0 +1,4 @@
+
+Name1	Surname1	Lastname1	Book1	100	0
+Name2	Surname2	Lastname2	Book2	150	0
+Name3	Surname3	Lastname3	Book3	200	0
