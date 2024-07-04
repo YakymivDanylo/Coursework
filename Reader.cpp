@@ -10,7 +10,7 @@ Reader::Reader(string name, string surname, string last_name,string password, Bo
     :People(name,surname,last_name),books(book),password(password) {}
 
     Reader::~Reader() noexcept {
-    cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted";
+    cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted"<<endl;
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){

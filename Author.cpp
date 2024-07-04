@@ -13,7 +13,7 @@ Author::Author(string &name, string &surname, string &last_name, Book &books)
 :books{books}, People(name,surname,last_name){}
 
 Author::~Author() noexcept
-{cout<<name<<" "<<surname<<" "<<last_name<<" was deleted";}
+{cout<<name<<" "<<surname<<" "<<last_name<<" was deleted"<<endl;}
 
 
 ostream &operator<<(ostream &os,  Author &obj){

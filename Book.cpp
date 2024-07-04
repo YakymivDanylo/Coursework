@@ -13,8 +13,8 @@ Book::Book(string name, float price, int id)
         :name(name),price(price),id(counter){counter++;}
 
 Book::~Book() {
-    cout<<"Book: "<<name<<" "<<id<<" was deleted";
-    counter--;
+    cout<<"Book: "<<name<<" "<<id<<" was deleted"<<endl;
+
 }
 
 ostream &operator<<(ostream &os, Book &obj){

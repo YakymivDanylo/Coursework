@@ -10,7 +10,7 @@ Bookstand::Bookstand(int id, Book book)
 :id{id},book(){}
 
 Bookstand::~Bookstand() {
-    cout<<"Bookstand number "<<id<<" was deleted";
+    cout<<"Bookstand number "<<id<<" was deleted"<<endl;
 }
 
  ostream &operator <<(ostream &os, Bookstand &obj){
