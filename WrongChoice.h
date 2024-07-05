@@ -10,7 +10,7 @@ public:
     WrongChoice()=default;
     ~WrongChoice()=default;
     const char *what() const noexcept override{
-        return "Wrong choice! Check what you choose!";
+        return "Wrong choice! Check what you choose! ";
     }
 };
 

@@ -7,7 +7,7 @@ Bookstand::Bookstand()
 : id(0),book(){};
 
 Bookstand::Bookstand(int id, Book book)
-:id{id},book(){}
+: id{id}, book(){ }
 
 Bookstand::~Bookstand() {
     cout<<"Bookstand number "<<id<<" was deleted"<<endl;

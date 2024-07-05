@@ -7,10 +7,10 @@
 using namespace std;
 
 Book::Book()
-        :Book("unknown",0.0,counter){counter++;}
+        :Book("unknown",0.0,0){}
 
 Book::Book(string name, float price, int id)
-        :name(name),price(price),id(counter){counter++;}
+        :name(name),price(price),id(id){}
 
 Book::~Book() {
     cout<<"Book: "<<name<<" "<<id<<" was deleted"<<endl;
