@@ -14,4 +14,5 @@ add_executable(Coursework main.cpp
         Bookstand.h
         Reader.h
         Reader.cpp
+        SameID.h
 )

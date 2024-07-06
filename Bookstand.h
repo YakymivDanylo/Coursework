@@ -5,6 +5,9 @@
 #ifndef COURSEWORK_BOOKSTAND_H
 #define COURSEWORK_BOOKSTAND_H
 #include "Book.h"
+#include "fstream"
+#include "ErroOpening.h"
+#include "memory"
 
 class Bookstand{
 private:
@@ -21,6 +24,7 @@ public:
     int getId() const;
     void setId(int id);
     void getBookstand () const;
+
 
 };
 

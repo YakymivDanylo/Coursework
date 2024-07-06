@@ -9,7 +9,7 @@
 Author::Author()
     : People(),books(){}
 
-Author::Author(string &name, string &surname, string &last_name, Book &books)
+Author::Author(string name, string surname, string last_name, Book books)
 :books{books}, People(name,surname,last_name){}
 
 Author::~Author() noexcept
@@ -17,7 +17,7 @@ Author::~Author() noexcept
 
 
 ostream &operator<<(ostream &os,  Author &obj){
-       os<<static_cast<const People&>(obj);
+       os<<static_cast<const People&>(obj)<<" ";
        os<<obj.books<<endl;
         return os;
 }

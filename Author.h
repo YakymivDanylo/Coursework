@@ -15,7 +15,7 @@ private:
     Book books;
 public:
     Author();
-    Author(string &name,string &surname,string &last_name, Book &books);
+    Author(string name,string surname,string last_name, Book books);
     ~Author();
     friend ostream &operator <<(ostream &os, Author &obj);
     friend istream &operator >>(istream &is, Author &obj);

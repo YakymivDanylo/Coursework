@@ -3,40 +3,49 @@
 //
 
 #include "Bookstand.h"
+
 Bookstand::Bookstand()
-: id(0),book(){};
+        : id(0), book() {};
 
 Bookstand::Bookstand(int id, Book book)
-: id{id}, book(){ }
+        : id{id}, book() {}
 
 Bookstand::~Bookstand() {
-    cout<<"Bookstand number "<<id<<" was deleted"<<endl;
+    cout << "Bookstand number " << id << " was deleted" << endl;
 }
 
- ostream &operator <<(ostream &os, Bookstand &obj){
-     os << " \t" << obj.id;
-     os<<obj.book;
-     return os;
+ostream &operator<<(ostream &os, Bookstand &obj) {
+    os << " \t" << obj.id;
+    os << obj.book;
+    return os;
 }
- istream &operator >>(istream &is, Bookstand &obj){
-    is>>obj.id>>obj.book;
-     return is;
+
+istream &operator>>(istream &is, Bookstand &obj) {
+    is >> obj.id >> obj.book;
+    return is;
 }
 
 Bookstand::Bookstand(const Bookstand &other)
-:id(other.id),book(other.book){}
+        : id(other.id), book(other.book) {}
 
 Bookstand::Bookstand(Bookstand &&other)
-:id(other.id),book(other.book){
-    other.id=0;
-    other.book=Book();
+        : id(other.id), book(other.book) {
+    other.id = 0;
+    other.book = Book();
 }
 
-int Bookstand::getId() const {return id;}
-void Bookstand::setId(int id) {this->id=id;}
+int Bookstand::getId() const { return id; }
+
+void Bookstand::setId(int id) { this->id = id; }
 
 void Bookstand::getBookstand() const {
-    cout<<"ID of the bookstand: "<<id<<endl;
+    cout << "ID of the bookstand: " << id << endl;
     book.getBook();
 }
+
+
+
+
+
+
 

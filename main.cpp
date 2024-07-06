@@ -8,6 +8,7 @@
 #include "Book.h"
 #include "WrongChoice.h"
 #include "WrongPassword.h"
+#include "SameID.h"
 
 using namespace std;
 
@@ -19,46 +20,6 @@ void clearConsole() {
     system("cls");
 }
 
-vector<Reader> readersFromFile() {
-    shared_ptr<Reader> reader;
-    vector<Reader> readers;
-    ifstream fin(R"(D:\Coursework\Database\Reader.txt)");
-    while (fin >> *reader)
-        readers.push_back(*reader);
-    fin.close();
-    return readers;
-}
-
-vector<Author> authorFromFile() {
-    shared_ptr<Author> author;
-    vector<Author> authors;
-    ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-    while (fin >> *author) {
-        authors.push_back(*author);
-    }
-    fin.close();
-    return authors;
-}
-
-vector<Book> bookFromFile() {
-    shared_ptr<Book> book;
-    vector<Book> books;
-    ifstream fin(R"(D:\Coursework\Database\Books.txt)");
-    while (fin >> *book) {
-        books.push_back(*book);
-    }
-    fin.close();
-    return books;
-}
-
-void addBook() {
-    unique_ptr<Book> newBook{new Book()};
-    cin >> *newBook;
-    ofstream fout(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-    fout << *newBook << endl;
-    fout.close();
-}
-
 void addReader() {
     unique_ptr<Reader> newReader{new Reader()};
     cin >> *newReader;
@@ -67,7 +28,29 @@ void addReader() {
     fout.close();
 }
 
-void addAuthorAndBook() {
+bool isID_B_inFile(int ID_BookToPut){
+    ifstream finID(R"(D:\Coursework\Database\Books.txt)");
+    if(!finID.is_open()){
+        throw ErrorOpening();
+    }
+    else
+    {
+        unique_ptr<string> nameOfBook{new string{"unknown"}};
+        unique_ptr<float> price{new float{0.0}};
+        unique_ptr<int> id{new int{0}};
+        while (finID>>*nameOfBook>>*price>>*id){
+            if(ID_BookToPut!=*id){
+                finID.close();
+                return true;
+            }
+        }
+        finID.close();
+        return false;
+    }
+}
+
+
+void addAuthorAndBook(Book book) {
     unique_ptr<string> name{new string{"unknown"}};
     cout << "Enter the author`s name" << endl;
     cin >> *name;
@@ -87,31 +70,70 @@ void addAuthorAndBook() {
     unique_ptr<int> id2{new int{0}};
     cout << "Enter the book`s id" << endl;
     cin >> *id1;
-    ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
-    while (finAB >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id2) {
-        if (*id1 == *id2) {
-            cout << "There is aslready a book with thid is! Change it!" << endl;
-        } else {
-            ofstream foutAuthor_Book(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-            Book book1(*nameOfBook, *price, *id1);
-            foutAuthor_Book << *name << "\t" << *surname << "\t" << *last_name << "\t" << *nameOfBook << "\t" << *price
-                            << "\t" << *id1 << endl;
-            foutAuthor_Book.close();
+    if(!isID_B_inFile(book.getId())){
+        ofstream foutAuthor_Book(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
+        Book newBook(*nameOfBook, *price, *id1);
+        Author author(*name, *surname, *last_name, newBook);
+        foutAuthor_Book << author << endl;
+        foutAuthor_Book.close();
 
-            ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-            foutBook << *nameOfBook << "\t" << *price << "\t" << *id1 << endl;
-            foutBook.close();
-        }
-        finAB.close();
+        ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
+        foutBook << newBook << endl;
+        foutBook.close();
     }
 }
 
+//bool isBookstandInFile(int ID) {
+//    ifstream finBkStd(R"("D:\Coursework\Database\Bookstands.txt")");
+//    try {
+//        if (!finBkStd.is_open())
+//            throw ErrorOpening();
+//        else {
+//            unique_ptr<int> idBookstand{new int{0}};
+//            unique_ptr<string> name{new string{"unknown"}};
+//            unique_ptr<string> surname{new string{"unknown"}};
+//            unique_ptr<string> last_name{new string{"unknown"}};
+//            unique_ptr<double> price{new double{0.0}};
+//            unique_ptr<int> id2{new int{0}};
+//            while (finBkStd >> *idBookstand >> *name >> *surname >> *last_name >> *id2) {
+//                if (ID == *idBookstand) {
+//                    return true;
+//                }
+//            }
+//            finBkStd.close();
+//            return false;
+//        }
+//    }
+//    catch (ErrorOpening &Error) {
+//        cerr << Error.what();
+//    }
+//}
+
 void addBookstand() {
-    unique_ptr<Bookstand> newBookstand{new Bookstand()};
-    cin >> *newBookstand;
-    ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
-    fout << *newBookstand << endl;
-    fout.close();
+    unique_ptr<int> idBookstand{new int{0}};
+    cout << "Enter ID of Bookstand " << endl;
+    cin >> *idBookstand;
+    unique_ptr<string> name{new string{"unknown"}};
+    unique_ptr<string> surname{new string{"unknown"}};
+    unique_ptr<string> last_name{new string{"unknown"}};
+    unique_ptr<string> nameOfBook{new string{"unknown"}};
+    unique_ptr<float> price{new float{0.0}};
+    unique_ptr<int> id1{new int{0}};
+    unique_ptr<int> id2{new int{0}};
+    ifstream finBook(R"(D:\Coursework\Database\Author+Book.txt)");
+    cout << "Enter the ID of the book you want to place on the bookstand" << endl;
+    cin >> *id2;
+    while (finBook >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id1) {
+        if (*id2 == *id1) {
+            ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
+            Book newBook(*nameOfBook, *price, *id1);
+            Author author(*name, *surname, *last_name, newBook);
+            Bookstand bookstand(*idBookstand, newBook);
+            fout << bookstand << endl;
+            fout.close();
+        }
+    }
+    finBook.close();
 }
 
 void registration() {
@@ -158,8 +180,7 @@ int main() {
         if (choice != 1 && choice != 2 && choice != 3 && choice != 0)
             throw WrongChoice();
         switch (choice) {//Admin
-            case 1:
-            {
+            case 1: {
                 string password;
                 int k = 0;
                 while (k < 3) {
@@ -167,26 +188,28 @@ int main() {
                     cin >> password;
                     delimitation();
                     if (password == "123") {
-                        cout << "Successful access!" << endl;
-                        cout << "Choose what you want to do" << endl;
-                        cout << "1. Add author and his book" << endl;
-                        cout << "2. Action 2" << endl;
-                        cout << "3. Action 3" << endl;
-                        cout << "0. Exit" << endl << endl;
-                        int choiceAd;
-                        cin >> choiceAd;
+                        while (true) {
+                            cout << "Successful access!" << endl;
+                            cout << "Choose what you want to do" << endl;
+                            cout << "1. Add the book" << endl;
+                            cout << "2. Add the book to the bookstand " << endl;
+                            cout << "3. Action 3" << endl;
+                            cout << "0. Exit" << endl << endl;
+                            int choiceAd;
+                            cin >> choiceAd;
                             if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0)
                                 throw WrongChoice();
                             switch (choiceAd) {
                                 case 1: {
-                                    addAuthorAndBook();
+                                    addAuthorAndBook(newBook);
                                     break;
                                 }
                                 case 2: {
-                                    bookFromFile();
+                                    addBookstand();
                                     break;
                                 }
                                 case 3: {
+                                    //зчитати книги
                                     break;
                                 }
                                 case 0: {
@@ -197,14 +220,14 @@ int main() {
                                 }
                             }
                             break;
-
+                        }
                     } else {
-                        cout << "Wrong password" << endl;
+                        cerr << "Wrong password" << endl;
                         k++;
                     }
                 }
                 if (k == 3) {
-                    cout << "You have reached the maximum number of attempts. The program ends." << endl;
+                    cerr << "You have reached the maximum number of attempts. The program ends." << endl;
                     return 1;
                 }
                 break;
@@ -227,6 +250,9 @@ int main() {
     }
     catch (WrongChoice &Choice) {
         cerr << Choice.what();
+    }
+    catch (SameID &ID) {
+        cerr << ID.what();
     }
     return 0;
 }
