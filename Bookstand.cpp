@@ -15,7 +15,7 @@ Bookstand::~Bookstand() {
 }
 
 ostream &operator<<(ostream &os, Bookstand &obj) {
-    os << " \t" << obj.id;
+    os << " \t" << obj.id<<" ";
     os << obj.book;
     return os;
 }
