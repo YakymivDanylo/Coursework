@@ -18,7 +18,7 @@ Book::~Book() {
 }
 
 ostream &operator<<(ostream &os, Book &obj){
-    os<<obj.name<<"\t"<<obj.price<<" \t"<<obj.id<<endl;
+    os<<obj.getName()<<"\t"<<obj.getPrice()<<" \t"<<obj.getId()<<endl;
     return os;
 }
 istream &operator>>(istream &is, Book& obj){
@@ -56,8 +56,10 @@ int Book::getId() const{
 }
 
 void Book::getBook() const {
-    cout<<" Name of the book: "<<name<<" Price: "<<price<<" ID: "<<id<<endl;
+    cout<<" "<<name<<" "<<price<<" "<<id<<endl;
 }
+
+
 
 
 

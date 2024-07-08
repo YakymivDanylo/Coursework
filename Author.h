@@ -8,14 +8,15 @@
 #include "Book.h"
 #include <iostream>
 #include "vector"
+#include "algorithm"
 using namespace std;
 
 class Author final : private People{
 private:
-    Book books;
+    Book book;
 public:
     Author();
-    Author(string name,string surname,string last_name, Book books);
+    Author(string name,string surname,string last_name, Book book);
     ~Author();
     friend ostream &operator <<(ostream &os, Author &obj);
     friend istream &operator >>(istream &is, Author &obj);
@@ -24,8 +25,8 @@ public:
     string getName() override;
     string getSurname() override;
     string getLastName() override;
-    Book getBook();
     void getAuthor() const;
+    void addBook(const Book& book);
 };
 
 
