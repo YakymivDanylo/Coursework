@@ -6,16 +6,17 @@
 #define COURSEWORK_BOOKSTAND_H
 #include "Book.h"
 #include "fstream"
+#include "vector"
 #include "ErroOpening.h"
 #include "memory"
 
 class Bookstand{
 private:
     int id;
-    Book book;
+    vector<Book> books;
 public:
     Bookstand();
-    Bookstand(int id, Book book);
+    Bookstand(int id);
     ~Bookstand();
     friend ostream &operator <<(ostream &os, Bookstand &obj);
     friend istream &operator >>(istream &is, Bookstand &obj);
@@ -23,8 +24,10 @@ public:
     Bookstand(Bookstand &&other);
     int getId() const;
     void setId(int id);
+    const vector<Book>& getBooks() const;
     void getBookstand () const;
-
+    void addBook(const Book& book);
+    void writeBookAndBookStToFile( const Bookstand &bookstand);
 
 };
 

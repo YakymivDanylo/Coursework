@@ -100,30 +100,54 @@ void addAuthorAndBook(){
 //    foutBook.close();
 //
 //}
+bool findBookById(const vector<Book> &books, int id, Book &foundBook) {
+    for (const Book &book: books) {
+        if (book.getId() == id) {
+            foundBook = book;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 void addBookstand() {
-    unique_ptr<int> idBookstand{new int{0}};
-    cout << "Enter ID of Bookstand " << endl;
-    cin >> *idBookstand;
-    unique_ptr<string> nameOfBook{new string{"unknown"}};
-    unique_ptr<float> price{new float{0.0}};
-    unique_ptr<int> id1{new int{0}};
-    unique_ptr<int> id2{new int{0}};
-    ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    cout << "Enter the ID of the book you want to place on the bookstand" << endl;
-    cin >> *id2;
-    while (finBook >> *nameOfBook >> *price >> *id1) {
-        if (*id2 == *id1) {
-            ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
-            Book newBook(*nameOfBook, *price, *id1);
-            Bookstand bookstand(*idBookstand, newBook);
-            fout << bookstand << endl;
-            fout.close();
-        }
-        finBook.close();
-    }
+    int bookId;
+    cout<<"Enter ID of the book: ";
+    cin>>bookId;
 
+    int bookstandId;
+    cout<<"Enter ID of the bookstand: ";
+    cin>>bookstandId;
+
+    vector<Book> books;
+
+    ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
+    if (booksFile.is_open()){
+        unique_ptr<int> id {new int {0}};
+        unique_ptr<string> name {new string {"unknown"}};
+        unique_ptr<float> price {new float {0.0}};
+        while(booksFile>>*name>>*price>>*id){
+            books.push_back({*name,*price,*id});
+        }
+    }
+    else{
+        cerr<<"Error opening file"<<endl;
+        return;
+    }
+    booksFile.close();
+
+    Book foundBook;
+    if(findBookById(books,bookId,foundBook)){
+        Bookstand bookstand(bookstandId);
+        bookstand.addBook(foundBook);
+        bookstand.writeBookAndBookStToFile(bookstand);
+        cout<<"Book was successfully added"<<endl;
+    }
+    else{
+        cerr<<"The book with ID "<<bookId<<"wasn`t found"<<endl;
+    }
 }
 
 void ShowBooks() {
