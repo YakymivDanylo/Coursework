@@ -9,7 +9,7 @@ using namespace std;
 Book::Book()
         :Book("unknown",0.0,0){}
 
-Book::Book(string name, float price, int id)
+Book::Book(string name, double price, int id)
         :name(name),price(price),id(id){}
 
 Book::~Book() {
@@ -48,7 +48,7 @@ Book::Book(Book &&other)
 string Book::getName() {
     return name;
 }
-float Book::getPrice() const {
+double Book::getPrice() const {
     return price;
 }
 int Book::getId() const{

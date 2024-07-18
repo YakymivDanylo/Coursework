@@ -1,9 +1,1 @@
-name1	sur1	last1 book1	100 	124
-
-
-name2	sur2	last2 book2	122 	101
-
-
-name3	sur3	last3 book3	150 	333
-
-
+name1 surname1 last name1 book1 100 101

@@ -20,86 +20,67 @@ void clearConsole() {
     system("cls");
 }
 
-void writeAuthorToFile(const Author& author, const string& filename){
-    Book book1;
-    Author author1;
+void writeAuthorToFile(Author& author, const string& filename){
+//    Book book1;
+//    Author author1;
     ofstream file(filename,ios_base::app);
     if (!file.is_open()){
         cerr<<"Error opening file: "<<endl;
         return;
     }
-    file<<author1.getName()<<" "<<author1.getSurname()<<" "<<author1.getLastName()<<" "<<book1.getName()<<" "<<book1.getPrice()<<" "<<book1.getId()<<endl;
+    file<<author.getName()<<" "<<author.getSurname()<<" "<<author.getLastName();
 }
 
-void writeBookToFile(const Book& book, const string& filename){
-    Book book1;
+void writeBookToFile(Book& book, const string& filename){
     ofstream file(filename,ios_base::app);
     if (!file.is_open()){
         cerr<<"Error opening file: "<<endl;
         return;
     }
-    file<<book1.getName()<<" "<<book1.getPrice()<<" "<<book1.getId()<<endl;
+    file<<book.getName()<<" "<<book.getPrice()<<" "<<book.getId()<<endl;
 }
 
-void addAuthorAndBook(){
-    unique_ptr<string> name{new string {"unknown"}};
-    cout<<"Enter the author`s name: ";
-    cin>>*name;
-    unique_ptr<string> surname{new string {"unknown"}};
-    cout<<"Enter the author`s surname: ";
-    cin>>*surname;
-    unique_ptr<string> last_name{new string {"unknown"}};
-    cout<<"Enter the author`s last name: ";
-    cin>>*last_name;
-    unique_ptr<string> bookName{new string {"unknown"}};
-    cout<<"Enter the book`s name: ";
-    cin>>*bookName;
-    unique_ptr<double> bookPrice{new double {0.0}};
-    cout<<"Enter the book`s price: ";
-    cin>>*bookPrice;
-    unique_ptr<int> bookID{new int {0}};
-    cout<<"Enter the book`s ID : ";
-    cin>>*bookID;
+void addAuthorAndBook() {
+    string name;
+    cout << "Enter the author`s name: ";
+    cin >> ws;
+    getline(cin, name);
 
-    Book newBook(*bookName,*bookPrice,*bookID);
-    Author newAuthor(*name,*surname,*last_name,newBook);
-    newAuthor.addBook(newBook);
+    string surname;
+    cout << "Enter the author`s surname: ";
+    cin >> ws;
+    getline(cin, surname);
 
-    writeAuthorToFile(newAuthor,R"(D:CourseworkDatabaseAuthor+Book.txt)");
-    writeBookToFile(newBook,R"(D:\Coursework\Database\Books.txt)");
+    string last_name;
+    cout << "Enter the author`s last name: ";
+    cin >> ws;
+    getline(cin, last_name);
+    string bookName;
+
+    cout << "Enter the book`s name: ";
+    cin >> ws;
+    getline(cin, bookName);
+    double bookPrice;
+
+    cout << "Enter the book`s price: ";
+    cin >> bookPrice;
+    int bookID;
+
+    cout << "Enter the book`s ID : ";
+    cin >> bookID;
+
+    Book newBook(bookName, bookPrice, bookID);
+    Author newAuthor(name, surname, last_name, newBook);
+
+    ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)",ios_base::app);
+    foutAB<<name<<" "<<surname<<" "<<last_name<<" "<<bookName<<" "<<bookPrice<<" "<<bookID<<endl;
+    foutAB.close();
+    ofstream foutB(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
+    foutB<<bookName<<" "<<bookPrice<<" "<<bookID<<endl;
+    foutB.close();
+
 }
 
-//void addAuthorAndBook() {
-//    unique_ptr<string> name{new string{"unknown"}};
-//    cout << "Enter the author`s name" << endl;
-//    cin >> *name;
-//    unique_ptr<string> surname{new string{"unknown"}};
-//    cout << "Enter the author`s surname" << endl;
-//    cin >> *surname;
-//    unique_ptr<string> last_name{new string{"unknown"}};
-//    cout << "Enter the author`s last name" << endl;
-//    cin >> *last_name;
-//    unique_ptr<string> nameOfBook{new string{"unknown"}};
-//    cout << "Enter the book`s name" << endl;
-//    cin >> *nameOfBook;
-//    unique_ptr<float> price{new float{0.0}};
-//    cout << "Enter the book`s price" << endl;
-//    cin >> *price;
-//    unique_ptr<int> id1{new int{0}};
-//    unique_ptr<int> id2{new int{0}};
-//    cout << "Enter the book`s id" << endl;
-//    cin >> *id1;
-//    ofstream foutAuthor_Book(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-//    Book newBook(*nameOfBook, *price, *id1);
-//    Author author(*name, *surname, *last_name, newBook);
-//    foutAuthor_Book << author << endl;
-//    foutAuthor_Book.close();
-//
-//    ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-//    foutBook << newBook << endl;
-//    foutBook.close();
-//
-//}
 bool findBookById(const vector<Book> &books, int id, Book &foundBook) {
     for (const Book &book: books) {
         if (book.getId() == id) {
@@ -125,11 +106,11 @@ void addBookstand() {
 
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
     if (booksFile.is_open()){
-        unique_ptr<int> id {new int {0}};
-        unique_ptr<string> name {new string {"unknown"}};
-        unique_ptr<float> price {new float {0.0}};
-        while(booksFile>>*name>>*price>>*id){
-            books.push_back({*name,*price,*id});
+        string name;
+        double price;
+        int id;
+        while(booksFile>>name>>price>>id){
+            books.push_back({name,price,id});
         }
     }
     else{
@@ -152,33 +133,29 @@ void addBookstand() {
 
 void ShowBooks() {
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-    unique_ptr<string> name{new string{"unknown"}};
-    unique_ptr<string> surname{new string{"unknown"}};
-    unique_ptr<string> last_name{new string{"unknown"}};
-    unique_ptr<string> nameOfBook{new string{"unknown"}};
-    unique_ptr<double> price{new double{0.0}};
-    unique_ptr<int> id{new int{0}};
-    Book newBook(*nameOfBook, *price, *id);
-    Author author(*name, *surname, *last_name, newBook);
-    while (fin >> author) {
-        cout << author;
+    string name,surname,last_name,nameOfBook;
+    double price;
+    int id;
+    Book book(nameOfBook,price,id);
+    Author author(name,surname,last_name,book);
+    char ch;
+    while (fin.get(ch)) {
+        cerr << ch;
     }
     fin.close();
 }
 
 void ShowReaders() {
-    ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-    unique_ptr<string> name{new string{"unknown"}};
-    unique_ptr<string> surname{new string{"unknown"}};
-    unique_ptr<string> last_name{new string{"unknown"}};
-    unique_ptr<string> password{new string{"unknown"}};
-    unique_ptr<string> nameOfBook{new string{"unknown"}};
-    unique_ptr<double> price{new double{0.0}};
-    unique_ptr<int> id{new int{0}};
-    Book newBook(*nameOfBook, *price, *id);
-    Reader reader(*name, *surname, *last_name, *password, newBook);
-    while (fin >> reader) {
-        cout << reader;
+    ifstream fin(R"(D:\Coursework\Database\Reader.txt)");
+    string name,surname,last_name,nameOfBook;
+    double price;
+    string password;
+    int id;
+    Book newBook(nameOfBook, price, id);
+    Reader reader(name, surname, last_name, password, newBook);
+    char ch;
+    while (fin.get(ch)) {
+        cout <<ch;
     }
     fin.close();
 }

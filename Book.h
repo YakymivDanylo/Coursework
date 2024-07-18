@@ -12,11 +12,11 @@ class Book {
 private:
     int counter = 1;
     string name;
-    float price;
+    double price;
     int id;
 public:
     Book();
-    Book(string name, float price, int id);
+    Book(string name, double price, int id);
     ~Book();
     friend ostream &operator <<(ostream &os, Book &obj);
     friend istream &operator >>(istream &is, Book &obj);
@@ -26,7 +26,7 @@ public:
     Book(const Book& other);
     Book( Book&& other);
     string getName();
-    float getPrice() const;
+    double getPrice() const;
     int getId() const ;
     void getBook() const;
 
