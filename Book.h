@@ -21,8 +21,8 @@ public:
     friend ostream &operator <<(ostream &os, Book &obj);
     friend istream &operator >>(istream &is, Book &obj);
     Book operator=(const Book &rhs);
-    void operator--(){}
-    void operator++(){}
+//    void operator--(){}
+//    void operator++(){}
     Book(const Book& other);
     Book( Book&& other);
     string getName();

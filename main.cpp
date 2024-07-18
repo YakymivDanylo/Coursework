@@ -20,26 +20,6 @@ void clearConsole() {
     system("cls");
 }
 
-void writeAuthorToFile(Author& author, const string& filename){
-//    Book book1;
-//    Author author1;
-    ofstream file(filename,ios_base::app);
-    if (!file.is_open()){
-        cerr<<"Error opening file: "<<endl;
-        return;
-    }
-    file<<author.getName()<<" "<<author.getSurname()<<" "<<author.getLastName();
-}
-
-void writeBookToFile(Book& book, const string& filename){
-    ofstream file(filename,ios_base::app);
-    if (!file.is_open()){
-        cerr<<"Error opening file: "<<endl;
-        return;
-    }
-    file<<book.getName()<<" "<<book.getPrice()<<" "<<book.getId()<<endl;
-}
-
 void addAuthorAndBook() {
     string name;
     cout << "Enter the author`s name: ";
@@ -69,14 +49,19 @@ void addAuthorAndBook() {
     cout << "Enter the book`s ID : ";
     cin >> bookID;
 
-    Book newBook(bookName, bookPrice, bookID);
-    Author newAuthor(name, surname, last_name, newBook);
+//    Book foundBook;
+//   Book books(bookName,bookPrice,bookID);
+//    if(!findBookById(books,bookID,foundBook))
+//
+//    Book newBook(bookName, bookPrice, bookID);
+//    Author newAuthor(name, surname, last_name, newBook);
 
-    ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)",ios_base::app);
-    foutAB<<name<<" "<<surname<<" "<<last_name<<" "<<bookName<<" "<<bookPrice<<" "<<bookID<<endl;
+    ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
+    foutAB << name << " " << surname << " " << last_name << " " << bookName << " " << bookPrice << " " << bookID
+           << endl;
     foutAB.close();
-    ofstream foutB(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
-    foutB<<bookName<<" "<<bookPrice<<" "<<bookID<<endl;
+    ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
+    foutB << bookName << " " << bookPrice << " " << bookID << endl;
     foutB.close();
 
 }
@@ -92,52 +77,73 @@ bool findBookById(const vector<Book> &books, int id, Book &foundBook) {
 }
 
 
-
 void addBookstand() {
+    string name;
+    double price;
+    int id;
+
     int bookId;
-    cout<<"Enter ID of the book: ";
-    cin>>bookId;
+    cout << "Enter ID of the book: ";
+    cin >> bookId;
 
     int bookstandId;
-    cout<<"Enter ID of the bookstand: ";
-    cin>>bookstandId;
+    cout << "Enter ID of the bookstand: ";
+    cin >> bookstandId;
 
     vector<Book> books;
 
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
-    if (booksFile.is_open()){
-        string name;
-        double price;
-        int id;
-        while(booksFile>>name>>price>>id){
-            books.push_back({name,price,id});
-        }
-    }
-    else{
-        cerr<<"Error opening file"<<endl;
+    if (booksFile.is_open()) {
+        while (booksFile >> name >> price >> id)
+            books.push_back({name, price, id});
+    } else {
+        cerr << "Error opening file" << endl;
         return;
     }
     booksFile.close();
 
-    Book foundBook;
-    if(findBookById(books,bookId,foundBook)){
+
+    Book foundBook(name, price, id);
+    if (findBookById(books, bookId, foundBook)) {
         Bookstand bookstand(bookstandId);
         bookstand.addBook(foundBook);
-        bookstand.writeBookAndBookStToFile(bookstand);
-        cout<<"Book was successfully added"<<endl;
-    }
-    else{
-        cerr<<"The book with ID "<<bookId<<"wasn`t found"<<endl;
+        ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
+        if (fout.is_open()) {
+            fout << bookstandId << " " << name << " " << price << " " << id << endl;
+            cout << "Book was successfully added" << endl;
+            fout.close();
+        } else {
+            cerr << "Error opening file" << endl;
+        }
+
+    } else {
+        cerr << "The book with ID " << bookId << " wasn`t found" << endl;
     }
 }
 
 void ShowBooks() {
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-    string name,surname,last_name,nameOfBook;
+    string name, surname, last_name, nameOfBook;
     double price;
     int id;
-    Book book(nameOfBook,price,id);
-    Author author(name,surname,last_name,book);
+    Book book(nameOfBook, price, id);
+    Author author(name, surname, last_name, book);
+    char ch;
+    while (fin.get(ch)) {
+        cerr << ch;
+    }
+    fin.close();
+}
+
+void ShowBookstands() {
+    ifstream fin(R"(D:\Coursework\Database\Bookstands.txt)");
+    string name;
+    double price;
+    int id;
+    int idBookstand;
+
+//    Book book(name, price, id);
+//   Bookstand(idBookstand);
     char ch;
     while (fin.get(ch)) {
         cerr << ch;
@@ -147,7 +153,7 @@ void ShowBooks() {
 
 void ShowReaders() {
     ifstream fin(R"(D:\Coursework\Database\Reader.txt)");
-    string name,surname,last_name,nameOfBook;
+    string name, surname, last_name, nameOfBook;
     double price;
     string password;
     int id;
@@ -155,7 +161,7 @@ void ShowReaders() {
     Reader reader(name, surname, last_name, password, newBook);
     char ch;
     while (fin.get(ch)) {
-        cout <<ch;
+        cout << ch;
     }
     fin.close();
 }
@@ -168,12 +174,26 @@ int ShowBookById() {
     cin >> bookId;
     unique_ptr<Book> book = book1.findBookById(R"(D:\\Coursework\\Database\\Books.txt)", bookId);
     if (book) {
-        cout<<"Here is your book: "<<endl;
+        cout << "Here is your book: " << endl;
         cerr << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
     } else {
         cout << "Book with this ID was not found" << endl;
     }
     return 0;
+}
+
+void ShowBookstandsbyItsID(){
+    cout<<"Enter ID of the bookstand: ";
+    int bookstandID;
+    cin>>bookstandID;
+    unique_ptr<Bookstand> bookstand = bookstand->findBookstandById(R"(D:\Coursework\Database\Bookstands.txt)",bookstandID);
+    string name;
+    int id;
+    double price;
+    if(bookstand){
+        cout << "Here is your bookstand: " << endl;
+        cerr << bookstand->getId() << " " << name << " " << price <<id<<" "<< endl;
+    }
 }
 
 
@@ -238,11 +258,13 @@ int main() {
                                 cout << "3. Show Books" << endl;
                                 cout << "4. Show Readers" << endl;
                                 cout << "5. Show Book by its ID" << endl;
+                                cout << "6. Show Bookstands" << endl;
+                                cout << "7. Show Bookstands by ID" << endl;
                                 cout << "0. Exit" << endl << endl;
                                 int choiceAd;
                                 cin >> choiceAd;
                                 if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 && choiceAd != 4 &&
-                                    choiceAd != 5)
+                                    choiceAd != 5 && choiceAd != 6 && choiceAd != 7)
                                     throw WrongChoice();
                                 switch (choiceAd) {
                                     case 1: {
@@ -263,6 +285,16 @@ int main() {
                                     }
                                     case 5: {
                                         ShowBookById();
+                                        break;
+
+                                    }
+                                    case 6: {
+                                        ShowBookstands();
+                                        break;
+
+                                    }
+                                    case 7: {
+                                        ShowBookstandsbyItsID();
                                         break;
 
                                     }

@@ -51,12 +51,11 @@ void Bookstand::addBook(const Book &book) {
 void Bookstand::writeBookAndBookStToFile( const Bookstand &bookstand) {
     ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)",ios_base::app);
     if (fout.is_open()) {
-        unique_ptr<int> id{new int{0}};
-        unique_ptr<int> idB{new int{0}};
-        unique_ptr<string> name{new string {"unknown"}};
-        unique_ptr<float> price{new float{0.0}};
-        Bookstand bookstand1(*id);
-        Book book(*name,*price,*id);
+       int id;
+       string name;
+       double price;
+        Bookstand bookstand1(id);
+        Book book(name,price,id);
         fout <<bookstand1<<" "<<book<< endl;
     } else {
         cerr<<"Error opening file"<<endl;
