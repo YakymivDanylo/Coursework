@@ -182,18 +182,8 @@ int ShowBookById() {
     return 0;
 }
 
-void ShowBookstandsbyItsID(){
-    cout<<"Enter ID of the bookstand: ";
-    int bookstandID;
-    cin>>bookstandID;
-    unique_ptr<Bookstand> bookstand = bookstand->findBookstandById(R"(D:\Coursework\Database\Bookstands.txt)",bookstandID);
-    string name;
-    int id;
-    double price;
-    if(bookstand){
-        cout << "Here is your bookstand: " << endl;
-        cerr << bookstand->getId() << " " << name << " " << price <<id<<" "<< endl;
-    }
+void ShowBooksByAuthor() {
+
 }
 
 
@@ -249,8 +239,8 @@ int main() {
                     cin >> password;
                     delimitation();
                     if (password == "123") {
-                        while (true) {
-                            try {
+                        try {
+                            while (true) {
                                 cout << "Successful access!" << endl;
                                 cout << "Choose what you want to do" << endl;
                                 cout << "1. Add the book" << endl;
@@ -258,8 +248,8 @@ int main() {
                                 cout << "3. Show Books" << endl;
                                 cout << "4. Show Readers" << endl;
                                 cout << "5. Show Book by its ID" << endl;
-                                cout << "6. Show Bookstands" << endl;
-                                cout << "7. Show Bookstands by ID" << endl;
+                                cout << "6. Show bookstands" << endl;
+                                cout << "7. Show books by author`s full name " << endl;
                                 cout << "0. Exit" << endl << endl;
                                 int choiceAd;
                                 cin >> choiceAd;
@@ -294,7 +284,7 @@ int main() {
 
                                     }
                                     case 7: {
-                                        ShowBookstandsbyItsID();
+                                        ShowBooksByAuthor();
                                         break;
 
                                     }
@@ -306,15 +296,14 @@ int main() {
                                         throw WrongChoice();
                                     }
                                 }
-                                break;
-                                delimitation();
+//                                break;
                             }
-                            catch (WrongChoice &Choice) {
-                                cerr << Choice.what();
-                            }
-                            catch (SameID &ID) {
-                                cerr << ID.what();
-                            }
+                        }
+                        catch (WrongChoice &Choice) {
+                            cerr << Choice.what();
+                        }
+                        catch (SameID &ID) {
+                            cerr << ID.what();
                         }
 
                     } else {
@@ -328,9 +317,63 @@ int main() {
                 }
                 break;
             }
-            case 2:// Reader
-            {
-                cout << "Menu of reader" << endl;
+            case 2: {
+                delimitation();
+                cout << "Welcome" << endl;
+                cout << "You need to log in" << endl;
+                cout << "Enter your name: ";
+                string nameC;
+                cin >> nameC;
+
+                cout << "Enter your surname: ";
+                string surnameC;
+                cin >> surnameC;
+
+                cout << "Enter your last name: ";
+                string last_nameC;
+                cin >> last_nameC;
+
+                cout << "Enter your password: ";
+                string password;
+                cin >> password;
+
+                while (true) {
+                    cout << "Choose what you want to do " << endl;
+                    cout << "1. Show Books " << endl;
+                    cout << "2. Show books by author`s full name " << endl;
+                    cout << "3. Take a book " << endl;
+                    cout << "0. Exit " << endl<<endl;
+                    int choiceC;
+                    cin>> choiceC;
+                    cout<<endl;
+                    if(choiceC!= 1 && choiceC!= 2 && choiceC != 3)
+                        throw WrongChoice();
+                    switch (choiceC) {
+
+                        case 1:{
+                            ShowBooks();
+                            break;
+                        }
+                        case 2:{
+                            ShowBooksByAuthor();
+                            break;
+                        }
+                        case 3:{
+                            registration();//модифікувати функцію за умовами,які написані в блокноті
+                            break;
+                        }
+                        case 0:{
+                            return 0;
+                        }
+                        default: {
+                            throw WrongChoice();
+                        }
+
+                    }
+
+                }
+
+
                 break;
             }
             case 3://Instructions

@@ -29,25 +29,6 @@ public:
     void addBook(const Book& book);
     void writeBookAndBookStToFile( const Bookstand &bookstand);
 
-    unique_ptr<Bookstand> findBookstandById(const string filename, int booksatndId){
-        ifstream file(filename);
-        if (!file.is_open()){
-            cerr<<"Error opening file: "<<endl;
-            return nullptr;
-        }
-        Bookstand bookstand;
-        string name;
-        int bsId;
-        double price;
-        int id;
-        while (file>>bsId>>name>>price>>id){
-            if (bsId==booksatndId){
-                return make_unique<Bookstand>(bookstand);
-            }
-        }
-        return nullptr;
-    }
-
 };
 
 
