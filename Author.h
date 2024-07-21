@@ -4,14 +4,14 @@
 
 #ifndef COURSEWORK_AUTHOR_H
 #define COURSEWORK_AUTHOR_H
-#include "People.h"
+#include "Person.h"
 #include "Book.h"
 #include <iostream>
 #include "vector"
 #include "algorithm"
 using namespace std;
 
-class Author final : private People{
+class Author final : private Person{
 private:
     Book book;
 public:
@@ -26,6 +26,9 @@ public:
     string getSurname() override;
     string getLastName() override;
     void getAuthor() const;
+
+    Book getBook();
+
     void addBook(const Book& book);
 };
 

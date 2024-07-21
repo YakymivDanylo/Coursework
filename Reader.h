@@ -5,12 +5,12 @@
 #ifndef COURSEWORK_READER_H
 #define COURSEWORK_READER_H
 #include "iostream"
-#include "People.h"
+#include "Person.h"
 #include "Book.h"
 #include "fstream"
 using namespace std;
 
-class Reader: public People{
+class Reader: public Person{
 private:
     string password;
     Book books;

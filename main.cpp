@@ -21,47 +21,75 @@ void clearConsole() {
 }
 
 void addAuthorAndBook() {
-    string name;
+
+    unique_ptr<string> name {new string{"unknown"}};
     cout << "Enter the author`s name: ";
-    cin >> ws;
-    getline(cin, name);
+    cin>> *name;
+//    cin >> ws;
+//    getline(cin, name);
 
-    string surname;
+    unique_ptr<string> surname {new string{"unknown"}};
     cout << "Enter the author`s surname: ";
-    cin >> ws;
-    getline(cin, surname);
+    cin>>*surname;
+//    cin >> ws;
+//    getline(cin, surname);
 
-    string last_name;
+    unique_ptr<string> last_name {new string{"unknown"}};
     cout << "Enter the author`s last name: ";
-    cin >> ws;
-    getline(cin, last_name);
-    string bookName;
+    cin>>*last_name;
 
+//    cin >> ws;
+//    getline(cin, last_name);
+
+    unique_ptr<string> bookName {new string{"unknown"}};
     cout << "Enter the book`s name: ";
-    cin >> ws;
-    getline(cin, bookName);
-    double bookPrice;
+    cin>>*bookName;
+//    cin >> ws;
+//    getline(cin, bookName);
 
+    unique_ptr<double> bookPrice {new double {0.0}};
     cout << "Enter the book`s price: ";
-    cin >> bookPrice;
-    int bookID;
+    cin >> *bookPrice;
 
+    unique_ptr<int> bookID {new int{0}};
     cout << "Enter the book`s ID : ";
-    cin >> bookID;
+    cin >> *bookID;
 
-//    Book foundBook;
-//   Book books(bookName,bookPrice,bookID);
-//    if(!findBookById(books,bookID,foundBook))
-//
-//    Book newBook(bookName, bookPrice, bookID);
-//    Author newAuthor(name, surname, last_name, newBook);
+
+    ifstream finB(R"(D:\Coursework\Database\Author+Book.txt)");
+
+    unique_ptr<string> name1 {new string{"unknown"}};
+
+
+    unique_ptr<string> surname1 {new string{"unknown"}};
+
+
+    unique_ptr<string> last_name1 {new string{"unknown"}};
+
+
+    unique_ptr<string> bookName1 {new string{"unknown"}};
+
+
+    unique_ptr<double> bookPrice1 {new double {0.0}};
+
+    unique_ptr<int> bookID1 {new int{0}};
+
+
+    while (finB >> *name1>>*surname1>>*last_name1>>*bookName1>>*bookPrice1>>*bookID1) {
+        if (*bookID == *bookID1) {
+            throw SameID();
+        }
+        cout << name1;
+    }
+    finB.close();
+
 
     ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-    foutAB << name << " " << surname << " " << last_name << " " << bookName << " " << bookPrice << " " << bookID
+    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << *bookID
            << endl;
     foutAB.close();
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-    foutB << bookName << " " << bookPrice << " " << bookID << endl;
+    foutB << *bookName << " " << *bookPrice << " " << *bookID << endl;
     foutB.close();
 
 }
@@ -109,7 +137,7 @@ void addBookstand() {
         bookstand.addBook(foundBook);
         ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
         if (fout.is_open()) {
-            fout << bookstandId << " " << name << " " << price << " " << id << endl;
+            fout << bookstandId<< foundBook << endl;
             cout << "Book was successfully added" << endl;
             fout.close();
         } else {
@@ -183,7 +211,23 @@ int ShowBookById() {
 }
 
 void ShowBooksByAuthor() {
-
+    unique_ptr<string> name{new string{"unknown"}};
+    unique_ptr<string> surname{new string{"unknown"}};
+    unique_ptr<string> last_name{new string{"unknown"}};
+    cout<<"Enter author`s full name"<<endl;
+    cin>>*name;
+    cin>>*surname;
+    cin>>*last_name;
+    ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
+    Author author;
+    Book book;
+    while (finAB>>author){
+        if(*name==author.getName() && *surname==author.getSurname() && *last_name==author.getLastName()){
+            book=author.getBook();
+            cerr<<book;
+        }
+    }
+    finAB.close();
 }
 
 
@@ -296,7 +340,6 @@ int main() {
                                         throw WrongChoice();
                                     }
                                 }
-//                                break;
                             }
                         }
                         catch (WrongChoice &Choice) {
@@ -342,27 +385,27 @@ int main() {
                     cout << "1. Show Books " << endl;
                     cout << "2. Show books by author`s full name " << endl;
                     cout << "3. Take a book " << endl;
-                    cout << "0. Exit " << endl<<endl;
+                    cout << "0. Exit " << endl << endl;
                     int choiceC;
-                    cin>> choiceC;
-                    cout<<endl;
-                    if(choiceC!= 1 && choiceC!= 2 && choiceC != 3)
+                    cin >> choiceC;
+                    cout << endl;
+                    if (choiceC != 1 && choiceC != 2 && choiceC != 3)
                         throw WrongChoice();
                     switch (choiceC) {
 
-                        case 1:{
+                        case 1: {
                             ShowBooks();
                             break;
                         }
-                        case 2:{
+                        case 2: {
                             ShowBooksByAuthor();
                             break;
                         }
-                        case 3:{
+                        case 3: {
                             registration();//модифікувати функцію за умовами,які написані в блокноті
                             break;
                         }
-                        case 0:{
+                        case 0: {
                             return 0;
                         }
                         default: {
@@ -372,9 +415,6 @@ int main() {
                     }
 
                 }
-
-
-                break;
             }
             case 3://Instructions
             {

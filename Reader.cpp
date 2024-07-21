@@ -4,22 +4,22 @@
 
 #include "Reader.h"
 Reader::Reader()
-    :People(),password("uknown"),books(){}
+    : Person(), password("uknown"), books(){}
 
 Reader::Reader(string name, string surname, string last_name,string password, Book book)
-    :People(name,surname,last_name),books(book),password(password) {}
+    : Person(name, surname, last_name), books(book), password(password) {}
 
     Reader::~Reader() noexcept {
     cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted"<<endl;
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){
-    os<<static_cast<const People&>(obj)<<"\t"<<obj.password;
+    os << static_cast<const Person&>(obj) << "\t" << obj.password;
     os<<obj.books<<endl;
     return os;
 }
 istream &operator>>(istream &is,Reader &obj ){
-    is>>static_cast< People&>(obj);
+    is>>static_cast< Person&>(obj);
     is>>obj.password;
     is>>obj.books;
     return is;
@@ -37,10 +37,10 @@ Reader &Reader::operator=(const Reader &rhs) {
 }
 
 Reader::Reader(const Reader &other)
-: People(other),books(other.books),password(other.password){}
+: Person(other), books(other.books), password(other.password){}
 
 Reader::Reader(Reader &&other)
-: People(other),books(other.books),password(other.password){
+: Person(other), books(other.books), password(other.password){
     other.name="unknown";
     other.surname="unknown";
     other.last_name="unknown";
