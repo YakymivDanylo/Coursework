@@ -14,7 +14,7 @@ Reader::Reader(string name, string surname, string last_name,string password, Bo
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){
-    os << static_cast<const Person&>(obj) << "\t" << obj.password;
+    os << static_cast<const Person&>(obj) << "\t" << obj.password<<" ";
     os<<obj.books<<endl;
     return os;
 }
@@ -72,7 +72,7 @@ bool Reader::search() {
 }
 
 void Reader::getReader() const {
-    cout<<"Name: "<<name<<" Surname: "<<surname<<" Last name:"<<last_name<<endl;
+    cout<<"Name: "<<name<<" Surname: "<<surname<<" Last name:"<<last_name<<"Password: "<<password<<endl;
     books.getBook();
 }
 

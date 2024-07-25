@@ -9,7 +9,7 @@
 #include "WrongChoice.h"
 #include "WrongPassword.h"
 #include "SameID.h"
-
+#include "WrongInputData.h"
 using namespace std;
 
 void delimitation() {
@@ -22,60 +22,60 @@ void clearConsole() {
 
 void addAuthorAndBook() {
 
-    unique_ptr<string> name {new string{"unknown"}};
+    unique_ptr<string> name{new string{"unknown"}};
     cout << "Enter the author`s name: ";
-    cin>> *name;
+    cin >> *name;
 //    cin >> ws;
 //    getline(cin, name);
 
-    unique_ptr<string> surname {new string{"unknown"}};
+    unique_ptr<string> surname{new string{"unknown"}};
     cout << "Enter the author`s surname: ";
-    cin>>*surname;
+    cin >> *surname;
 //    cin >> ws;
 //    getline(cin, surname);
 
-    unique_ptr<string> last_name {new string{"unknown"}};
+    unique_ptr<string> last_name{new string{"unknown"}};
     cout << "Enter the author`s last name: ";
-    cin>>*last_name;
+    cin >> *last_name;
 
 //    cin >> ws;
 //    getline(cin, last_name);
 
-    unique_ptr<string> bookName {new string{"unknown"}};
+    unique_ptr<string> bookName{new string{"unknown"}};
     cout << "Enter the book`s name: ";
-    cin>>*bookName;
+    cin >> *bookName;
 //    cin >> ws;
 //    getline(cin, bookName);
 
-    unique_ptr<double> bookPrice {new double {0.0}};
+    unique_ptr<double> bookPrice{new double{0.0}};
     cout << "Enter the book`s price: ";
     cin >> *bookPrice;
 
-    unique_ptr<int> bookID {new int{0}};
+    unique_ptr<int> bookID{new int{0}};
     cout << "Enter the book`s ID : ";
     cin >> *bookID;
 
 
     ifstream finB(R"(D:\Coursework\Database\Author+Book.txt)");
 
-    unique_ptr<string> name1 {new string{"unknown"}};
+    unique_ptr<string> name1{new string{"unknown"}};
 
 
-    unique_ptr<string> surname1 {new string{"unknown"}};
+    unique_ptr<string> surname1{new string{"unknown"}};
 
 
-    unique_ptr<string> last_name1 {new string{"unknown"}};
+    unique_ptr<string> last_name1{new string{"unknown"}};
 
 
-    unique_ptr<string> bookName1 {new string{"unknown"}};
+    unique_ptr<string> bookName1{new string{"unknown"}};
 
 
-    unique_ptr<double> bookPrice1 {new double {0.0}};
+    unique_ptr<double> bookPrice1{new double{0.0}};
 
-    unique_ptr<int> bookID1 {new int{0}};
+    unique_ptr<int> bookID1{new int{0}};
 
 
-    while (finB >> *name1>>*surname1>>*last_name1>>*bookName1>>*bookPrice1>>*bookID1) {
+    while (finB >> *name1 >> *surname1 >> *last_name1 >> *bookName1 >> *bookPrice1 >> *bookID1) {
         if (*bookID == *bookID1) {
             throw SameID();
         }
@@ -137,7 +137,7 @@ void addBookstand() {
         bookstand.addBook(foundBook);
         ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
         if (fout.is_open()) {
-            fout << bookstandId<< foundBook << endl;
+            fout << bookstandId << " " << foundBook << endl;
             cout << "Book was successfully added" << endl;
             fout.close();
         } else {
@@ -200,7 +200,7 @@ int ShowBookById() {
     int bookId;
     cout << "Enter ID of the book: ";
     cin >> bookId;
-    unique_ptr<Book> book = book1.findBookById(R"(D:\\Coursework\\Database\\Books.txt)", bookId);
+    unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
     if (book) {
         cout << "Here is your book: " << endl;
         cerr << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
@@ -214,17 +214,22 @@ void ShowBooksByAuthor() {
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};
-    cout<<"Enter author`s full name"<<endl;
-    cin>>*name;
-    cin>>*surname;
-    cin>>*last_name;
+    cout << "Enter author`s name: ";
+    cin >> *name;
+    cout << "Enter author`s surname: ";
+    cin >> *surname;
+    cout << "Enter author`s last name: ";
+    cin >> *last_name;
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Author author;
     Book book;
-    while (finAB>>author){
-        if(*name==author.getName() && *surname==author.getSurname() && *last_name==author.getLastName()){
-            book=author.getBook();
-            cerr<<book;
+    while (finAB >> author) {
+        if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
+            book = author.getBook();
+            cerr << book;
+        }
+        else{
+           throw WrongInputData();
         }
     }
     finAB.close();
@@ -232,6 +237,7 @@ void ShowBooksByAuthor() {
 
 
 void registration() {
+    cout << "You need to log in" << endl;
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};
@@ -240,21 +246,34 @@ void registration() {
     unique_ptr<float> price{new float{0.0}};
     unique_ptr<int> id{new int{0}};
     unique_ptr<int> idOfBook{new int{0}};
-    cout << "Enter ID of book wich you you want to take" << endl;
-    cin >> *idOfBook;
+    cout << "Enter your name: ";
+    cin >> *name;
+    cout << "Enter your surname: ";
+    cin >> *surname;
+    cout << "Enter your last name: ";
+    cin >> *last_name;
+    cout << "Enter your password: ";
+    cin >> *password;
+    cout<<"Enter book`s ID which you want to take: ";
+    cin>>*idOfBook;
     ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    while (finBook >> *nameOfBook >> *price >> *idOfBook) {
+    while (finBook >> *nameOfBook >> *price >> *id) {
         if (*idOfBook == *id) {
-            Book newBook(*nameOfBook, *price, *id);
-            ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-            cout << "Enter your full name(name,surname,last name)" << endl;
-            cin >> *name >> *surname >> *last_name;
-            foutReader << *name << "\t" << *surname << "\t" << *last_name << "\t" << newBook << "\t";
-            cout << "Enter your password" << endl;
-            Reader newReader(*name, *surname, *last_name, *password, newBook);
-            foutReader.close();
+            Book book1;
+            unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", *id);
+            if (book) {
+                Book newBook(*nameOfBook,*price,*idOfBook);
+                Reader newReader(*name,*surname,*last_name,*password,newBook);
+                ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
+                foutReader << newReader<< endl;
+                foutReader.close();
+                finBook.close();
+            }
+            else {
+                cerr << "Book with this ID was not found" << endl;
+            }
         }
-        finBook.close();
+
     }
 }
 
@@ -361,35 +380,19 @@ int main() {
                 break;
             }
             case 2: {
-                delimitation();
                 cout << "Welcome" << endl;
-                cout << "You need to log in" << endl;
-                cout << "Enter your name: ";
-                string nameC;
-                cin >> nameC;
-
-                cout << "Enter your surname: ";
-                string surnameC;
-                cin >> surnameC;
-
-                cout << "Enter your last name: ";
-                string last_nameC;
-                cin >> last_nameC;
-
-                cout << "Enter your password: ";
-                string password;
-                cin >> password;
-
                 while (true) {
                     cout << "Choose what you want to do " << endl;
                     cout << "1. Show Books " << endl;
                     cout << "2. Show books by author`s full name " << endl;
                     cout << "3. Take a book " << endl;
+                    cout << "4. Return a book " << endl;
+                    cout << "5. Show my books " << endl;
                     cout << "0. Exit " << endl << endl;
                     int choiceC;
                     cin >> choiceC;
                     cout << endl;
-                    if (choiceC != 1 && choiceC != 2 && choiceC != 3)
+                    if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 && choiceC != 0)
                         throw WrongChoice();
                     switch (choiceC) {
 
@@ -403,6 +406,12 @@ int main() {
                         }
                         case 3: {
                             registration();//модифікувати функцію за умовами,які написані в блокноті
+                            break;
+                        }
+                        case 4: {
+                            break;
+                        }
+                        case 5: {
                             break;
                         }
                         case 0: {
@@ -433,5 +442,9 @@ int main() {
     catch (SameID &ID) {
         cerr << ID.what();
     }
+    catch (WrongInputData &Data) {
+        cerr << Data.what();
+    }
+
     return 0;
 }
