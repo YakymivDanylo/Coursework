@@ -152,7 +152,7 @@ void ShowBooks() {
     Author author(name, surname, last_name, book);
     char ch;
     while (fin.get(ch)) {
-        cerr << ch;
+        cout << ch;
     }
     fin.close();
 }
@@ -268,8 +268,9 @@ void ShowBooksByAuthor() {
 //}
 
 void takeBook() {
-    std::cout << "You need to log in" << std::endl;
-    std::string name, surname, last_name, password, nameOfBook;
+    cout << "You need to log in" << endl;
+    string name, surname, last_name, password, nameOfBook;
+    string nameAu, surnameAu, last_nameAu;
     float price;
     int id, idOfBook;
     cout << "Enter your name: ";
@@ -290,30 +291,35 @@ void takeBook() {
 
     bool bookFound = false;
 
-    while (finAuthorBook >> name >> surname >> last_name >> nameOfBook >> price >> id) {
+    while (finAuthorBook >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
         if (idOfBook == id) {
             bookFound = true;
-            Book book(nameOfBook, price, id);
-            Author author(name, surname, last_name, book);
-            std::string line;
-            while (getline(finBook, line)) {
+            string line;
+            while (getline(finAuthorBook, line)) {
                 if (idOfBook != id) {
                     foutAuthorBookTemp << line << std::endl;
                 }
             }
+            while (getline(finBook,line)){
+                if(idOfBook!=id){
+                    foutBookTemp<<line<<endl;
+                }
+            }
 
             Book newBook(nameOfBook, price, idOfBook);
+            Author author(nameAu,surnameAu,last_nameAu,newBook);
             Reader newReader(name, surname, last_name, password, newBook);
             ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-            foutReader <<name<<" "<<surname<<" "<<last_name<<" "<<password<<" "<<nameOfBook<<" "<<price<<" "<<idOfBook<< endl;
+            foutReader <<name<<" "<<surname<<" "<<last_name<<" "<<password<<" "<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<idOfBook<< endl;
             foutReader.close();
         } else {
-            foutBookTemp << nameOfBook << " " << price << " " << id << std::endl;
+            foutAuthorBookTemp << nameAu << " " << surnameAu << " " << last_nameAu <<" "<< nameOfBook << " " << price << " " << id << endl;
+            foutBookTemp << nameOfBook<<" "<<price<<" "<< id<<endl;
         }
     }
 
     if (!bookFound) {
-        std::cerr << "Book with this ID was not found" << std::endl;
+        cerr << "Book with this ID was not found" << endl;
     }
 
     finBook.close();
