@@ -220,9 +220,9 @@ void ShowBooksByAuthor() {
             book = author.getBook();
             cerr << book;
         }
-//        else {
-//            cerr<<"There is no author with this name!"<<endl;
-//        }
+        else {
+            cerr<<"There is no author with this name!"<<endl;
+        }
     }
     finAB.close();
 }
@@ -272,7 +272,7 @@ void takeBook() {
     string name, surname, last_name, password, nameOfBook;
     string nameAu, surnameAu, last_nameAu;
     float price;
-    int id, idOfBook;
+    int id, idOfBook, idBs;
     cout << "Enter your name: ";
     cin >> name;
     cout << "Enter your surname: ";
@@ -286,35 +286,59 @@ void takeBook() {
     ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
     ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)");
 
+    ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
+    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)");
+
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
     ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)");
-
     bool bookFound = false;
 
     while (finAuthorBook >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
         if (idOfBook == id) {
-            bookFound = true;
+           bookFound = true;
             string line;
             while (getline(finAuthorBook, line)) {
                 if (idOfBook != id) {
                     foutAuthorBookTemp << line << std::endl;
                 }
             }
-            while (getline(finBook,line)){
-                if(idOfBook!=id){
-                    foutBookTemp<<line<<endl;
+
+            while (getline(finBook, line)) {
+                if (idOfBook != id) {
+                    foutBookTemp << line << endl;
                 }
             }
 
+
             Book newBook(nameOfBook, price, idOfBook);
-            Author author(nameAu,surnameAu,last_nameAu,newBook);
+            Author author(nameAu, surnameAu, last_nameAu, newBook);
             Reader newReader(name, surname, last_name, password, newBook);
+
             ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-            foutReader <<name<<" "<<surname<<" "<<last_name<<" "<<password<<" "<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<idOfBook<< endl;
+            foutReader << name << " " << surname << " " << last_name << " " << password << " " << nameAu << " "
+                       << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price << " " << idOfBook
+                       << endl;
             foutReader.close();
         } else {
-            foutAuthorBookTemp << nameAu << " " << surnameAu << " " << last_nameAu <<" "<< nameOfBook << " " << price << " " << id << endl;
-            foutBookTemp << nameOfBook<<" "<<price<<" "<< id<<endl;
+            foutAuthorBookTemp << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price
+                               << " " << id << endl;
+            foutBookTemp << nameOfBook << " " << price << " " << id << endl;
+        }
+    }
+
+    while (finBookstand >> idBs >> nameOfBook >> price >> id) {
+        if (idOfBook == id) {
+            bookFound = true;
+            string line;
+            while (getline(finBookstand, line)) {
+                if (idOfBook != id) {
+                    foutBookstandTemp << line << endl;
+                }
+                Bookstand bookstand(idBs);
+            }
+        }
+        else {
+            foutBookstandTemp << idBs << " " << nameOfBook << " " << price << " " << id << endl;
         }
     }
 
@@ -324,6 +348,8 @@ void takeBook() {
 
     finBook.close();
     foutBookTemp.close();
+    finBookstand.close();
+    foutBookstandTemp.close();
     finAuthorBook.close();
     foutAuthorBookTemp.close();
 
@@ -331,6 +357,9 @@ void takeBook() {
     std::rename(R"(D:\Coursework\Database\Books_temp.txt)", R"(D:\Coursework\Database\Books.txt)");
     std::remove(R"(D:\Coursework\Database\Author+Book.txt)");
     std::rename(R"(D:\Coursework\Database\Author+Book_temp.txt)", R"(D:\Coursework\Database\Author+Book.txt)");
+    std::remove(R"(D:\Coursework\Database\Bookstands.txt)");
+    std::rename(R"(D:\Coursework\Database\Bookstands_temp.txt)", R"(D:\Coursework\Database\Bookstands.txt)");
+
 }
 
 int main() {
@@ -362,8 +391,8 @@ int main() {
                     delimitation();
                     if (password == "123") {
                         try {
+                            cout << "Successful access!" << endl;
                             while (true) {
-                                cout << "Successful access!" << endl;
                                 cout << "Choose what you want to do" << endl;
                                 cout << "1. Add the book" << endl;
                                 cout << "2. Add the book to the bookstand " << endl;
