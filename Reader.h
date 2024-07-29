@@ -12,11 +12,10 @@ using namespace std;
 
 class Reader: public Person{
 private:
-    string password;
     Book books;
 public:
     Reader();
-    Reader( string name, string surname, string last_name,string password, Book books);
+    Reader( string name, string surname, string last_name, Book books);
     ~Reader();
     friend ostream &operator <<(ostream &os, Reader &obj);
     friend istream &operator >>(istream &is, Reader &obj);
@@ -27,7 +26,6 @@ public:
     string getSurname() override;
     string getLastName() override;
     void getReader() const;
-    string getPassword();
     Book getBook();
     void write_to_a_file();
     bool search();

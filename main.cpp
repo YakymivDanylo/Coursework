@@ -175,10 +175,9 @@ void ShowReaders() {
     ifstream fin(R"(D:\Coursework\Database\Reader.txt)");
     string name, surname, last_name, nameOfBook;
     double price;
-    string password;
     int id;
     Book newBook(nameOfBook, price, id);
-    Reader reader(name, surname, last_name, password, newBook);
+    Reader reader(name, surname, last_name, newBook);
     char ch;
     while (fin.get(ch)) {
         cout << ch;
@@ -220,56 +219,18 @@ void ShowBooksByAuthor() {
             book = author.getBook();
             cerr << book;
         }
-        else {
-            cerr<<"There is no author with this name!"<<endl;
-        }
+//        else {
+//            cerr<<"There is no author with this name!"<<endl;
+//                throw InvalidInput();
+//        }
     }
     finAB.close();
 }
 
-//void takeBook() {
-//    cout << "You need to log in" << endl;
-//    unique_ptr<string> name{new string{"unknown"}};
-//    unique_ptr<string> surname{new string{"unknown"}};
-//    unique_ptr<string> last_name{new string{"unknown"}};
-//    unique_ptr<string> password{new string{"unknown"}};
-//    unique_ptr<string> nameOfBook{new string{"unknown"}};
-//    unique_ptr<float> price{new float{0.0}};
-//    unique_ptr<int> id{new int{0}};
-//    unique_ptr<int> idOfBook{new int{0}};
-//    cout << "Enter your name: ";
-//    cin >> *name;
-//    cout << "Enter your surname: ";
-//    cin >> *surname;
-//    cout << "Enter your last name: ";
-//    cin >> *last_name;
-//    cout << "Enter your password: ";
-//    cin >> *password;
-//    cout << "Enter book`s ID which you want to take: ";
-//    cin >> *idOfBook;
-//    ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-//    while (finBook >> *nameOfBook >> *price >> *id) {
-//        if (*idOfBook == *id) {
-//            Book book1;
-//            unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", *id);
-//            if (book) {
-//                Book newBook(*nameOfBook, *price, *idOfBook);
-//                Reader newReader(*name, *surname, *last_name, *password, newBook);
-//                ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-//                foutReader << newReader << endl;
-//                foutReader.close();
-//                finBook.close();
-//            } else {
-//                cerr << "Book with this ID was not found" << endl;
-//            }
-//        }
-//
-//    }
-//}
 
 void takeBook() {
     cout << "You need to log in" << endl;
-    string name, surname, last_name, password, nameOfBook;
+    string name, surname, last_name, nameOfBook;
     string nameAu, surnameAu, last_nameAu;
     float price;
     int id, idOfBook, idBs;
@@ -279,18 +240,16 @@ void takeBook() {
     cin >> surname;
     cout << "Enter your last name: ";
     cin >> last_name;
-    cout << "Enter your password: ";
-    cin >> password;
     cout << "Enter book`s ID which you want to take: ";
     cin >> idOfBook;
     ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)");
+    ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)",ios_base::app);
 
     ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
-    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)");
+    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)",ios_base::app);
 
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
-    ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)");
+    ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)",ios_base::app);
     bool bookFound = false;
 
     while (finAuthorBook >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
@@ -312,10 +271,10 @@ void takeBook() {
 
             Book newBook(nameOfBook, price, idOfBook);
             Author author(nameAu, surnameAu, last_nameAu, newBook);
-            Reader newReader(name, surname, last_name, password, newBook);
+            Reader newReader(name,surname,last_name,newBook);
 
             ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-            foutReader << name << " " << surname << " " << last_name << " " << password << " " << nameAu << " "
+            foutReader << name << " " << surname << " " << last_name << " " << nameAu << " "
                        << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price << " " << idOfBook
                        << endl;
             foutReader.close();
@@ -353,13 +312,71 @@ void takeBook() {
     finAuthorBook.close();
     foutAuthorBookTemp.close();
 
-    std::remove(R"(D:\Coursework\Database\Books.txt)");
-    std::rename(R"(D:\Coursework\Database\Books_temp.txt)", R"(D:\Coursework\Database\Books.txt)");
-    std::remove(R"(D:\Coursework\Database\Author+Book.txt)");
-    std::rename(R"(D:\Coursework\Database\Author+Book_temp.txt)", R"(D:\Coursework\Database\Author+Book.txt)");
-    std::remove(R"(D:\Coursework\Database\Bookstands.txt)");
-    std::rename(R"(D:\Coursework\Database\Bookstands_temp.txt)", R"(D:\Coursework\Database\Bookstands.txt)");
+    remove(R"(D:\Coursework\Database\Books.txt)");
+    rename(R"(D:\Coursework\Database\Books_temp.txt)", R"(D:\Coursework\Database\Books.txt)");
+    remove(R"(D:\Coursework\Database\Author+Book.txt)");
+    rename(R"(D:\Coursework\Database\Author+Book_temp.txt)", R"(D:\Coursework\Database\Author+Book.txt)");
 
+    remove(R"(D:\Coursework\Database\Bookstands.txt)");
+    rename(R"(D:\Coursework\Database\Bookstands_temp.txt)", R"(D:\Coursework\Database\Bookstands.txt)");
+
+}
+
+void returnBook(){
+    cout << "You need to log in" << endl;
+    string name, surname, last_name, nameOfBook;
+    string name2, surname2, last_name2;
+    string nameAu, surnameAu, last_nameAu;
+    float price;
+    int id, idOfBook;
+    cout << "Enter your name: ";
+    cin >> name;
+    cout << "Enter your surname: ";
+    cin >> surname;
+    cout << "Enter your last name: ";
+    cin >> last_name;
+    cout << "Enter book`s ID which you want to return: ";
+    cin >> idOfBook;
+
+
+    ofstream foutBook(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
+
+    ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
+    ofstream foutReaderTemp(R"(D:\Coursework\Database\Reader_temp.txt)");
+
+    ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)",ios_base::app);
+
+    bool bookFound = false;
+    while (finReader>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
+        if(idOfBook==id){
+            bookFound = true;
+            string line;
+            while (getline(finReader, line)) {
+                if (idOfBook != id) {
+                    foutReaderTemp << line << endl;
+                }
+            }
+            foutBook<<nameOfBook<<" "<<price<<" "<<idOfBook<<endl;
+
+
+            foutAuthorBook<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<idOfBook<<endl;
+
+        }
+        else
+        {
+            foutReaderTemp<<name2<<" "<<surname2<<" "<<last_name2<<" "<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<id<<endl;
+        }
+    }
+    if (!bookFound) {
+        cerr << "Book with this ID was not found" << endl;
+    }
+
+    foutBook.close();
+    foutAuthorBook.close();
+    foutReaderTemp.close();
+
+    remove(R"(D:\Coursework\Database\Reader.txt)");
+    rename(R"(D:\Coursework\Database\Reader_temp.txt)", R"(D:\Coursework\Database\Reader.txt)");
 }
 
 int main() {
@@ -505,6 +522,7 @@ int main() {
                             break;
                         }
                         case 4: {
+                            returnBook();
                             break;
                         }
                         case 5: {
