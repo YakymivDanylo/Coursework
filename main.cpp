@@ -379,6 +379,33 @@ void returnBook(){
     rename(R"(D:\Coursework\Database\Reader_temp.txt)", R"(D:\Coursework\Database\Reader.txt)");
 }
 
+void showMyBooks(){
+    cout << "You need to log in" << endl;
+    string name, surname, last_name,nameOfBook;
+    string name2, surname2, last_name2;
+    string nameAu, surnameAu, last_nameAu;
+    float price;
+    int id;
+    cout << "Enter your name: ";
+    cin >> name;
+    cout << "Enter your surname: ";
+    cin >> surname;
+    cout << "Enter your last name: ";
+    cin >> last_name;
+
+    ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
+    while(finR>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
+        if(name==name2 && surname==surname2 && last_name==last_name2){
+            Book book(nameOfBook,price,id);
+            Author author(nameAu,surnameAu,last_nameAu,book);
+            Reader reader(name,surname,last_name,book);
+            cout<<author<<endl;
+        }
+    }
+    finR.close();
+}
+
+
 int main() {
     try {
         delimitation();
@@ -526,6 +553,7 @@ int main() {
                             break;
                         }
                         case 5: {
+                            showMyBooks();
                             break;
                         }
                         case 0: {
