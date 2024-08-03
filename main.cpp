@@ -342,6 +342,7 @@ void takeBook() {
 
     remove(R"(D:\Coursework\Database\Books.txt)");
     rename(R"(D:\Coursework\Database\Books_temp.txt)", R"(D:\Coursework\Database\Books.txt)");
+
     remove(R"(D:\Coursework\Database\Author+Book.txt)");
     rename(R"(D:\Coursework\Database\Author+Book_temp.txt)", R"(D:\Coursework\Database\Author+Book.txt)");
 
@@ -370,7 +371,7 @@ void returnBook(){
     ofstream foutBook(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
 
     ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
-    ofstream foutReaderTemp(R"(D:\Coursework\Database\Reader_temp.txt)");
+    ofstream foutReaderTemp(R"(D:\Coursework\Database\Reader_temp.txt)",ios_base::app);
 
     ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)",ios_base::app);
 
@@ -402,6 +403,7 @@ void returnBook(){
     foutBook.close();
     foutAuthorBook.close();
     foutReaderTemp.close();
+    finReader.close();
 
     remove(R"(D:\Coursework\Database\Reader.txt)");
     rename(R"(D:\Coursework\Database\Reader_temp.txt)", R"(D:\Coursework\Database\Reader.txt)");
