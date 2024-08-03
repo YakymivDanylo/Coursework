@@ -205,6 +205,7 @@ void ShowBooksByAuthor() {
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};
+    int counter = 0;
     cout << "Enter author`s name: ";
     cin >> *name;
     cout << "Enter author`s surname: ";
@@ -218,18 +219,21 @@ void ShowBooksByAuthor() {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cerr << book;
+        } else {
+            counter++;
         }
-//        else {
-//            cerr<<"There is no author with this name!"<<endl;
-//                throw InvalidInput();
-//        }
     }
     finAB.close();
+
+    if (counter > 0) {
+        cerr << "There is no author with this name!" << endl;
+        throw InvalidInput();
+    }
 }
 
-void showMyBooks(){
+void showMyBooks() {
     cout << "You need to log in" << endl;
-    string name, surname, last_name,nameOfBook;
+    string name, surname, last_name, nameOfBook;
     string name2, surname2, last_name2;
     string nameAu, surnameAu, last_nameAu;
     float price;
@@ -245,11 +249,11 @@ void showMyBooks(){
     Book book;
     Author author;
     Reader reader;
-    while(finR>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
-        if(name==name2 && surname==surname2 && last_name==last_name2){
-            Book newBook(nameOfBook,price,id);
-            Author newAuthor(name,surname,last_name,newBook);
-            cerr<<newAuthor<<endl;
+    while (finR >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
+        if (name == name2 && surname == surname2 && last_name == last_name2) {
+            Book newBook(nameOfBook, price, id);
+            Author newAuthor(name, surname, last_name, newBook);
+            cerr << newAuthor << endl;
         }
     }
     finR.close();
@@ -271,18 +275,18 @@ void takeBook() {
     cout << "Enter book`s ID which you want to take: ";
     cin >> idOfBook;
     ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)",ios_base::app);
+    ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)", ios_base::app);
 
     ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
-    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)",ios_base::app);
+    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)", ios_base::app);
 
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
-    ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)",ios_base::app);
+    ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)", ios_base::app);
     bool bookFound = false;
 
     while (finAuthorBook >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
         if (idOfBook == id) {
-           bookFound = true;
+            bookFound = true;
             string line;
             while (getline(finAuthorBook, line)) {
                 if (idOfBook != id) {
@@ -299,7 +303,7 @@ void takeBook() {
 
             Book newBook(nameOfBook, price, idOfBook);
             Author author(nameAu, surnameAu, last_nameAu, newBook);
-            Reader newReader(name,surname,last_name,newBook);
+            Reader newReader(name, surname, last_name, newBook);
 
             ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
             foutReader << name << " " << surname << " " << last_name << " " << nameAu << " "
@@ -323,8 +327,7 @@ void takeBook() {
                 }
                 Bookstand bookstand(idBs);
             }
-        }
-        else {
+        } else {
             foutBookstandTemp << idBs << " " << nameOfBook << " " << price << " " << id << endl;
         }
     }
@@ -351,7 +354,7 @@ void takeBook() {
 
 }
 
-void returnBook(){
+void returnBook() {
     cout << "You need to log in" << endl;
     string name, surname, last_name, nameOfBook;
     string name2, surname2, last_name2;
@@ -368,16 +371,17 @@ void returnBook(){
     cin >> idOfBook;
 
 
-    ofstream foutBook(R"(D:\Coursework\Database\Books.txt)",ios_base::app);
+    ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
 
     ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
-    ofstream foutReaderTemp(R"(D:\Coursework\Database\Reader_temp.txt)",ios_base::app);
+    ofstream foutReaderTemp(R"(D:\Coursework\Database\Reader_temp.txt)", ios_base::app);
 
-    ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)",ios_base::app);
+    ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
 
     bool bookFound = false;
-    while (finReader>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
-        if(idOfBook==id){
+    while (finReader >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
+                     >> id) {
+        if (idOfBook == id) {
             bookFound = true;
             string line;
             while (getline(finReader, line)) {
@@ -385,15 +389,15 @@ void returnBook(){
                     foutReaderTemp << line << endl;
                 }
             }
-            foutBook<<nameOfBook<<" "<<price<<" "<<idOfBook<<endl;
+            foutBook << nameOfBook << " " << price << " " << idOfBook << endl;
 
 
-            foutAuthorBook<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<idOfBook<<endl;
+            foutAuthorBook << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price
+                           << " " << idOfBook << endl;
 
-        }
-        else
-        {
-            foutReaderTemp<<name2<<" "<<surname2<<" "<<last_name2<<" "<<nameAu<<" "<<surnameAu<<" "<<last_nameAu<<" "<<nameOfBook<<" "<<price<<" "<<id<<endl;
+        } else {
+            foutReaderTemp << name2 << " " << surname2 << " " << last_name2 << " " << nameAu << " " << surnameAu << " "
+                           << last_nameAu << " " << nameOfBook << " " << price << " " << id << endl;
         }
     }
     if (!bookFound) {
@@ -408,7 +412,6 @@ void returnBook(){
     remove(R"(D:\Coursework\Database\Reader.txt)");
     rename(R"(D:\Coursework\Database\Reader_temp.txt)", R"(D:\Coursework\Database\Reader.txt)");
 }
-
 
 
 int main() {
