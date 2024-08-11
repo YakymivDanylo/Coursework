@@ -188,6 +188,8 @@ void ShowReaders() {
 
 int ShowBookById() {
     Book book1;
+    Reader reader;
+    Author author;
     int bookId;
     cout << "Enter ID of the book: ";
     cin >> bookId;
@@ -197,6 +199,20 @@ int ShowBookById() {
         cerr << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
     } else {
         cout << "Book with this ID was not found" << endl;
+        string name, surname, last_name, nameOfBook;
+        string name2, surname2, last_name2;
+        string nameAu, surnameAu, last_nameAu;
+        float price;
+        int id;
+        ifstream finR (R"(D:\Coursework\Database\Reader.txt)");
+        while (finR>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
+            if(bookId==id){
+                Book book2(nameOfBook,price,bookId);
+                Author author2(nameAu,surnameAu,last_nameAu,book2);
+                cout<<name2<<" "<<surname2<<" "<<last_name2<<" "<<author2;
+                cout<<"This book is taken"<<endl;
+            }
+        }
     }
     return 0;
 }
@@ -205,7 +221,6 @@ void ShowBooksByAuthor() {
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};
-    int counter = 0;
     cout << "Enter author`s name: ";
     cin >> *name;
     cout << "Enter author`s surname: ";
@@ -215,20 +230,18 @@ void ShowBooksByAuthor() {
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
     Author author;
+    int counter = 0;
     while (finAB >> author) {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cerr << book;
         } else {
             counter++;
+            if (counter >= 1)
+                cerr << "There is no author with this name!" << endl;
         }
     }
     finAB.close();
-
-    if (counter > 0) {
-        cerr << "There is no author with this name!" << endl;
-        throw InvalidInput();
-    }
 }
 
 void showMyBooks() {
@@ -249,14 +262,22 @@ void showMyBooks() {
     Book book;
     Author author;
     Reader reader;
+    int counter = 0;
     while (finR >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
         if (name == name2 && surname == surname2 && last_name == last_name2) {
             Book newBook(nameOfBook, price, id);
-            Author newAuthor(name, surname, last_name, newBook);
+            Author newAuthor(nameAu, surnameAu, last_nameAu, newBook);
             cerr << newAuthor << endl;
+        }
+        if (name != name2 || surname != surname2 || last_name != last_name2) {
+            counter++;
+            if (counter > 0)
+                cerr << "There is no reader with this name!" << endl;
+            cerr << "Check if you entered the name correctly!" << endl;
         }
     }
     finR.close();
+
 }
 
 
@@ -379,25 +400,35 @@ void returnBook() {
     ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
 
     bool bookFound = false;
-    while (finReader >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
-                     >> id) {
-        if (idOfBook == id) {
-            bookFound = true;
-            string line;
-            while (getline(finReader, line)) {
-                if (idOfBook != id) {
-                    foutReaderTemp << line << endl;
-                }
+    int counter=0;
+    while (finReader >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price>> id) {
+        if(name != name2 || surname != surname2 || last_name != last_name2 ){
+            counter++;
+            if(counter>=1){
+                cerr << "There is no reader with this name!" << endl;
+                break;
             }
-            foutBook << nameOfBook << " " << price << " " << idOfBook << endl;
+        }
+        else {
+            if (idOfBook == id) {
+                bookFound = true;
+                string line;
+                while (getline(finReader, line)) {
+                    if (idOfBook != id) {
+                        foutReaderTemp << line << endl;
+                    }
+                }
+                foutBook << nameOfBook << " " << price << " " << idOfBook << endl;
 
 
-            foutAuthorBook << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price
-                           << " " << idOfBook << endl;
+                foutAuthorBook << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price
+                               << " " << idOfBook << endl;
 
-        } else {
-            foutReaderTemp << name2 << " " << surname2 << " " << last_name2 << " " << nameAu << " " << surnameAu << " "
-                           << last_nameAu << " " << nameOfBook << " " << price << " " << id << endl;
+            } else {
+                foutReaderTemp << name2 << " " << surname2 << " " << last_name2 << " " << nameAu << " " << surnameAu
+                               << " "
+                               << last_nameAu << " " << nameOfBook << " " << price << " " << id << endl;
+            }
         }
     }
     if (!bookFound) {
