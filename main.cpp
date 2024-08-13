@@ -2,6 +2,7 @@
 #include <limits>
 #include <memory>
 #include "fstream"
+#include "ctime"
 #include <vector>
 #include "Reader.h"
 #include "Bookstand.h"
@@ -45,10 +46,12 @@ void addAuthorAndBook() {
     cout << "Enter the book`s price: ";
     cin >> *bookPrice;
 
-    unique_ptr<int> bookID{new int{0}};
-    cout << "Enter the book`s ID : ";
-    cin >> *bookID;
-
+//    unique_ptr<int> bookID{new int{0}};
+//    cout << "Enter the book`s ID : ";
+//    cin >> *bookID;
+    int bookID;
+    srand(time(0));
+    bookID = rand();
 
     ifstream finB(R"(D:\Coursework\Database\Author+Book.txt)");
 
@@ -70,7 +73,7 @@ void addAuthorAndBook() {
 
 
     while (finB >> *name1 >> *surname1 >> *last_name1 >> *bookName1 >> *bookPrice1 >> *bookID1) {
-        if (*bookID == *bookID1) {
+        if (bookID == *bookID1) {
             throw SameID();
         }
         cout << name1;
@@ -79,11 +82,11 @@ void addAuthorAndBook() {
 
 
     ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << *bookID
+    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << bookID
            << endl;
     foutAB.close();
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-    foutB << *bookName << " " << *bookPrice << " " << *bookID << endl;
+    foutB << *bookName << " " << *bookPrice << " " << bookID << endl;
     foutB.close();
 
 }
@@ -204,13 +207,14 @@ int ShowBookById() {
         string nameAu, surnameAu, last_nameAu;
         float price;
         int id;
-        ifstream finR (R"(D:\Coursework\Database\Reader.txt)");
-        while (finR>>name2>>surname2>>last_name2>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
-            if(bookId==id){
-                Book book2(nameOfBook,price,bookId);
-                Author author2(nameAu,surnameAu,last_nameAu,book2);
-                cout<<name2<<" "<<surname2<<" "<<last_name2<<" "<<author2;
-                cout<<"This book is taken"<<endl;
+        ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
+        while (finR >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
+                    >> id) {
+            if (bookId == id) {
+                Book book2(nameOfBook, price, bookId);
+                Author author2(nameAu, surnameAu, last_nameAu, book2);
+                cout << name2 << " " << surname2 << " " << last_name2 << " " << author2;
+                cout << "This book is taken" << endl;
             }
         }
     }
@@ -235,11 +239,17 @@ void ShowBooksByAuthor() {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cerr << book;
-        } else {
-            counter++;
-            if (counter >= 1)
-                cerr << "There is no author with this name!" << endl;
         }
+//        else {
+//            if (*name != author.getName() || *surname != author.getSurname() || *last_name != author.getLastName()) {
+//                counter++;
+//                if (counter != 0) {
+//
+//                    cerr << "There is no reader with this name!" << endl;
+//                    cerr << "Check if you entered the name correctly!" << endl;
+//                }
+//            }
+//        }
     }
     finAB.close();
 }
@@ -400,16 +410,16 @@ void returnBook() {
     ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
 
     bool bookFound = false;
-    int counter=0;
-    while (finReader >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price>> id) {
-        if(name != name2 || surname != surname2 || last_name != last_name2 ){
+    int counter = 0;
+    while (finReader >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
+                     >> id) {
+        if (name != name2 || surname != surname2 || last_name != last_name2) {
             counter++;
-            if(counter>=1){
+            if (counter >= 1) {
                 cerr << "There is no reader with this name!" << endl;
                 break;
             }
-        }
-        else {
+        } else {
             if (idOfBook == id) {
                 bookFound = true;
                 string line;
