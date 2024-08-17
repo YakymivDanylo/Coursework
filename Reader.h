@@ -25,6 +25,7 @@ public:
     string getName() override;
     string getSurname() override;
     string getLastName() override;
+    int getId();
     void getReader() const;
     Book getBook();
     void write_to_a_file();

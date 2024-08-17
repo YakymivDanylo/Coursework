@@ -89,5 +89,7 @@ void Reader::getReader() const {
     books.getBook();
 }
 
+int Reader::getId() {return  books.getId();}
+
 
 
