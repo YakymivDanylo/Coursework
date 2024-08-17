@@ -7,13 +7,27 @@
 #include <iostream>
 #include <vector>
 Author::Author()
-    : Person(), book(){}
+    : Person(), book()
+    {
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout<<name<<" "<<surname<<" "<<last_name<<" "<<book<<" "<<endl;
+//    fout.close();
+}
 
 Author::Author(string name, string surname, string last_name, Book book)
-: book{book}, Person(name, surname, last_name){}
+: book{book}, Person(name, surname, last_name)
+{
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout<<name<<" "<<surname<<" "<<last_name<<" "<<endl;
+//    fout.close();
+}
 
 Author::~Author() noexcept
-{cout<<name<<" "<<surname<<" "<<last_name<<" was deleted"<<endl;}
+{/*cout<<name<<" "<<surname<<" "<<last_name<<" was deleted"<<endl;*/
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout<<name<<" "<<surname<<" "<<last_name<<" was deleted"<<endl;
+//    fout.close();
+}
 
 
 ostream &operator<<(ostream &os,  Author &obj){
@@ -54,8 +68,12 @@ void Author::addBook(const Book &book) {
     this->book = book;
 }
 
-Book Author::getBook() {
+Book Author::getBook() const {
     return book;
+}
+
+int Author::getId() {
+    return book.getId();
 }
 
 

@@ -91,59 +91,72 @@ void addAuthorAndBook() {
 
 }
 
-bool findBookById(const vector<Book> &books, int id, Book &foundBook) {
-    for (const Book &book: books) {
-        if (book.getId() == id) {
-            foundBook = book;
-            return true;
-        }
-    }
-    return false;
-}
+//bool findBookById(Book &books, int id, Book &foundBook) {
+//    for (const Book &book: books) {
+//        if (book.getId() == id) {
+//            foundBook = book;
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
 
 void addBookstand() {
     string name;
     double price;
     int id;
-
     int bookId;
+    int bookstandId;
+
+    srand(time(0));
+    bookstandId = rand();
+
     cout << "Enter ID of the book: ";
     cin >> bookId;
 
-    int bookstandId;
-    cout << "Enter ID of the bookstand: ";
-    cin >> bookstandId;
 
-    vector<Book> books;
+//    cout << "Enter ID of the bookstand: ";
+//    cin >> bookstandId;
 
+    int counter=0;
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
     if (booksFile.is_open()) {
-        while (booksFile >> name >> price >> id)
-            books.push_back({name, price, id});
+        while (booksFile >> name >> price >> id) {
+            if (bookId == id) {
+                Book book(name, price, bookId);
+                Bookstand bookstand(bookstandId, book);
+                counter++;
+            }
+        }
+        booksFile.close();
+        if(counter == 0){
+            cerr<<"There is no book with this ID!"<<endl;
+        }
+
     } else {
         cerr << "Error opening file" << endl;
         return;
     }
-    booksFile.close();
 
 
-    Book foundBook(name, price, id);
-    if (findBookById(books, bookId, foundBook)) {
-        Bookstand bookstand(bookstandId);
-        bookstand.addBook(foundBook);
-        ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
-        if (fout.is_open()) {
-            fout << bookstandId << " " << foundBook << endl;
-            cout << "Book was successfully added" << endl;
-            fout.close();
-        } else {
-            cerr << "Error opening file" << endl;
-        }
 
-    } else {
-        cerr << "The book with ID " << bookId << " wasn`t found" << endl;
-    }
+//    Book foundBook(name, price, id);
+//    if (findBookById(book, bookId, foundBook)) {
+//        Bookstand bookstand(bookstandId);
+//        bookstand.addBook(foundBook);
+//        ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
+//        if (fout.is_open()) {
+//            fout << bookstandId << " " << foundBook << endl;
+//            cout << "Book was successfully added" << endl;
+//            fout.close();
+//        } else {
+//            cerr << "Error opening file" << endl;
+//        }
+//
+//    } else {
+//        cerr << "The book with ID " << bookId << " wasn`t found" << endl;
+//    }
 }
 
 void ShowBooks() {
@@ -213,8 +226,8 @@ int ShowBookById() {
             if (bookId == id) {
                 Book book2(nameOfBook, price, bookId);
                 Author author2(nameAu, surnameAu, last_nameAu, book2);
-                cout << name2 << " " << surname2 << " " << last_name2 << " " << author2;
-                cout << "This book is taken" << endl;
+                cerr << name2 << " " << surname2 << " " << last_name2 << " " << author2;
+                cerr << "This book is taken" << endl;
             }
         }
     }
@@ -239,19 +252,15 @@ void ShowBooksByAuthor() {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cerr << book;
+            counter++;
         }
-//        else {
-//            if (*name != author.getName() || *surname != author.getSurname() || *last_name != author.getLastName()) {
-//                counter++;
-//                if (counter != 0) {
-//
-//                    cerr << "There is no reader with this name!" << endl;
-//                    cerr << "Check if you entered the name correctly!" << endl;
-//                }
-//            }
-//        }
     }
     finAB.close();
+    if (counter == 0) {
+
+        cerr << "There is no reader with this name!" << endl;
+        cerr << "Check if you entered the name correctly!" << endl;
+    }
 }
 
 void showMyBooks() {
@@ -278,15 +287,13 @@ void showMyBooks() {
             Book newBook(nameOfBook, price, id);
             Author newAuthor(nameAu, surnameAu, last_nameAu, newBook);
             cerr << newAuthor << endl;
-        }
-        if (name != name2 || surname != surname2 || last_name != last_name2) {
             counter++;
-            if (counter > 0)
-                cerr << "There is no reader with this name!" << endl;
-            cerr << "Check if you entered the name correctly!" << endl;
         }
     }
     finR.close();
+    if (counter == 0)
+        cerr << "There is no reader with this name!" << endl;
+    cerr << "Check if you entered the name correctly!" << endl;
 
 }
 
@@ -305,83 +312,65 @@ void takeBook() {
     cin >> last_name;
     cout << "Enter book`s ID which you want to take: ";
     cin >> idOfBook;
+
     ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    ofstream foutBookTemp(R"(D:\Coursework\Database\Books_temp.txt)", ios_base::app);
+    vector<Book> books;
+    while (finBook>>nameOfBook>>price>>id){
+        Book book(nameOfBook,price,id);
+        books.push_back(book);
+    }
+    finBook.close();
+
+    ofstream foutBookWr(R"(D:\Coursework\Database\Books.txt)");
 
     ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
-    ofstream foutBookstandTemp(R"(D:\Coursework\Database\Bookstands_temp.txt)", ios_base::app);
+    vector<Bookstand> bookstands;
+    while (finBookstand>>idBs>>nameOfBook>>price>>id){
+        Book book(nameOfBook,price,id);
+        Bookstand bookstand(idBs,book);
+        bookstands.push_back(bookstand);
+    }
+    finBookstand.close();
+
+    ofstream foutBookstandWr(R"(D:\Coursework\Database\Bookstands.txt)");
 
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
-    ofstream foutAuthorBookTemp(R"(D:\Coursework\Database\Author+Book_temp.txt)", ios_base::app);
-    bool bookFound = false;
-
-    while (finAuthorBook >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
-        if (idOfBook == id) {
-            bookFound = true;
-            string line;
-            while (getline(finAuthorBook, line)) {
-                if (idOfBook != id) {
-                    foutAuthorBookTemp << line << std::endl;
-                }
-            }
-
-            while (getline(finBook, line)) {
-                if (idOfBook != id) {
-                    foutBookTemp << line << endl;
-                }
-            }
-
-
-            Book newBook(nameOfBook, price, idOfBook);
-            Author author(nameAu, surnameAu, last_nameAu, newBook);
-            Reader newReader(name, surname, last_name, newBook);
-
-            ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios_base::app);
-            foutReader << name << " " << surname << " " << last_name << " " << nameAu << " "
-                       << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price << " " << idOfBook
-                       << endl;
-            foutReader.close();
-        } else {
-            foutAuthorBookTemp << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price
-                               << " " << id << endl;
-            foutBookTemp << nameOfBook << " " << price << " " << id << endl;
-        }
+    vector<Author> authorbooks;
+    while(finAuthorBook>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
+        Book book(nameOfBook,price,id);
+        Author author(nameAu,surnameAu,last_nameAu,book);
+        authorbooks.push_back(author);
     }
-
-    while (finBookstand >> idBs >> nameOfBook >> price >> id) {
-        if (idOfBook == id) {
-            bookFound = true;
-            string line;
-            while (getline(finBookstand, line)) {
-                if (idOfBook != id) {
-                    foutBookstandTemp << line << endl;
-                }
-                Bookstand bookstand(idBs);
-            }
-        } else {
-            foutBookstandTemp << idBs << " " << nameOfBook << " " << price << " " << id << endl;
-        }
-    }
-
-    if (!bookFound) {
-        cerr << "Book with this ID was not found" << endl;
-    }
-
-    finBook.close();
-    foutBookTemp.close();
-    finBookstand.close();
-    foutBookstandTemp.close();
     finAuthorBook.close();
-    foutAuthorBookTemp.close();
 
-    remove(R"(D:\Coursework\Database\Books.txt)");
-    rename(R"(D:\Coursework\Database\Books_temp.txt)", R"(D:\Coursework\Database\Books.txt)");
+    ofstream foutAuthorBookWr(R"(D:\Coursework\Database\Author+Book.txt)");
 
-    remove(R"(D:\Coursework\Database\Author+Book.txt)");
-    rename(R"(D:\Coursework\Database\Author+Book_temp.txt)", R"(D:\Coursework\Database\Author+Book.txt)");
 
-    remove(R"(D:\Coursework\Database\Bookstands.txt)");
-    rename(R"(D:\Coursework\Database\Bookstands_temp.txt)", R"(D:\Coursework\Database\Bookstands.txt)");
+
+    for(auto it = authorbooks.begin(); it != authorbooks.end(); it++){
+        if (it->getId()==idOfBook){
+            ofstream foutR(R"(D:\Coursework\Database\Reader.txt)",ios_base::app);
+            foutR<<name<<" "<<surname<<" "<<last_name<<" "<<*it;
+            foutR.close();
+        }
+        else{
+                Author author(*it);
+                foutBookWr<<author.getBook();
+
+                foutAuthorBookWr<<author;
+
+                for(auto itBS = bookstands.begin(); itBS != bookstands.end();itBS++){
+                    if(author.getBook()==itBS->getBook()){
+                        foutBookstandWr<<*itBS;
+                    }
+                }
+
+        }
+    }
+
+
+
+
 
 }
 

@@ -5,7 +5,8 @@
 #include "Person.h"
 #include <iostream>
 Person::Person()
-: Person{"unknown", "unknown", "unknown"}{}
+: Person{"unknown", "unknown", "unknown"}
+{}
 
 Person::Person(std::string name, std::string surname, std::string last_name)
 :name(name),surname(surname),last_name(last_name){}

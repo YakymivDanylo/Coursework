@@ -8,13 +8,26 @@
 using namespace std;
 
 Book::Book()
-        : Book("unknown", 0.0, 0) {}
+        : Book("unknown", 0.0, 0) {
+//    Book book;
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout << book<<endl;
+//    fout.close();
+}
 
 Book::Book(string name, double price, int id)
-        : name(name), price(price), id(id) {}
+        : name(name), price(price), id(id) {
+//    Book book;
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout << book<<endl;
+//    fout.close();
+}
 
 Book::~Book() {
-    cout << "Book: " << name << " " << id << " was deleted" << endl;
+//    Book book;
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout<<book<<" was deleted"<<endl;
+//    fout.close();
 
 }
 

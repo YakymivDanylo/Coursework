@@ -4,13 +4,30 @@
 
 #include "Reader.h"
 Reader::Reader()
-    : Person(), books(){}
+    : Person(), books(){
+//    Reader reader;
+//    Book book;
+//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//    fout<<reader<<endl;
+//    fout.close();
+}
 
 Reader::Reader(string name, string surname, string last_name, Book book)
-    : Person(name, surname, last_name), books(book) {}
+    : Person(name, surname, last_name), books(book)
+    {
+//        Reader reader;
+//        ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//        fout<<reader<<endl;
+//        fout.close();
+    }
 
     Reader::~Reader() noexcept {
-    cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted"<<endl;
+//    cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted"<<endl;
+//        Reader reader;
+//        Book book;
+//        ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
+//        fout<<reader<<" was deleted"<<endl;
+//        fout.close();
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){

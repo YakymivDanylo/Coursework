@@ -9,7 +9,7 @@
 #include "memory"
 #include <ctime>
 using namespace std;
-class Book {
+class Book : public error_code {
 private:
     int counter = 1;
     string name;

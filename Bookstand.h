@@ -13,10 +13,10 @@
 class Bookstand{
 private:
     int id;
-    vector<Book> books;
+    Book book;
 public:
     Bookstand();
-    Bookstand(int id);
+    Bookstand(int id,Book book);
     ~Bookstand();
     friend ostream &operator <<(ostream &os, Bookstand &obj);
     friend istream &operator >>(istream &is, Bookstand &obj);
@@ -24,10 +24,10 @@ public:
     Bookstand(Bookstand &&other);
     int getId() const;
     void setId(int id);
-    const vector<Book>& getBooks() const;
+    Book getBook();
     void getBookstand () const;
-    void addBook(const Book& book);
-    void writeBookAndBookStToFile( const Bookstand &bookstand);
+    void addBook();
+
 
 };
 

@@ -26,8 +26,9 @@ public:
     string getSurname() override;
     string getLastName() override;
     void getAuthor() const;
+    int getId();
+    Book getBook() const;
 
-    Book getBook();
 
     void addBook(const Book& book);
 };
