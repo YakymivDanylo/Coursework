@@ -1,4 +1,3 @@
-name1	surname1	last_name1 book1	100 	101
-
-name4	surname4	last_name4 book4	500 	11353
-
+name1 surname1 last_name1 book1 100 5428
+name3 surname3 last_name3 book3 130 5519
+name2 surname2 last_name2 book2 102 5470

@@ -20,10 +20,6 @@ void delimitation() {
     cout << "-------------------------------------------------------------" << endl;
 }
 
-void clearConsole() {
-    system("cls");
-}
-
 void addAuthorAndBook() {
 
     unique_ptr<string> name{new string{"unknown"}};
@@ -46,9 +42,6 @@ void addAuthorAndBook() {
     cout << "Enter the book`s price: ";
     cin >> *bookPrice;
 
-//    unique_ptr<int> bookID{new int{0}};
-//    cout << "Enter the book`s ID : ";
-//    cin >> *bookID;
     int bookID;
     srand(time(0));
     bookID = rand();
@@ -121,10 +114,10 @@ void addBookstand() {
     if (booksFile.is_open()) {
         while (booksFile >> name >> price >> id) {
             if (bookId == id) {
-                counter++;
                 Book book(name, price, bookId);
                 Bookstand bookstand(bookstandId, book);
-                foutbookstand<<bookstand<<endl;
+                foutbookstand<<bookstandId<<" "<<name<<" "<<price<<" "<<bookId<<endl;
+                counter++;
             }
         }
         booksFile.close();
@@ -279,130 +272,147 @@ void showMyBooks() {
 
 
 void takeBook() {
-    cout << "You need to log in" << endl;
-    string name, surname, last_name, nameOfBook;
-    string nameAu, surnameAu, last_nameAu;
-    float price;
-    int id, idOfBook, idBs;
-    cout << "Enter your name: ";
-    cin >> name;
-    cout << "Enter your surname: ";
-    cin >> surname;
-    cout << "Enter your last name: ";
-    cin >> last_name;
-    cout << "Enter book`s ID which you want to take: ";
-    cin >> idOfBook;
+    string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
+    string filenameBook = R"(D:\Coursework\Database\Books.txt)";
+    string filenameBookstand = R"(D:\Coursework\Database\Bookstands.txt)";
+    string filenameReader = R"(D:\Coursework\Database\Reader.txt)";
 
-    ifstream finBook(R"(D:\Coursework\Database\Books.txt)");
-    vector<Book> books;
-    while (finBook>>nameOfBook>>price>>id){
-        Book book(nameOfBook,price,id);
-        books.push_back(book);
+
+
+    cout << "You need to log in" << endl;
+    unique_ptr<string> name{new string {" "}};
+    unique_ptr<string> surname{new string {" "}};
+    unique_ptr<string> last_name{new string {" "}};
+    unique_ptr<string> nameOfBook{new string {" "}};
+    unique_ptr<string> nameAu{new string {" "}};
+    unique_ptr<string> surnameAu{new string {" "}};
+    unique_ptr<string> last_nameAu{new string {" "}};
+    unique_ptr<double> price{new double {0.0}};
+    unique_ptr<int> id{new int {0}};
+    unique_ptr<int> idOfBook{new int {0}};
+    unique_ptr<int> idBs{new int {0}};
+    cout << "Enter your name: ";
+    cin >> *name;
+    cout << "Enter your surname: ";
+    cin >> *surname;
+    cout << "Enter your last name: ";
+    cin >> *last_name;
+    cout << "Enter book`s ID which you want to take: ";
+    cin >> *idOfBook;
+
+    ifstream finAuthor(filenameAuthor);
+    while (finAuthor>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+        if(*idOfBook == *id){
+
+            ofstream foutReader(filenameReader,ios_base::app);
+            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
+            foutReader.close();
+        }
+
     }
+
+    finAuthor.close();
+
+    ifstream finAuthor1(filenameAuthor);
+    ofstream foutAuthor("tempAuthor.txt");
+    while (finAuthor1>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+        if (*idOfBook != *id){
+            foutAuthor<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
+        }
+    }
+    foutAuthor.close();
+    finAuthor1.close();
+
+    remove(filenameAuthor.c_str());
+    rename("tempAuthor.txt",filenameAuthor.c_str());
+
+
+    ifstream finBook(filenameBook);
+    ofstream foutBook("tempBook.txt");
+    while (finBook>>*nameOfBook>>*price>>*id){
+        if (*idOfBook != *id){
+            foutBook<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
+        }
+    }
+    foutBook.close();
     finBook.close();
 
-    ofstream foutBookWr(R"(D:\Coursework\Database\Books.txt)");
+    remove(filenameBook.c_str());
+    rename("tempBook.txt",filenameBook.c_str());
 
-    ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
-    vector<Bookstand> bookstands;
-    while (finBookstand>>idBs>>nameOfBook>>price>>id){
-        Book book(nameOfBook,price,id);
-        Bookstand bookstand(idBs,book);
-        bookstands.push_back(bookstand);
+
+ifstream finBookstand(filenameBookstand);
+    ofstream foutBookstand("tempBookstand.txt");
+    while (finBookstand>>*idBs>>*nameOfBook>>*price>>*id){
+        if (*idOfBook != *id){
+            foutBookstand<<*idBs<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
+        }
     }
+    foutBookstand.close();
     finBookstand.close();
 
-    ofstream foutBookstandWr(R"(D:\Coursework\Database\Bookstands.txt)");
-
-    ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
-    vector<Author> authorbooks;
-    while(finAuthorBook>>nameAu>>surnameAu>>last_nameAu>>nameOfBook>>price>>id){
-        Book book(nameOfBook,price,id);
-        Author author(nameAu,surnameAu,last_nameAu,book);
-        authorbooks.push_back(author);
-    }
-    finAuthorBook.close();
-
-    ofstream foutAuthorBookWr(R"(D:\Coursework\Database\Author+Book.txt)");
+    remove(filenameBookstand.c_str());
+    rename("tempBookstand.txt",filenameBookstand.c_str());
 
 
-
-    for(auto it = authorbooks.begin(); it != authorbooks.end(); it++){
-        if (it->getId()==idOfBook){
-            ofstream foutR(R"(D:\Coursework\Database\Reader.txt)",ios_base::app);
-            foutR<<name<<" "<<surname<<" "<<last_name<<" "<<*it;
-            foutR.close();
-        }
-        else{
-                Author author(*it);
-                foutBookWr<<author.getBook();
-
-                foutAuthorBookWr<<author;
-
-                for(auto itBS = bookstands.begin(); itBS != bookstands.end();itBS++){
-                    if(author.getBook()==itBS->getBook()){
-                        foutBookstandWr<<*itBS;
-                    }
-                }
-
-        }
-    }
+    cout<<"Book with ID "<<*idOfBook<<" was taken by "<<*name<<" "<<*surname<<" "<<*last_name<<endl;
 
 }
 
 void returnBook() {
-    cout << "You need to log in" << endl;
-    string name, surname, last_name, nameOfBook;
-    string name2, surname2, last_name2;
-    string nameAu, surnameAu, last_nameAu;
-    float price;
-    int id, idOfBook;
+    string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
+    string filenameBook = R"(D:\Coursework\Database\Books.txt)";
+    string filenameReader = R"(D:\Coursework\Database\Reader.txt)";
+
+    unique_ptr<string> name{new string {" "}};
+    unique_ptr<string> surname{new string {" "}};
+    unique_ptr<string> last_name{new string {" "}};
+    unique_ptr<string> nameOfBook{new string {" "}};
+    unique_ptr<string> nameAu{new string {" "}};
+    unique_ptr<string> surnameAu{new string {" "}};
+    unique_ptr<string> last_nameAu{new string {" "}};
+    unique_ptr<double> price{new double {0.0}};
+    unique_ptr<int> id{new int {0}};
+    unique_ptr<int> idOfBook{new int {0}};
     cout << "Enter your name: ";
-    cin >> name;
+    cin >> *name;
     cout << "Enter your surname: ";
-    cin >> surname;
+    cin >> *surname;
     cout << "Enter your last name: ";
-    cin >> last_name;
-    cout << "Enter book`s ID which you want to return: ";
-    cin >> idOfBook;
+    cin >> *last_name;
+    cout << "Enter book`s ID which you want to take: ";
+    cin >> *idOfBook;
 
+    ifstream finReader(filenameReader);
+    while(finReader>>*name>>*surname>>*last_name>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+        if(*idOfBook==*id){
+            ofstream foutBook(filenameBook,ios_base::app);
+            foutBook<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
+            foutBook.close();
 
-    ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-
-    ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
-    ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)");
-
-    ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-
-    Author author;
-    vector<Author> authors;
-    vector<Reader> readers;
-    string stringtemp1;
-    string stringtemp2;
-    string stringtemp3;
-
-    while(finReader>>stringtemp1>>stringtemp2>>stringtemp3>>author){
-        Reader reader(stringtemp1,stringtemp2,stringtemp3,author.getBook());
-        authors.push_back(author);
-        readers.push_back(reader);
+            ofstream foutAuthor(filenameAuthor,ios_base::app);
+            foutAuthor<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
+            foutAuthor.close();
+        }
     }
     finReader.close();
 
-    for(auto it = authors.begin();it != authors.end();it++){
-        if(idOfBook == it->getId()){
-            foutBook<<it->getBook()<<endl;
-            foutAuthorBook<<*it<<endl;
-            for(auto it2 = readers.begin(); it2 != readers.end();it2++){
-                if(it2->getId() != it->getId()){
-                    foutReader<<it2->getName()<<" "<<it2->getSurname()<<" "<<it2->getLastName()<<" "<<*it<<endl;
-                }
-            }
+
+    ofstream foutReader("tempReader.txt");
+    while (finReader>>*name>>*surname>>*last_name>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+        if (*idOfBook != *id){
+            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
         }
     }
-
     foutReader.close();
-    foutBook.close();
-    foutAuthorBook.close();
+    finReader.close();
+
+    remove(filenameReader.c_str());
+    rename("tempReader.txt",filenameReader.c_str());
+
+    cout<<"Book with ID "<<*idOfBook<<" was successfully returned"<<endl;
+
+
 }
 
 
