@@ -84,15 +84,7 @@ void addAuthorAndBook() {
 
 }
 
-//bool findBookById(Book &books, int id, Book &foundBook) {
-//    for (const Book &book: books) {
-//        if (book.getId() == id) {
-//            foundBook = book;
-//            return true;
-//        }
-//    }
-//    return false;
-//}
+
 
 
 void addBookstand() {
@@ -153,9 +145,8 @@ void ShowBookstands() {
     int id;
     int idBookstand;
 
-    char ch;
-    while (fin.get(ch)) {
-        cerr << ch;
+    while (fin>>idBookstand>>name>>price>>id){
+        cout<<idBookstand<<" "<<name<<" "<<price<<" "<<id<<endl;
     }
     fin.close();
 }
@@ -185,7 +176,7 @@ int ShowBookById() {
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
     if (book) {
         cout << "Here is your book: " << endl;
-        cerr << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
+        cout << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
     } else {
         cout << "Book with this ID was not found" << endl;
         string name, surname, last_name, nameOfBook;
@@ -199,8 +190,8 @@ int ShowBookById() {
             if (bookId == id) {
                 Book book2(nameOfBook, price, bookId);
                 Author author2(nameAu, surnameAu, last_nameAu, book2);
-                cerr << name2 << " " << surname2 << " " << last_name2 << " " << author2;
-                cerr << "This book is taken" << endl;
+                cout << name2 << " " << surname2 << " " << last_name2 << " " << author2;
+                cout << "This book is taken" << endl;
             }
         }
     }
@@ -217,6 +208,7 @@ void ShowBooksByAuthor() {
     cin >> *surname;
     cout << "Enter author`s last name: ";
     cin >> *last_name;
+    delimitation();
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
     Author author;
@@ -224,14 +216,15 @@ void ShowBooksByAuthor() {
     while (finAB >> author) {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
-            cerr << book;
+            cout << book;
             counter++;
         }
     }
+    cout<<endl;
     finAB.close();
     if (counter == 0) {
 
-        cerr << "There is no reader with this name!" << endl;
+        cerr << "There is no author with this name!" << endl;
         cerr << "Check if you entered the name correctly!" << endl;
     }
 }
@@ -249,7 +242,7 @@ void showMyBooks() {
     cin >> surname;
     cout << "Enter your last name: ";
     cin >> last_name;
-
+    cout<<endl;
     ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
     Book book;
     Author author;
@@ -259,15 +252,18 @@ void showMyBooks() {
         if (name == name2 && surname == surname2 && last_name == last_name2) {
             Book newBook(nameOfBook, price, id);
             Author newAuthor(nameAu, surnameAu, last_nameAu, newBook);
-            cerr << newAuthor << endl;
+            cout << nameAu << " " << surnameAu << " " << last_nameAu << " " << nameOfBook << " " << price << " " << id
+                 << endl;
             counter++;
         }
     }
     finR.close();
     if (counter == 0)
+    {
         cerr << "There is no reader with this name!" << endl;
-    cerr << "Check if you entered the name correctly!" << endl;
+        cerr << "Check if you entered the name correctly!" << endl;
 
+    }
 }
 
 
@@ -380,7 +376,7 @@ void returnBook() {
     cin >> *surname;
     cout << "Enter your last name: ";
     cin >> *last_name;
-    cout << "Enter book`s ID which you want to take: ";
+    cout << "Enter book`s ID which you want to return: ";
     cin >> *idOfBook;
 
     ifstream finReader(filenameReader);
@@ -417,6 +413,8 @@ void returnBook() {
 
 
 int main() {
+//    system("chcp 65001");
+    
     try {
         delimitation();
         cout << "Welcome to our library" << endl;
@@ -440,6 +438,7 @@ int main() {
                 string password;
                 int k = 0;
                 while (k < 3) {
+                    cout<<endl;
                     cout << "Enter password" << endl;
                     cin >> password;
                     delimitation();
@@ -450,9 +449,9 @@ int main() {
                                 cout << "Choose what you want to do" << endl;
                                 cout << "1. Add the book" << endl;
                                 cout << "2. Add the book to the bookstand " << endl;
-                                cout << "3. Show Books" << endl;
-                                cout << "4. Show Readers" << endl;
-                                cout << "5. Show Book by its ID" << endl;
+                                cout << "3. Show books" << endl;
+                                cout << "4. Show readers" << endl;
+                                cout << "5. Show book by its ID" << endl;
                                 cout << "6. Show bookstands" << endl;
                                 cout << "7. Show books by author`s full name " << endl;
                                 cout << "0. Exit" << endl << endl;
@@ -468,40 +467,48 @@ int main() {
                                 switch (choiceAd) {
                                     case 1: {
                                         addAuthorAndBook();
+                                        delimitation();
                                         break;
                                     }
                                     case 2: {
                                         addBookstand();
+                                        delimitation();
                                         break;
                                     }
                                     case 3: {
                                         ShowBooks();
+                                        delimitation();
                                         break;
                                     }
                                     case 4: {
                                         ShowReaders();
+                                        delimitation();
                                         break;
                                     }
                                     case 5: {
                                         ShowBookById();
+                                        delimitation();
                                         break;
 
                                     }
                                     case 6: {
                                         ShowBookstands();
+                                        delimitation();
                                         break;
 
                                     }
                                     case 7: {
                                         ShowBooksByAuthor();
+                                        delimitation();
                                         break;
 
                                     }
                                     case 0: {
+                                        delimitation();
                                         return 0;
-
                                     }
                                     default: {
+                                        cout<<endl;
                                         throw WrongChoice();
                                     }
                                 }
@@ -515,12 +522,15 @@ int main() {
                         }
 
                     } else {
-                        cerr << "Wrong password" << endl;
+                        cout << "Wrong password !" << endl;
+                        cout<<"Check what you entered !"<<endl;
+                        delimitation();
                         k++;
                     }
                 }
                 if (k == 3) {
-                    cerr << "You have reached the maximum number of attempts. The program ends." << endl;
+                    cout << "You have reached the maximum number of attempts! The program ends!" << endl;
+                    delimitation();
                     return 1;
                 }
                 break;
@@ -548,26 +558,32 @@ int main() {
 
                         case 1: {
                             ShowBooks();
+                            delimitation();
                             break;
                         }
                         case 2: {
                             ShowBooksByAuthor();
+                            delimitation();
                             break;
                         }
                         case 3: {
-                            takeBook();//модифікувати функцію за умовами,які написані в блокноті
+                            takeBook();
+                            delimitation();
                             break;
                         }
                         case 4: {
                             returnBook();
+                            delimitation();
                             break;
                         }
                         case 5: {
                             showMyBooks();
+                            delimitation();
                             break;
                         }
                         case 0: {
                             return 0;
+                            delimitation();
                         }
                         default: {
                             throw WrongChoice();
@@ -580,10 +596,12 @@ int main() {
             case 3://Instructions
             {
                 cout << "Instructions" << endl;
+                delimitation();
                 break;
             }
             case 0: {
                 exit(0);
+                delimitation();
             }
 
         }
