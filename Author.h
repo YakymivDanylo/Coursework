@@ -9,6 +9,7 @@
 #include <iostream>
 #include "vector"
 #include "algorithm"
+#include "chrono"
 using namespace std;
 
 class Author final : private Person{
@@ -28,6 +29,7 @@ public:
     void getAuthor() const;
     int getId();
     Book getBook() const;
+    void write_log();
 
 
     void addBook(const Book& book);

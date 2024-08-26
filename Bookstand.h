@@ -9,6 +9,7 @@
 #include "vector"
 #include "ErroOpening.h"
 #include "memory"
+#include "chrono"
 
 class Bookstand{
 private:
@@ -24,9 +25,12 @@ public:
     Bookstand(Bookstand &&other);
     int getId() const;
     void setId(int id);
-    Book getBook();
-    void getBookstand () const;
+
+    [[maybe_unused]] Book getBook();
+
+    [[maybe_unused]] void getBookstand () const;
     void addBook();
+    void write_log();
 
 
 };

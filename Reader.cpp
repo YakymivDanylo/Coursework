@@ -5,29 +5,21 @@
 #include "Reader.h"
 Reader::Reader()
     : Person(), books(){
-//    Reader reader;
-//    Book book;
-//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//    fout<<reader<<endl;
-//    fout.close();
+write_log();
 }
 
 Reader::Reader(string name, string surname, string last_name, Book book)
     : Person(name, surname, last_name), books(book)
     {
-//        Reader reader;
-//        ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//        fout<<reader<<endl;
-//        fout.close();
+write_log();
     }
 
     Reader::~Reader() noexcept {
-//    cout<<name<<" "<<surname<<" "<<last_name<<" "<<"was deleted"<<endl;
-//        Reader reader;
-//        Book book;
-//        ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//        fout<<reader<<" was deleted"<<endl;
-//        fout.close();
+        ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+        auto now = chrono::system_clock::now();
+        time_t log_time = chrono::system_clock::to_time_t(now);
+        foutLog<<ctime(&log_time)<<"\t::\t"
+        <<"Reader object was deleted."<<endl;
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){
@@ -91,5 +83,14 @@ void Reader::getReader() const {
 
 int Reader::getId() {return  books.getId();}
 
-
+void Reader::write_log() {
+    ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+    auto now = chrono::system_clock::now();
+    time_t log_time = chrono::system_clock::to_time_t(now);
+    foutLog<<ctime(&log_time)<<"\t::\t"
+    <<"Reader object was created with parameters: "<<endl
+    <<"\tname: "<<name<<endl
+    <<"\tsurname: "<<surname<<endl
+    <<"\tlastname: "<<last_name<<endl;
+}
 

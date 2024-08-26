@@ -8,6 +8,7 @@
 #include "fstream"
 #include "memory"
 #include <ctime>
+#include "chrono"
 using namespace std;
 class Book : public error_code {
 private:
@@ -28,6 +29,7 @@ public:
     double getPrice() const;
     int getId() const ;
     void getBook() const;
+    void write_log();
 
     unique_ptr<Book> findBookById(const string filename,int bookId){
         ifstream file(filename);

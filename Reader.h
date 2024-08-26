@@ -30,6 +30,7 @@ public:
     Book getBook();
     void write_to_a_file();
     bool search();
+    void write_log();
 };
 
 

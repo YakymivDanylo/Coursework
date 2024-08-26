@@ -7,28 +7,21 @@
 Bookstand::Bookstand()
         : id(0), book()
         {
-//            Bookstand bookstand;
-//            ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//            fout<<bookstand;
-//            fout.close();
-        };
+    write_log();
+        }
 
 Bookstand::Bookstand(int id, Book book)
         : id{id},book{book}
         {
-//            Bookstand bookstand;
-//            ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//            fout<<bookstand;
-//            fout.close();
+write_log();
         }
 
 Bookstand::~Bookstand() {
-//    cout << "Bookstand number " << id << " was deleted" << endl;
-
-//    Bookstand bookstand;
-//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//    fout<<bookstand<<" was deleted"<<endl;
-//    fout.close();
+ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+auto now = chrono::system_clock::now();
+time_t log_time = chrono::system_clock::to_time_t(now);
+foutLog <<ctime(&log_time) <<"\t::\t"
+<<"Bookstand object was deleted."<<endl;
 }
 
 ostream &operator<<(ostream &os, Bookstand &obj) {
@@ -50,37 +43,26 @@ Bookstand::Bookstand(Bookstand &&other)
     other.book = Book();
 }
 
-int Bookstand::getId() const { return id; }
+[[maybe_unused]] int Bookstand::getId() const { return id; }
 
-void Bookstand::setId(int id) { this->id = id; }
+[[maybe_unused]] void Bookstand::setId(int id) { this->id = id; }
 
-void Bookstand::getBookstand() const {
+[[maybe_unused]] void Bookstand::getBookstand() const {
     cout << "ID of the bookstand: " << id << endl;
 }
 
-Book Bookstand::getBook() {
+[[maybe_unused]] Book Bookstand::getBook() {
     return book;
 }
 
-void Bookstand::addBook() {}
-
-
-
-
-//void Bookstand::writeBookAndBookStToFile( const Bookstand &bookstand) {
-//    ofstream fout(R"(D:\Coursework\Database\Bookstands.txt)",ios_base::app);
-//    if (fout.is_open()) {
-//       int id;
-//       string name;
-//       double price;
-//        Bookstand bookstand1(id);
-//        Book book(name,price,id);
-//        fout <<bookstand1<<" "<<book<< endl;
-//    } else {
-//        cerr<<"Error opening file"<<endl;
-//    }
-//    fout.close();
-//}
+void Bookstand::write_log() {
+    ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+    auto now = chrono::system_clock::now();
+    time_t log_time = chrono::system_clock::to_time_t(now);
+    foutLog<<ctime(&log_time)<<"\t::\t"
+    <<"Bookstand object was created with parameters: "<<endl
+    <<"\tid: "<<id<<endl;
+}
 
 
 

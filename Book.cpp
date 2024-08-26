@@ -9,25 +9,20 @@ using namespace std;
 
 Book::Book()
         : Book("unknown", 0.0, 0) {
-//    Book book;
-//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//    fout << book<<endl;
-//    fout.close();
+write_log();
 }
 
 Book::Book(string name, double price, int id)
         : name(name), price(price), id(id) {
-//    Book book;
-//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//    fout << book<<endl;
-//    fout.close();
+write_log();
 }
 
 Book::~Book() {
-//    Book book;
-//    ofstream fout(R"(D:\Coursework\Database\Constructors_and_Destructors.txt)");
-//    fout<<book<<" was deleted"<<endl;
-//    fout.close();
+ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+auto now = chrono::system_clock::now();
+time_t log_time = chrono::system_clock::to_time_t(now);
+foutLog<<ctime(&log_time)<<"\t::\t"
+<<"Book object was deleted."<<endl;
 
 }
 
@@ -77,6 +72,17 @@ int Book::getId() const {
 
 void Book::getBook() const {
     cout << " " << name << " " << price << " " << id << endl;
+}
+
+void Book::write_log() {
+    ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
+    auto now = chrono::system_clock::now();
+    time_t log_time = chrono::system_clock::to_time_t(now);
+    foutLog<<ctime(&log_time)<<"\t::\t"
+    <<"Book object was created with parameters: "<<endl
+    <<"\tname of the book: "<<name<<endl
+    <<"\tprice: "<<price<<endl
+    <<"\tid: "<<id<<endl;
 }
 
 
