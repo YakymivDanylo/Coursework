@@ -70,7 +70,6 @@ void addAuthorAndBook() {
         if (bookID == *bookID1) {
             throw SameID();
         }
-        cout << name1;
     }
     finB.close();
 
