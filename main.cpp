@@ -70,6 +70,9 @@ void addAuthorAndBook() {
         if (bookID == *bookID1) {
             throw SameID();
         }
+        Book book (*bookName,*bookPrice,bookID);
+        Author author(*name,*surname,*last_name,book);
+
     }
     finB.close();
 
@@ -108,7 +111,8 @@ void addBookstand() {
             if (bookId == id) {
                 Book book(name, price, bookId);
                 Bookstand bookstand(bookstandId, book);
-                foutbookstand<<bookstandId<<" "<<name<<" "<<price<<" "<<bookId<<endl;
+//                foutbookstand<<bookstandId<<" "<<name<<" "<<price<<" "<<bookId<<endl;
+                    foutbookstand<<bookstand<<endl;
                 counter++;
             }
         }

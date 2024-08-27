@@ -1,54 +1,156 @@
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:15:27 2024
+	::	Book object was created with parameters: 
+	name of the book: 
+	price: 8.48798e-314
+	id: 16777216
+Tue Aug 27 20:15:27 2024
+	::	Reader object was created with parameters: 
+	name: 
+	surname: 
+	lastname: 
+Tue Aug 27 20:15:27 2024
+	::	Book object was deleted.
+Tue Aug 27 20:15:27 2024
+	::	Reader object was deleted.
+Tue Aug 27 20:15:27 2024
+	::	Book object was deleted.
+Tue Aug 27 20:15:27 2024
+	::	Book object was deleted.
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Aug 27 20:15:39 2024
+	::	Reader object was created with parameters: 
+	name: unknown
+	surname: unknown
+	lastname: unknown
+Tue Aug 27 20:15:39 2024
+	::	Reader object was deleted.
+Tue Aug 27 20:15:39 2024
+	::	Book object was deleted.
+Tue Aug 27 20:15:39 2024
+	::	Author object was deleted.
+Tue Aug 27 20:15:39 2024
+	::	Book object was deleted.
+Tue Aug 27 20:15:39 2024
+	::	Book object was deleted.
+Tue Aug 27 20:19:09 2024
 	::	Book object was created with parameters: 
 	name of the book: 
 	price: 6.36599e-314
 	id: 16777216
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:19:09 2024
 	::	Author object was created with parameters: 
 	name: 
 	surname: 
 	surname: 
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:19:09 2024
 	::	Book object was deleted.
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:19:09 2024
 	::	Author object was deleted.
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:19:09 2024
 	::	Book object was deleted.
-Mon Aug 26 11:28:13 2024
+Tue Aug 27 20:19:09 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:06 2024
+Tue Aug 27 20:19:16 2024
 	::	Book object was created with parameters: 
-	name of the book: 
-	price: 6.36599e-314
-	id: 16777216
-Mon Aug 26 11:31:06 2024
-	::	Author object was created with parameters: 
-	name: 
-	surname: 
-	surname: 
-Mon Aug 26 11:31:06 2024
+	name of the book: book4
+	price: 50
+	id: 3527
+Tue Aug 27 20:19:16 2024
+	::	Bookstand object was created with parameters: 
+	id: 9790
+Tue Aug 27 20:19:16 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:06 2024
-	::	Author object was deleted.
-Mon Aug 26 11:31:06 2024
+Tue Aug 27 20:19:16 2024
+	::	Bookstand object was deleted.
+Tue Aug 27 20:19:16 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:06 2024
+Tue Aug 27 20:19:16 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:22 2024
+Tue Aug 27 20:21:24 2024
 	::	Book object was created with parameters: 
-	name of the book: 
-	price: 6.36599e-314
-	id: 16777216
-Mon Aug 26 11:31:22 2024
+	name of the book: book7
+	price: 100
+	id: 10217
+Tue Aug 27 20:21:24 2024
 	::	Author object was created with parameters: 
-	name: 
-	surname: 
-	surname: 
-Mon Aug 26 11:31:22 2024
+	name: name5
+	surname: surname5
+	surname: last_name5
+Tue Aug 27 20:21:24 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:22 2024
+Tue Aug 27 20:21:24 2024
 	::	Author object was deleted.
-Mon Aug 26 11:31:22 2024
+Tue Aug 27 20:21:24 2024
 	::	Book object was deleted.
-Mon Aug 26 11:31:22 2024
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Book object was created with parameters: 
+	name of the book: book7
+	price: 100
+	id: 10217
+Tue Aug 27 20:21:24 2024
+	::	Author object was created with parameters: 
+	name: name5
+	surname: surname5
+	surname: last_name5
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Author object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Book object was created with parameters: 
+	name of the book: book7
+	price: 100
+	id: 10217
+Tue Aug 27 20:21:24 2024
+	::	Author object was created with parameters: 
+	name: name5
+	surname: surname5
+	surname: last_name5
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Author object was deleted.
+Tue Aug 27 20:21:24 2024
+	::	Book object was deleted.
+Tue Aug 27 20:21:24 2024
 	::	Book object was deleted.
