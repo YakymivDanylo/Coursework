@@ -134,9 +134,6 @@ void addBookstand() {
 
 void ShowBooks() {
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-//    string name, surname, last_name, nameOfBook;
-//    double price;
-//    int id;
     unique_ptr<string>name {new string {"unknown"}};
     unique_ptr<string>nameOfBook {new string {"unknown"}};
     unique_ptr<string>surname {new string {"unknown"}};
@@ -146,6 +143,7 @@ void ShowBooks() {
     Book book(*nameOfBook, *price, *id);
     Author author(*name, *surname, *last_name, book);
     int counter = 1;
+    delimitation2();
     while (fin>> *name>>*surname>>*last_name>>*nameOfBook>>*price>>*id){
         cout<<"Book number: "<<counter++<<endl;
         cout<<"Author`s name:"<<"\t"<<*name<<endl;
@@ -157,23 +155,27 @@ void ShowBooks() {
         cout<<endl;
         delimitation2();
     }
-
-//    char ch;
-//    while (fin.get(ch)) {
-//        cout << ch;
-//    }
     fin.close();
 }
 
 void ShowBookstands() {
     ifstream fin(R"(D:\Coursework\Database\Bookstands.txt)");
-    string name;
-    double price;
-    int id;
-    int idBookstand;
-
-    while (fin>>idBookstand>>name>>price>>id){
-        cout<<idBookstand<<" "<<name<<" "<<price<<" "<<id<<endl;
+//    string name;
+//    double price;
+//    int id;
+//    int idBookstand;
+    unique_ptr<string> name {new string {"unknown"}};
+    unique_ptr<double> price {new double {0}};
+    unique_ptr<int> id {new int {0}};
+    unique_ptr<int> idBookstand {new int {0}};
+    delimitation2();
+    while (fin>>*idBookstand>>*name>>*price>>*id){
+//        cout<<idBookstand<<" "<<name<<" "<<price<<" "<<id<<endl;
+    cout<<"Bookstand with ID:"<<"\t"<<*idBookstand<<endl;
+    cout<<"Book`s name:"<<"\t"<<*name<<endl;
+    cout<<"Book`s price:"<<"\t"<<*price<<endl;
+    cout<<"Book`s ID:"<<"\t"<<*id<<endl;
+    delimitation2();
     }
     fin.close();
 }
