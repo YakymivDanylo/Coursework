@@ -21,6 +21,10 @@ void delimitation() {
     cout << "-------------------------------------------------------------" << endl;
 }
 
+void delimitation2(){
+    cout<<"==============================================================="<<endl;
+}
+
 void addAuthorAndBook() {
 
     unique_ptr<string> name{new string{"unknown"}};
@@ -130,15 +134,34 @@ void addBookstand() {
 
 void ShowBooks() {
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
-    string name, surname, last_name, nameOfBook;
-    double price;
-    int id;
-    Book book(nameOfBook, price, id);
-    Author author(name, surname, last_name, book);
-    char ch;
-    while (fin.get(ch)) {
-        cout << ch;
+//    string name, surname, last_name, nameOfBook;
+//    double price;
+//    int id;
+    unique_ptr<string>name {new string {"unknown"}};
+    unique_ptr<string>nameOfBook {new string {"unknown"}};
+    unique_ptr<string>surname {new string {"unknown"}};
+    unique_ptr<string>last_name {new string {"unknown"}};
+    unique_ptr<double>price {new double {0}};
+    unique_ptr<int>id {new int {0}};
+    Book book(*nameOfBook, *price, *id);
+    Author author(*name, *surname, *last_name, book);
+    int counter = 1;
+    while (fin>> *name>>*surname>>*last_name>>*nameOfBook>>*price>>*id){
+        cout<<"Book number: "<<counter++<<endl;
+        cout<<"Author`s name:"<<"\t"<<*name<<endl;
+        cout<<"Author`s surname:"<<"\t"<<*surname<<endl;
+        cout<<"Author`s last name:"<<"\t"<<*last_name<<endl;
+        cout<<"Book`s name:"<<"\t"<<*nameOfBook<<endl;
+        cout<<"Book`s price:"<<"\t"<<*price<<endl;
+        cout<<"Book`s id:"<<"\t"<<*id<<endl;
+        cout<<endl;
+        delimitation2();
     }
+
+//    char ch;
+//    while (fin.get(ch)) {
+//        cout << ch;
+//    }
     fin.close();
 }
 

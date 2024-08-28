@@ -27,7 +27,7 @@ Author::~Author() noexcept {
 
 
 ostream &operator<<(ostream &os, Author &obj) {
-    os << static_cast<const Person &>(obj) << " ";
+    os <<static_cast<const Person &>(obj)<< " ";
     os << obj.book << endl;
     return os;
 }

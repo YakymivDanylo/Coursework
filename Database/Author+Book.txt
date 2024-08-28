@@ -1,1 +1,2 @@
 name1 surname1 last_name1 book1 100 3742
+name2 surname2 last_name2 book3 45 24949
