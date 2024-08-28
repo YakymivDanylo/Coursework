@@ -144,11 +144,11 @@ void ShowBooks() {
     delimitation2();
     while (fin >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id) {
         cout << "Book number: " << counter++ << endl;
-        cout<<endl;
+        cout << endl;
         cout << "Author`s name:" << "\t" << *name << endl;
         cout << "Author`s surname:" << "\t" << *surname << endl;
         cout << "Author`s last name:" << "\t" << *last_name << endl;
-        cout<<endl;
+        cout << endl;
         cout << "Book`s name:" << "\t" << *nameOfBook << endl;
         cout << "Book`s price:" << "\t" << *price << endl;
         cout << "Book`s id:" << "\t" << *id << endl;
@@ -186,7 +186,7 @@ void ShowReaders() {
     unique_ptr<string> nameReader{new string{"unknown"}};
     unique_ptr<string> surnameReader{new string{"unknown"}};
     unique_ptr<string> last_nameReader{new string{"unknown"}};
-    unique_ptr<int> idReader{new int {0}};
+    unique_ptr<int> idReader{new int{0}};
 
     unique_ptr<string> nameAuthor{new string{"unknown"}};
     unique_ptr<string> surnameAuthor{new string{"unknown"}};
@@ -194,24 +194,25 @@ void ShowReaders() {
 
     unique_ptr<string> nameOfBook{new string{"unknown"}};
     unique_ptr<double> price{new double{0}};
-    unique_ptr<int> idBook{new int {0}};
+    unique_ptr<int> idBook{new int{0}};
     int counter = 1;
     delimitation2();
-    while (fin>>*nameReader>>*surnameReader>>*last_nameReader>>*idReader>>*nameAuthor>>*surnameAuthor>>*last_nameAuthor>>*nameOfBook>>*price>>*idBook){
-        cout<<"Reader number: "<<counter++<<endl;
-        cout<<endl;
-        cout<<"Reader`s name:"<<"\t"<<*nameReader<<endl;
-        cout<<"Reader`s surname:"<<"\t"<<*surnameReader<<endl;
-        cout<<"Reader`s last name:"<<"\t"<<*last_nameReader<<endl;
-        cout<<"Reader`s ID:"<<"\t"<<*idReader<<endl;
-        cout<<endl;
-        cout<<"Author`s name:"<<"\t"<<*nameAuthor<<endl;
-        cout<<"Author`s surname:"<<"\t"<<*surnameAuthor<<endl;
-        cout<<"Author`s last name:"<<"\t"<<*last_nameAuthor<<endl;
-        cout<<endl;
-        cout<<"Book`s name:"<<"\t"<<*nameOfBook<<endl;
-        cout<<"Book`s price:"<<"\t"<<*price<<endl;
-        cout<<"Book`s ID:"<<"\t"<<*idBook<<endl;
+    while (fin >> *nameReader >> *surnameReader >> *last_nameReader >> *idReader >> *nameAuthor >> *surnameAuthor
+               >> *last_nameAuthor >> *nameOfBook >> *price >> *idBook) {
+        cout << "Reader number: " << counter++ << endl;
+        cout << endl;
+        cout << "Reader`s name:" << "\t" << *nameReader << endl;
+        cout << "Reader`s surname:" << "\t" << *surnameReader << endl;
+        cout << "Reader`s last name:" << "\t" << *last_nameReader << endl;
+        cout << "Reader`s ID:" << "\t" << *idReader << endl;
+        cout << endl;
+        cout << "Author`s name:" << "\t" << *nameAuthor << endl;
+        cout << "Author`s surname:" << "\t" << *surnameAuthor << endl;
+        cout << "Author`s last name:" << "\t" << *last_nameAuthor << endl;
+        cout << endl;
+        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
+        cout << "Book`s price:" << "\t" << *price << endl;
+        cout << "Book`s ID:" << "\t" << *idBook << endl;
         delimitation2();
     }
 
@@ -224,29 +225,65 @@ int ShowBookById() {
     Reader reader;
     Author author;
     int bookId;
-    int idR;
+//    int idR;
     cout << "Enter ID of the book: ";
     cin >> bookId;
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
     if (book) {
-        cout << "Here is your book: " << endl;
-        cout << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
+        cout << "Here is your book:" << endl;
+        cout << "Book`s name:" << "\t" << book->getName() << endl;
+        cout << "Book`s price:" << "\t" << book->getPrice() << endl;
+        cout << "Book`s ID:" << "\t" << book->getId() << endl;
+//        cout << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
     } else {
         cout << "Book with this ID was not found" << endl;
-        string name, surname, last_name, nameOfBook;
-        string name2, surname2, last_name2;
-        string nameAu, surnameAu, last_nameAu;
-        float price;
-        int id;
+//        string name, surname, last_name, nameOfBook;
+//        string name2, surname2, last_name2;
+//        string nameAu, surnameAu, last_nameAu;
+//        float price;
+//        int id;
+        unique_ptr<string> name{new string{"unknown"}};
+        unique_ptr<string> surname{new string{"unknown"}};
+        unique_ptr<string> last_name{new string{"unknown"}};
+        unique_ptr<int> idR{new int{0}};
+
+
+        unique_ptr<string> nameOfBook{new string{"unknown"}};
+        unique_ptr<double> price{new double{0}};
+        unique_ptr<int> id{new int{0}};
+
+        unique_ptr<string> name2{new string{"unknown"}};
+        unique_ptr<string> surname2{new string{"unknown"}};
+        unique_ptr<string> last_name2{new string{"unknown"}};
+        unique_ptr<string> nameAu{new string{"unknown"}};
+        unique_ptr<string> surnameAu{new string{"unknown"}};
+        unique_ptr<string> last_nameAu{new string{"unknown"}};
+
+
         ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
-        while (finR >> name2 >> surname2 >> last_name2 >> idR >> nameAu >> surnameAu >> last_nameAu >> nameOfBook
-                    >> price
-                    >> id) {
-            if (bookId == id) {
-                Book book2(nameOfBook, price, bookId);
-                Author author2(nameAu, surnameAu, last_nameAu, book2);
-                cout << "This book was taken by: " << endl;
-                cout << name2 << " " << surname2 << " " << last_name2 << idR << " " << " " << author2;
+        while (finR >> *name2 >> *surname2 >> *last_name2 >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
+                    >> *price
+                    >> *id) {
+            if (bookId == *id) {
+                Book book2(*nameOfBook, *price, bookId);
+                Author author2(*nameAu, *surnameAu, *last_nameAu, book2);
+                delimitation2();
+                cout <<"This book was taken by:" << endl;
+                cout<<"Reader`s name:"<<"\t"<<*name2<<endl;
+                cout<<"Reader`s surname:"<<"\t"<<*surname2<<endl;
+                cout<<"Reader`s last name:"<<"\t"<<*last_name2<<endl;
+                cout<<"Reader`s ID:"<<"\t"<<*idR<<endl;
+                cout<<endl;
+                cout << "Author`s name:" << "\t" << *nameAu << endl;
+                cout << "Author`s surname:" << "\t" << *surnameAu << endl;
+                cout << "Author`s last name:" << "\t" << *last_nameAu << endl;
+                cout << endl;
+                cout << "Book`s name:" << "\t" << *nameOfBook << endl;
+                cout << "Book`s price:" << "\t" << *price << endl;
+                cout << "Book`s ID:" << "\t" << *id << endl;
+                delimitation2();
+
+//                cout << name2 << " " << surname2 << " " << last_name2 << idR << " " << " " << author2;
 
             }
         }
