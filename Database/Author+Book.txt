@@ -1,12 +1,1 @@
-name1 surname1 last_name1 book4 50 3527
-name2 surname2 last_name2 book1 100 16880
-name3 surname3 last_name3 book3 100 17429
-name5	surname5	last_name5 book7	100 	10217
-
-
-name5	surname5	last_name5 book7	100 	10217
-
-
-name5	surname5	last_name5 book7	100 	10217
-
-
+name1 surname1 last_name1 book1 100 3742

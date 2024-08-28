@@ -111,8 +111,8 @@ void addBookstand() {
             if (bookId == id) {
                 Book book(name, price, bookId);
                 Bookstand bookstand(bookstandId, book);
-//                foutbookstand<<bookstandId<<" "<<name<<" "<<price<<" "<<bookId<<endl;
-                    foutbookstand<<bookstand<<endl;
+                foutbookstand<<bookstandId<<" "<<name<<" "<<price<<" "<<bookId<<endl;
+//                    foutbookstand<<bookstand<<endl;
                 counter++;
             }
         }
@@ -160,8 +160,9 @@ void ShowReaders() {
     string name, surname, last_name, nameOfBook;
     double price;
     int id;
+    int idR;
     Book newBook(nameOfBook, price, id);
-    Reader reader(name, surname, last_name, newBook);
+    Reader reader(name, surname, last_name,idR ,newBook);
     char ch;
     while (fin.get(ch)) {
         cout << ch;
@@ -175,6 +176,7 @@ int ShowBookById() {
     Reader reader;
     Author author;
     int bookId;
+    int idR;
     cout << "Enter ID of the book: ";
     cin >> bookId;
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
@@ -189,13 +191,14 @@ int ShowBookById() {
         float price;
         int id;
         ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
-        while (finR >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
+        while (finR >> name2 >> surname2 >> last_name2>>idR >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price
                     >> id) {
             if (bookId == id) {
                 Book book2(nameOfBook, price, bookId);
                 Author author2(nameAu, surnameAu, last_nameAu, book2);
-                cout << name2 << " " << surname2 << " " << last_name2 << " " << author2;
-                cout << "This book is taken" << endl;
+                cout << "This book was taken by: " << endl;
+                cout << name2 << " " << surname2 << " " << last_name2<<idR<<" "<< " " << author2;
+
             }
         }
     }
@@ -212,11 +215,11 @@ void ShowBooksByAuthor() {
     cin >> *surname;
     cout << "Enter author`s last name: ";
     cin >> *last_name;
-    delimitation();
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
     Author author;
     int counter = 0;
+    delimitation();
     while (finAB >> author) {
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
@@ -224,7 +227,7 @@ void ShowBooksByAuthor() {
             counter++;
         }
     }
-    cout<<endl;
+//    cout<<endl;
     finAB.close();
     if (counter == 0) {
 
@@ -240,6 +243,7 @@ void showMyBooks() {
     string nameAu, surnameAu, last_nameAu;
     float price;
     int id;
+    int idR;
     cout << "Enter your name: ";
     cin >> name;
     cout << "Enter your surname: ";
@@ -252,7 +256,7 @@ void showMyBooks() {
     Author author;
     Reader reader;
     int counter = 0;
-    while (finR >> name2 >> surname2 >> last_name2 >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
+    while (finR >> name2 >> surname2 >> last_name2>>idR >> nameAu >> surnameAu >> last_nameAu >> nameOfBook >> price >> id) {
         if (name == name2 && surname == surname2 && last_name == last_name2) {
             Book newBook(nameOfBook, price, id);
             Author newAuthor(nameAu, surnameAu, last_nameAu, newBook);
@@ -289,6 +293,7 @@ void takeBook() {
     unique_ptr<string> last_nameAu{new string {" "}};
     unique_ptr<double> price{new double {0.0}};
     unique_ptr<int> id{new int {0}};
+    int idR;
     unique_ptr<int> idOfBook{new int {0}};
     unique_ptr<int> idBs{new int {0}};
     cout << "Enter your name: ";
@@ -299,13 +304,15 @@ void takeBook() {
     cin >> *last_name;
     cout << "Enter book`s ID which you want to take: ";
     cin >> *idOfBook;
+    srand(time(0));
+    idR = rand();
 
     ifstream finAuthor(filenameAuthor);
     while (finAuthor>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
         if(*idOfBook == *id){
 
             ofstream foutReader(filenameReader,ios_base::app);
-            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
+            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<idR<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
             foutReader.close();
         }
 
@@ -355,7 +362,7 @@ ifstream finBookstand(filenameBookstand);
     rename("tempBookstand.txt",filenameBookstand.c_str());
 
 
-    cout<<"Book with ID "<<*idOfBook<<" was taken by "<<*name<<" "<<*surname<<" "<<*last_name<<endl;
+    cout<<"Book with ID "<<*idOfBook<<" was taken by "<<*name<<" "<<*surname<<" "<<*last_name<<" "<<idR<<endl;
 
 }
 
@@ -374,6 +381,7 @@ void returnBook() {
     unique_ptr<double> price{new double {0.0}};
     unique_ptr<int> id{new int {0}};
     unique_ptr<int> idOfBook{new int {0}};
+    int idR;
     cout << "Enter your name: ";
     cin >> *name;
     cout << "Enter your surname: ";
@@ -384,7 +392,7 @@ void returnBook() {
     cin >> *idOfBook;
 
     ifstream finReader(filenameReader);
-    while(finReader>>*name>>*surname>>*last_name>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+    while(finReader>>*name>>*surname>>*last_name>>idR>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
         if(*idOfBook==*id){
             ofstream foutBook(filenameBook,ios_base::app);
             foutBook<<*nameOfBook<<" "<<*price<<" "<<*idOfBook<<endl;
@@ -399,9 +407,9 @@ void returnBook() {
 
 
     ofstream foutReader("tempReader.txt");
-    while (finReader>>*name>>*surname>>*last_name>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
+    while (finReader>>*name>>*surname>>*last_name>>idR>>*nameAu>>*surnameAu>>*last_nameAu>>*nameOfBook>>*price>>*id){
         if (*idOfBook != *id){
-            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
+            foutReader<<*name<<" "<<*surname<<" "<<*last_name<<" "<<idR<<" "<<*nameAu<<" "<<*surnameAu<<" "<<*last_nameAu<<" "<<*nameOfBook<<" "<<*price<<" "<<*id<<endl;
         }
     }
     foutReader.close();
@@ -410,7 +418,8 @@ void returnBook() {
     remove(filenameReader.c_str());
     rename("tempReader.txt",filenameReader.c_str());
 
-    cout<<"Book with ID "<<*idOfBook<<" was successfully returned"<<endl;
+    cout<<"Book with ID "<<*idOfBook<< endl;
+    cout<<" was successfully returned"<<endl;
 
 
 }
@@ -461,6 +470,7 @@ int main() {
                                 cout << "0. Exit" << endl << endl;
                                 int choiceAd;
                                 cin >> choiceAd;
+                                delimitation();
                                 if (cin.fail()) {
                                     throw InvalidInput();
                                 }

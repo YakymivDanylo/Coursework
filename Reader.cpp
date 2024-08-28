@@ -4,12 +4,12 @@
 
 #include "Reader.h"
 Reader::Reader()
-    : Person(), books(){
+    : Person(),idR(), books(){
 write_log();
 }
 
-Reader::Reader(string name, string surname, string last_name, Book book)
-    : Person(name, surname, last_name), books(book)
+Reader::Reader(string name, string surname, string last_name,int idR ,Book book)
+    : Person(name, surname, last_name),idR(idR) ,books(book)
     {
 write_log();
     }
@@ -23,12 +23,12 @@ write_log();
 }
 
 ostream &operator<<(ostream &os,  Reader &obj){
-    os << static_cast<const Person&>(obj) <<" ";
+    os << static_cast<const Person&>(obj) <<" "<<obj.idR<<" ";
     os<<obj.books<<endl;
     return os;
 }
 istream &operator>>(istream &is,Reader &obj ){
-    is>>static_cast< Person&>(obj);
+    is>>static_cast< Person&>(obj)>>obj.idR;
     is>>obj.books;
     return is;
 }
@@ -38,30 +38,33 @@ Reader &Reader::operator=(const Reader &rhs) {
         this->name=rhs.name;
         this->surname=rhs.surname;
         this->last_name=rhs.last_name;
+        this->idR=rhs.idR;
         this->books=rhs.books;
     }
     return *this;
 }
 
 Reader::Reader(const Reader &other)
-: Person(other), books(other.books){}
+: Person(other),idR(other.idR) ,books(other.books){}
 
 Reader::Reader(Reader &&other)
-: Person(other), books(other.books){
+: Person(other),idR(other.idR) ,books(other.books){
     other.name="unknown";
     other.surname="unknown";
     other.last_name="unknown";
+    other.idR=0;
     other.books=Book();
 }
 
 string Reader::getName() {return name;}
 string Reader::getSurname() {return surname;}
 string Reader::getLastName() {return  last_name;}
+int Reader::getID() {return  idR;}
 Book Reader::getBook() {return books;}
 
 void Reader::write_to_a_file() {
     ofstream fout(R"(D:\Coursework\Database\Reader.txt)",ios_base::app);
-    fout<<name<<"\t"<<surname<<"\t"<<last_name<<"\t"<<books<<endl;
+    fout<<name<<"\t"<<surname<<"\t"<<last_name<<"\t"<<idR<<"\t"<<books<<endl;
     fout.close();
 }
 
@@ -70,14 +73,14 @@ bool Reader::search() {
     Book book;
     Reader reader;
     while (fin>>reader){
-        if(reader.name==name && reader.surname==surname && reader.last_name==last_name)
+        if(reader.name==name && reader.surname==surname && reader.last_name==last_name && reader.idR == idR)
             return true;
     }
     return false;
 }
 
 void Reader::getReader() const {
-    cout<<"Name: "<<name<<" Surname: "<<surname<<" Last name:"<<last_name<<endl;
+    cout<<"Name: "<<name<<" Surname: "<<surname<<" Last name:"<<last_name<<"ID of reader"<<idR<<" ";
     books.getBook();
 }
 
@@ -91,6 +94,7 @@ void Reader::write_log() {
     <<"Reader object was created with parameters: "<<endl
     <<"\tname: "<<name<<endl
     <<"\tsurname: "<<surname<<endl
-    <<"\tlastname: "<<last_name<<endl;
+    <<"\tlastname: "<<last_name<<endl
+    <<"\tID: "<<idR<<endl;
 }
 
