@@ -2471,3 +2471,201 @@ Thu Aug 29 17:21:05 2024
 	::	Book object was deleted.
 Thu Aug 29 17:21:05 2024
 	::	Book object was deleted.
+Thu Aug 29 17:24:38 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:24:38 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:24:38 2024
+	::	Book object was deleted.
+Thu Aug 29 17:24:38 2024
+	::	Author object was deleted.
+Thu Aug 29 17:24:38 2024
+	::	Book object was deleted.
+Thu Aug 29 17:24:38 2024
+	::	Book object was deleted.
+Thu Aug 29 17:25:28 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:25:28 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:25:28 2024
+	::	Book object was deleted.
+Thu Aug 29 17:25:28 2024
+	::	Author object was deleted.
+Thu Aug 29 17:25:28 2024
+	::	Book object was deleted.
+Thu Aug 29 17:25:28 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:05 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:32:05 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:32:05 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:05 2024
+	::	Author object was deleted.
+Thu Aug 29 17:32:05 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:05 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:15 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:32:15 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:32:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:15 2024
+	::	Author object was deleted.
+Thu Aug 29 17:32:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:40 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:32:40 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:32:40 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:40 2024
+	::	Author object was deleted.
+Thu Aug 29 17:32:40 2024
+	::	Book object was deleted.
+Thu Aug 29 17:32:40 2024
+	::	Book object was deleted.
+Thu Aug 29 17:35:57 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:35:57 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:35:57 2024
+	::	Book object was deleted.
+Thu Aug 29 17:35:57 2024
+	::	Author object was deleted.
+Thu Aug 29 17:35:57 2024
+	::	Book object was deleted.
+Thu Aug 29 17:35:57 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:13 2024
+	::	Book object was created with parameters: 
+	name of the book: book1
+	price: 35
+	id: 17856
+Thu Aug 29 17:36:13 2024
+	::	Author object was created with parameters: 
+	name: name1
+	surname: surname1
+	surname: last_name1
+Thu Aug 29 17:36:13 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:13 2024
+	::	Author object was deleted.
+Thu Aug 29 17:36:13 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:13 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:15 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:36:15 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:36:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:15 2024
+	::	Author object was deleted.
+Thu Aug 29 17:36:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:15 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:33 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:36:33 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:36:33 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:33 2024
+	::	Author object was deleted.
+Thu Aug 29 17:36:33 2024
+	::	Book object was deleted.
+Thu Aug 29 17:36:33 2024
+	::	Book object was deleted.
+Thu Aug 29 17:37:12 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:37:12 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:37:12 2024
+	::	Book object was deleted.
+Thu Aug 29 17:37:12 2024
+	::	Author object was deleted.
+Thu Aug 29 17:37:12 2024
+	::	Book object was deleted.
+Thu Aug 29 17:37:12 2024
+	::	Book object was deleted.
+Thu Aug 29 17:38:31 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Aug 29 17:38:31 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Aug 29 17:38:31 2024
+	::	Book object was deleted.
+Thu Aug 29 17:38:31 2024
+	::	Author object was deleted.
+Thu Aug 29 17:38:31 2024
+	::	Book object was deleted.
+Thu Aug 29 17:38:31 2024
+	::	Book object was deleted.

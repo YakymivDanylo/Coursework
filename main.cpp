@@ -422,7 +422,7 @@ void takeBook() {
     cin >> *surname;
     cout << "Enter your last name: ";
     cin >> *last_name;
-    cout<<"Create your own ID and remember it! If you have one enter it."<<endl;
+    cout<<"Create your own ID and remember it!\n If you have one enter it.\n";
     cout<<"Enter your ID:";
     cin>>*idR;
     cout << "Enter book`s ID which you want to take: ";
@@ -487,7 +487,7 @@ void takeBook() {
 
 
     cout << "Book with ID " << *idOfBook << " was taken by " << *name << " " << *surname << " " << *last_name << " "
-         << idR << endl;
+         << *idR << endl;
 
 }
 
@@ -507,7 +507,7 @@ void returnBook() {
     unique_ptr<int> id{new int{0}};
     unique_ptr<int> idOfBook{new int{0}};
     unique_ptr<int> idR{new int{0}};
-    unique_ptr<int> idR2{new int{0}};
+//    unique_ptr<int> idR2{new int{0}};
     cout << "Enter your name: ";
     cin >> *name;
     cout << "Enter your surname: ";
@@ -520,9 +520,9 @@ void returnBook() {
     cin >> *idOfBook;
 
     ifstream finReader(filenameReader);
-    while (finReader >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
+    while (finReader >> *name >> *surname >> *last_name >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
                      >> *price >> *id) {
-        if (*idOfBook == *id && *idR == *idR2) {
+        if (*idOfBook == *id ) {
             ofstream foutBook(filenameBook, ios_base::app);
             foutBook << *nameOfBook << " " << *price << " " << *idOfBook << endl;
             foutBook.close();
@@ -537,10 +537,10 @@ void returnBook() {
 
 
     ofstream foutReader("tempReader.txt");
-    while (finReader >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
+    while (finReader >> *name >> *surname >> *last_name >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
                      >> *price >> *id) {
         if (*idOfBook != *id) {
-            foutReader << *name << " " << *surname << " " << *last_name << " " << idR2 << " " << *nameAu << " "
+            foutReader << *name << " " << *surname << " " << *last_name << " " << idR << " " << *nameAu << " "
                        << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price << " " << *id
                        << endl;
         }
