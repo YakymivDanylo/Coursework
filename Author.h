@@ -27,8 +27,11 @@ public:
     string getSurname() override;
     string getLastName() override;
     void getAuthor() const;
-    int getId();
+
     Book getBook() const;
+    string getNameBook();
+    double getPriceBook();
+    int getId();
     void write_log();
 
 

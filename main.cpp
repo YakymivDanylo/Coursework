@@ -76,7 +76,6 @@ void addAuthorAndBook() {
         }
         Book book(*bookName, *bookPrice, bookID);
         Author author(*name, *surname, *last_name, book);
-
     }
     finB.close();
 
@@ -93,28 +92,29 @@ void addAuthorAndBook() {
 
 
 void addBookstand() {
-    string name;
-    double price;
-    int id;
-    int bookId;
+
     int bookstandId;
+    unique_ptr<string> name {new string {"unknwon"}};
+    unique_ptr<double> price {new double {0}};
+    unique_ptr<int> id {new int {0}};
+    unique_ptr<int> bookId {new int {0}};
 
     srand(time(0));
     bookstandId = rand();
 
     cout << "Enter ID of the book: ";
-    cin >> bookId;
+    cin >> *bookId;
 
     int counter = 0;
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
     ofstream foutbookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
     if (booksFile.is_open()) {
-        while (booksFile >> name >> price >> id) {
-            if (bookId == id) {
-                Book book(name, price, bookId);
+        while (booksFile >> *name >> *price >> *id) {
+            if (*bookId == *id) {
+                Book book(*name, *price, *bookId);
                 Bookstand bookstand(bookstandId, book);
-                foutbookstand << bookstandId << " " << name << " " << price << " " << bookId << endl;
-//                    foutbookstand<<bookstand<<endl;
+//                foutbookstand << bookstandId << " " << *name << " " << *price << " " << *bookId << endl;
+                    foutbookstand<<bookstand<<endl;
                 counter++;
             }
         }

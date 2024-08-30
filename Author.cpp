@@ -72,9 +72,18 @@ Book Author::getBook() const {
     return book;
 }
 
+string Author::getNameBook() {
+    return book.getName();
+}
+
+double Author::getPriceBook() {
+    return book.getPrice();
+}
+
 int Author::getId() {
     return book.getId();
 }
+
 
 void Author::write_log() {
 
@@ -87,7 +96,6 @@ void Author::write_log() {
             << "\tsurname: " << surname << endl
             << "\tsurname: " << last_name << endl;
 }
-
 
 
 
