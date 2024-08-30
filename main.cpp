@@ -113,7 +113,6 @@ void addBookstand() {
             if (*bookId == *id) {
                 Book book(*name, *price, *bookId);
                 Bookstand bookstand(bookstandId, book);
-//                foutbookstand << bookstandId << " " << *name << " " << *price << " " << *bookId << endl;
                     foutbookstand<<bookstand<<endl;
                 counter++;
             }
@@ -142,16 +141,29 @@ void ShowBooks() {
     Author author(*name, *surname, *last_name, book);
     int counter = 1;
     delimitation2();
-    while (fin >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id) {
+//    while (fin >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id) {
+//        cout << "Book number: " << counter++ << endl;
+//        cout << endl;
+//        cout << "Author`s name:" << "\t" << *name << endl;
+//        cout << "Author`s surname:" << "\t" << *surname << endl;
+//        cout << "Author`s last name:" << "\t" << *last_name << endl;
+//        cout << endl;
+//        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
+//        cout << "Book`s price:" << "\t" << *price << endl;
+//        cout << "Book`s id:" << "\t" << *id << endl;
+//        cout << endl;
+//        delimitation2();
+//    }
+    while (fin >> author) {
         cout << "Book number: " << counter++ << endl;
         cout << endl;
-        cout << "Author`s name:" << "\t" << *name << endl;
-        cout << "Author`s surname:" << "\t" << *surname << endl;
-        cout << "Author`s last name:" << "\t" << *last_name << endl;
+        cout << "Author`s name:" << "\t" << author.getName() << endl;
+        cout << "Author`s surname:" << "\t" << author.getSurname() << endl;
+        cout << "Author`s last name:" << "\t" << author.getLastName() << endl;
         cout << endl;
-        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
-        cout << "Book`s price:" << "\t" << *price << endl;
-        cout << "Book`s id:" << "\t" << *id << endl;
+        cout << "Book`s name:" << "\t" << author.getNameBook() << endl;
+        cout << "Book`s price:" << "\t" << author.getPriceBook()<< endl;
+        cout << "Book`s id:" << "\t" << author.getId() << endl;
         cout << endl;
         delimitation2();
     }
