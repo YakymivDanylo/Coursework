@@ -177,12 +177,6 @@ void ShowBookstands() {
 
 void ShowReaders() {
     ifstream fin(R"(D:\Coursework\Database\Reader.txt)");
-//    string name, surname, last_name, nameOfBook;
-//    double price;
-//    int id;
-//    int idR;
-//    Book newBook(nameOfBook, price, id);
-//    Reader reader(name, surname, last_name,idR ,newBook);
     unique_ptr<string> nameReader{new string{"unknown"}};
     unique_ptr<string> surnameReader{new string{"unknown"}};
     unique_ptr<string> last_nameReader{new string{"unknown"}};
@@ -225,7 +219,6 @@ int ShowBookById() {
     Reader reader;
     Author author;
     int bookId;
-//    int idR;
     cout << "Enter ID of the book: ";
     cin >> bookId;
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
@@ -234,14 +227,9 @@ int ShowBookById() {
         cout << "Book`s name:" << "\t" << book->getName() << endl;
         cout << "Book`s price:" << "\t" << book->getPrice() << endl;
         cout << "Book`s ID:" << "\t" << book->getId() << endl;
-//        cout << book->getName() << " " << book->getPrice() << " " << book->getId() << endl;
     } else {
         cout << "Book with this ID was not found" << endl;
-//        string name, surname, last_name, nameOfBook;
-//        string name2, surname2, last_name2;
-//        string nameAu, surnameAu, last_nameAu;
-//        float price;
-//        int id;
+
         unique_ptr<string> name{new string{"unknown"}};
         unique_ptr<string> surname{new string{"unknown"}};
         unique_ptr<string> last_name{new string{"unknown"}};
@@ -261,19 +249,20 @@ int ShowBookById() {
 
 
         ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
-        while (finR >> *name2 >> *surname2 >> *last_name2 >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
+        while (finR >> *name2 >> *surname2 >> *last_name2 >> *idR >> *nameAu >> *surnameAu >> *last_nameAu
+                    >> *nameOfBook
                     >> *price
                     >> *id) {
             if (bookId == *id) {
                 Book book2(*nameOfBook, *price, bookId);
                 Author author2(*nameAu, *surnameAu, *last_nameAu, book2);
                 delimitation2();
-                cout <<"This book was taken by:" << endl;
-                cout<<"Reader`s name:"<<"\t"<<*name2<<endl;
-                cout<<"Reader`s surname:"<<"\t"<<*surname2<<endl;
-                cout<<"Reader`s last name:"<<"\t"<<*last_name2<<endl;
-                cout<<"Reader`s ID:"<<"\t"<<*idR<<endl;
-                cout<<endl;
+                cout << "This book was taken by:" << endl;
+                cout << "Reader`s name:" << "\t" << *name2 << endl;
+                cout << "Reader`s surname:" << "\t" << *surname2 << endl;
+                cout << "Reader`s last name:" << "\t" << *last_name2 << endl;
+                cout << "Reader`s ID:" << "\t" << *idR << endl;
+                cout << endl;
                 cout << "Author`s name:" << "\t" << *nameAu << endl;
                 cout << "Author`s surname:" << "\t" << *surnameAu << endl;
                 cout << "Author`s last name:" << "\t" << *last_nameAu << endl;
@@ -282,9 +271,6 @@ int ShowBookById() {
                 cout << "Book`s price:" << "\t" << *price << endl;
                 cout << "Book`s ID:" << "\t" << *id << endl;
                 delimitation2();
-
-//                cout << name2 << " " << surname2 << " " << last_name2 << idR << " " << " " << author2;
-
             }
         }
     }
@@ -313,10 +299,8 @@ void ShowBooksByAuthor() {// тут я закінчив
             counter++;
         }
     }
-//    cout<<endl;
     finAB.close();
     if (counter == 0) {
-
         cerr << "There is no author with this name!" << endl;
         cerr << "Check if you entered the name correctly!" << endl;
     }
@@ -324,31 +308,25 @@ void ShowBooksByAuthor() {// тут я закінчив
 
 void showMyBooks() {
     cout << "You need to log in" << endl;
-//    string name, surname, last_name, nameOfBook;
-//    string name2, surname2, last_name2;
-//    string nameAu, surnameAu, last_nameAu;
-//    float price;
-//    int id;
-//    int idR;
 
-    unique_ptr<string> name {new string {"unknown"}};
-    unique_ptr<string> surname {new string {"unknown"}};
-    unique_ptr<string> last_name {new string {"unknown"}};
-    unique_ptr<string> nameOfBook {new string {"unknown"}};
+    unique_ptr<string> name{new string{"unknown"}};
+    unique_ptr<string> surname{new string{"unknown"}};
+    unique_ptr<string> last_name{new string{"unknown"}};
+    unique_ptr<string> nameOfBook{new string{"unknown"}};
 
-    unique_ptr<string> name2{new string {"unknown"}};
-    unique_ptr<string> surname2{new string {"unknown"}};
-    unique_ptr<string> last_name2{new string {"unknown"}};
+    unique_ptr<string> name2{new string{"unknown"}};
+    unique_ptr<string> surname2{new string{"unknown"}};
+    unique_ptr<string> last_name2{new string{"unknown"}};
 
-    unique_ptr<string> nameAu{new string {"unknown"}};
-    unique_ptr<string> surnameAu{new string {"unknown"}};
-    unique_ptr<string> last_nameAu{new string {"unknown"}};
+    unique_ptr<string> nameAu{new string{"unknown"}};
+    unique_ptr<string> surnameAu{new string{"unknown"}};
+    unique_ptr<string> last_nameAu{new string{"unknown"}};
 
-    unique_ptr<double> price{new double {0}};
+    unique_ptr<double> price{new double{0}};
 
-    unique_ptr<int> id{new int {0}};
-    unique_ptr<int> idR{new int {0}};
-    unique_ptr<int> idR2{new int {0}};
+    unique_ptr<int> id{new int{0}};
+    unique_ptr<int> idR{new int{0}};
+    unique_ptr<int> idR2{new int{0}};
 
 
     cout << "Enter your name: ";
@@ -366,16 +344,16 @@ void showMyBooks() {
     Reader reader;
     int counter = 0;
     int counterBook = 1;
-    while (finR >> *name2 >> *surname2 >> *last_name2 >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price
+    while (finR >> *name2 >> *surname2 >> *last_name2 >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
+                >> *price
                 >> *id) {
         delimitation2();
-        if (*name == *name2 && *surname == *surname2 && *last_name == *last_name2 && *idR == *idR2 ) {
+        if (*name == *name2 && *surname == *surname2 && *last_name == *last_name2 && *idR == *idR2) {
             Book newBook(*nameOfBook, *price, *id);
-            Author newAuthor(*nameAu, *surnameAu, *last_nameAu ,newBook);
-//            cout << *nameAu << " " << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price << " " << *id
-//                 << endl;
-            cout<<"Book number:"<<"\t"<<counterBook++<<endl;
-            cout<<endl;
+            Author newAuthor(*nameAu, *surnameAu, *last_nameAu, newBook);
+
+            cout << "Book number:" << "\t" << counterBook++ << endl;
+            cout << endl;
             cout << "Author`s name:" << "\t" << *nameAu << endl;
             cout << "Author`s surname:" << "\t" << *surnameAu << endl;
             cout << "Author`s last name:" << "\t" << *last_nameAu << endl;
@@ -422,9 +400,9 @@ void takeBook() {
     cin >> *surname;
     cout << "Enter your last name: ";
     cin >> *last_name;
-    cout<<"Create your own ID and remember it!\n If you have one enter it.\n";
-    cout<<"Enter your ID:";
-    cin>>*idR;
+    cout << "Create your own ID and remember it!\n If you have one enter it.\n";
+    cout << "Enter your ID:";
+    cin >> *idR;
     cout << "Enter book`s ID which you want to take: ";
     cin >> *idOfBook;
 
@@ -499,15 +477,22 @@ void returnBook() {
     unique_ptr<string> name{new string{" "}};
     unique_ptr<string> surname{new string{" "}};
     unique_ptr<string> last_name{new string{" "}};
-    unique_ptr<string> nameOfBook{new string{" "}};
+
+    unique_ptr<string> name2{new string{" "}};
+    unique_ptr<string> surname2{new string{" "}};
+    unique_ptr<string> last_name2{new string{" "}};
+
     unique_ptr<string> nameAu{new string{" "}};
     unique_ptr<string> surnameAu{new string{" "}};
     unique_ptr<string> last_nameAu{new string{" "}};
+
+    unique_ptr<string> nameOfBook{new string{" "}};
     unique_ptr<double> price{new double{0.0}};
     unique_ptr<int> id{new int{0}};
     unique_ptr<int> idOfBook{new int{0}};
+
     unique_ptr<int> idR{new int{0}};
-//    unique_ptr<int> idR2{new int{0}};
+    unique_ptr<int> idR2{new int{0}};
     cout << "Enter your name: ";
     cin >> *name;
     cout << "Enter your surname: ";
@@ -520,9 +505,8 @@ void returnBook() {
     cin >> *idOfBook;
 
     ifstream finReader(filenameReader);
-    while (finReader >> *name >> *surname >> *last_name >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
-                     >> *price >> *id) {
-        if (*idOfBook == *id ) {
+    while (finReader >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
+        if (*idOfBook == *id && *idR==*idR2 ) {
             ofstream foutBook(filenameBook, ios_base::app);
             foutBook << *nameOfBook << " " << *price << " " << *idOfBook << endl;
             foutBook.close();
@@ -536,17 +520,17 @@ void returnBook() {
     finReader.close();
 
 
+    ifstream finReader1(filenameReader);
     ofstream foutReader("tempReader.txt");
-    while (finReader >> *name >> *surname >> *last_name >> *idR >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
-                     >> *price >> *id) {
+    while (finReader1 >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
         if (*idOfBook != *id) {
-            foutReader << *name << " " << *surname << " " << *last_name << " " << idR << " " << *nameAu << " "
+            foutReader << *name << " " << *surname << " " << *last_name << " " << *idR2 << " " << *nameAu << " "
                        << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price << " " << *id
                        << endl;
         }
     }
     foutReader.close();
-    finReader.close();
+    finReader1.close();
 
     remove(filenameReader.c_str());
     rename("tempReader.txt", filenameReader.c_str());
