@@ -440,15 +440,19 @@ void takeBook() {
     unique_ptr<string> name{new string{" "}};
     unique_ptr<string> surname{new string{" "}};
     unique_ptr<string> last_name{new string{" "}};
-    unique_ptr<string> nameOfBook{new string{" "}};
+    unique_ptr<int> idR{new int{0}};
+
     unique_ptr<string> nameAu{new string{" "}};
     unique_ptr<string> surnameAu{new string{" "}};
     unique_ptr<string> last_nameAu{new string{" "}};
+
+    unique_ptr<string> nameOfBook{new string{" "}};
     unique_ptr<double> price{new double{0.0}};
     unique_ptr<int> id{new int{0}};
-    unique_ptr<int> idR{new int{0}};
     unique_ptr<int> idOfBook{new int{0}};
+
     unique_ptr<int> idBs{new int{0}};
+
     cout << "Enter your name: ";
     cin >> *name;
     cout << "Enter your surname: ";
@@ -461,14 +465,21 @@ void takeBook() {
     cout << "Enter book`s ID which you want to take: ";
     cin >> *idOfBook;
 
+    Reader reader1(*name,*surname,*last_name,*idR);
 
     ifstream finAuthor(filenameAuthor);
     while (finAuthor >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
         if (*idOfBook == *id) {
+
+            Book book(*nameOfBook,*price,*idOfBook);
+            Author author(*nameAu,*surnameAu,*last_nameAu,book);
+            Reader reader(*name,*surname,*last_name,*idR);
+
             ofstream foutReader(filenameReader, ios_base::app);
-            foutReader << *name << " " << *surname << " " << *last_name << " " << *idR << " " << *nameAu << " "
-                       << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price << " " << *idOfBook
-                       << endl;
+//            foutReader << *name << " " << *surname << " " << *last_name << " " << *idR << " " << *nameAu << " "
+//                       << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price << " " << *idOfBook
+//                       << endl;
+                foutReader<<reader.getName()<<" "<<reader.getSurname()<<" "<<reader.getLastName()<<" "<<reader.getID()<<" "<<author.getName()<<" "<<author.getSurname()<<" "<<author.getLastName()<<" "<<author.getNameBook()<<" "<<author.getPriceBook()<<" "<<author.getId()<<endl;
             foutReader.close();
         }
 
@@ -480,8 +491,12 @@ void takeBook() {
     ofstream foutAuthor("tempAuthor.txt");
     while (finAuthor1 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
         if (*idOfBook != *id) {
-            foutAuthor << *nameAu << " " << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price
-                       << " " << *id << endl;
+
+            Book book(*nameOfBook,*price,*id);
+            Author author(*nameAu,*surnameAu,*last_nameAu,book);
+//            foutAuthor << *nameAu << " " << *surnameAu << " " << *last_nameAu << " " << *nameOfBook << " " << *price
+//                       << " " << *id << endl;
+            foutAuthor<<author.getName()<<" "<<author.getSurname()<<" "<<author.getLastName()<<" "<<author.getNameBook()<<" "<<author.getPriceBook()<<" "<<author.getId()<<endl;
         }
     }
     foutAuthor.close();
@@ -495,7 +510,9 @@ void takeBook() {
     ofstream foutBook("tempBook.txt");
     while (finBook >> *nameOfBook >> *price >> *id) {
         if (*idOfBook != *id) {
-            foutBook << *nameOfBook << " " << *price << " " << *id << endl;
+            Book book(*nameOfBook,*price,*id);
+//            foutBook << *nameOfBook << " " << *price << " " << *id << endl;
+            foutBook << book.getName()<<" "<<book.getPrice()<<" "<<book.getId()<< endl;
         }
     }
     foutBook.close();
@@ -509,7 +526,10 @@ void takeBook() {
     ofstream foutBookstand("tempBookstand.txt");
     while (finBookstand >> *idBs >> *nameOfBook >> *price >> *id) {
         if (*idOfBook != *id) {
-            foutBookstand << *idBs << *nameOfBook << " " << *price << " " << *id << endl;
+            Book book(*nameOfBook,*price,*id);
+            Bookstand bookstand(*idBs,book);
+//            foutBookstand << *idBs << *nameOfBook << " " << *price << " " << *id << endl;
+            foutBookstand << bookstand.getIdBookstand()<<" "<<bookstand.getNameBook()<<" "<<bookstand.getPriceBook()<<" "<<bookstand.getIdBook()<< endl;
         }
     }
     foutBookstand.close();
@@ -519,8 +539,10 @@ void takeBook() {
     rename("tempBookstand.txt", filenameBookstand.c_str());
 
 
-    cout << "Book with ID " << *idOfBook << " was taken by " << *name << " " << *surname << " " << *last_name << " "
-         << *idR << endl;
+//    cout << "Book with ID " << *idOfBook << " was taken by " << *name << " " << *surname << " " << *last_name << " "
+//         << *idR << endl;
+    cout << "Book with ID " << *idOfBook << " was taken by " << reader1.getName() << " " << reader1.getSurname() << " " << reader1.getLastName() << " "
+         << reader1.getID() << endl;
 
 }
 
