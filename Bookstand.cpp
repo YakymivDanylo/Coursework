@@ -37,13 +37,27 @@ istream &operator>>(istream &is, Bookstand &obj) {
 Bookstand::Bookstand(const Bookstand &other)
         : id(other.id), book(other.book) {}
 
+
+string Bookstand::getNameBook() {
+    return book.getName();}
+
+double Bookstand::getPriceBook() {
+    return book.getPrice();
+}
+
+int Bookstand::getIdBook() {
+    return book.getId();
+}
+
+
+
 Bookstand::Bookstand(Bookstand &&other)
         : id(other.id), book(other.book) {
     other.id = 0;
     other.book = Book();
 }
 
-[[maybe_unused]] int Bookstand::getId() const { return id; }
+[[maybe_unused]] int Bookstand::getIdBookstand() const { return id; }
 
 [[maybe_unused]] void Bookstand::setId(int id) { this->id = id; }
 

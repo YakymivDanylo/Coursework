@@ -105,12 +105,15 @@ void addBookstand() {
     cout << "Enter ID of the book: ";
     cin >> *bookId;
 
+    Book book(*name, *price, *id);
+    Bookstand bookstand(bookstandId, book);
+
     int counter = 0;
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
     ofstream foutbookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
     if (booksFile.is_open()) {
-        while (booksFile >> *name >> *price >> *id) {
-            if (*bookId == *id) {
+        while (booksFile >> book) {
+            if (*bookId == book.getId()) {
                 Book book(*name, *price, *bookId);
                 Bookstand bookstand(bookstandId, book);
                     foutbookstand<<bookstand<<endl;
@@ -119,7 +122,7 @@ void addBookstand() {
         }
         booksFile.close();
         if (counter == 0) {
-            cerr << "There is no book with this ID!" << endl;
+            cerr << "There is no book with this ID or this book is already in the bookstand!" << endl;
         }
 
     } else {
@@ -176,12 +179,21 @@ void ShowBookstands() {
     unique_ptr<double> price{new double{0}};
     unique_ptr<int> id{new int{0}};
     unique_ptr<int> idBookstand{new int{0}};
+    Book book(*name,*price,*id);
+    Bookstand bookstand(*idBookstand,book);
     delimitation2();
-    while (fin >> *idBookstand >> *name >> *price >> *id) {
-        cout << "Bookstand with ID:" << "\t" << *idBookstand << endl;
-        cout << "Book`s name:" << "\t" << *name << endl;
-        cout << "Book`s price:" << "\t" << *price << endl;
-        cout << "Book`s ID:" << "\t" << *id << endl;
+//    while (fin >> *idBookstand >> *name >> *price >> *id) {
+//        cout << "Bookstand with ID:" << "\t" << *idBookstand << endl;
+//        cout << "Book`s name:" << "\t" << *name << endl;
+//        cout << "Book`s price:" << "\t" << *price << endl;
+//        cout << "Book`s ID:" << "\t" << *id << endl;
+//        delimitation2();
+//    }
+    while (fin >> bookstand) {
+        cout << "Bookstand with ID:" << "\t" << bookstand.getIdBookstand() << endl;
+        cout << "Book`s name:" << "\t" << bookstand.getNameBook() << endl;
+        cout << "Book`s price:" << "\t" << bookstand.getPriceBook() << endl;
+        cout << "Book`s ID:" << "\t" << bookstand.getIdBook()<< endl;
         delimitation2();
     }
     fin.close();
@@ -202,23 +214,44 @@ void ShowReaders() {
     unique_ptr<double> price{new double{0}};
     unique_ptr<int> idBook{new int{0}};
     int counter = 1;
+
+    Book book(*nameOfBook,*price,*idBook);
+    Author author(*nameAuthor,*surnameAuthor,*last_nameAuthor,book);
+    Reader reader(*nameReader,*surnameReader,*last_nameReader,*idReader);
     delimitation2();
-    while (fin >> *nameReader >> *surnameReader >> *last_nameReader >> *idReader >> *nameAuthor >> *surnameAuthor
-               >> *last_nameAuthor >> *nameOfBook >> *price >> *idBook) {
+//    while (fin >> *nameReader >> *surnameReader >> *last_nameReader >> *idReader >> *nameAuthor >> *surnameAuthor
+//               >> *last_nameAuthor >> *nameOfBook >> *price >> *idBook) {
+//        cout << "Reader number: " << counter++ << endl;
+//        cout << endl;
+//        cout << "Reader`s name:" << "\t" << *nameReader << endl;
+//        cout << "Reader`s surname:" << "\t" << *surnameReader << endl;
+//        cout << "Reader`s last name:" << "\t" << *last_nameReader << endl;
+//        cout << "Reader`s ID:" << "\t" << *idReader << endl;
+//        cout << endl;
+//        cout << "Author`s name:" << "\t" << *nameAuthor << endl;
+//        cout << "Author`s surname:" << "\t" << *surnameAuthor << endl;
+//        cout << "Author`s last name:" << "\t" << *last_nameAuthor << endl;
+//        cout << endl;
+//        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
+//        cout << "Book`s price:" << "\t" << *price << endl;
+//        cout << "Book`s ID:" << "\t" << *idBook << endl;
+//        delimitation2();
+//    }
+    while (fin >> reader>>author) {
         cout << "Reader number: " << counter++ << endl;
         cout << endl;
-        cout << "Reader`s name:" << "\t" << *nameReader << endl;
-        cout << "Reader`s surname:" << "\t" << *surnameReader << endl;
-        cout << "Reader`s last name:" << "\t" << *last_nameReader << endl;
-        cout << "Reader`s ID:" << "\t" << *idReader << endl;
+        cout << "Reader`s name:" << "\t" << reader.getName() << endl;
+        cout << "Reader`s surname:" << "\t" << reader.getSurname() << endl;
+        cout << "Reader`s last name:" << "\t" << reader.getLastName() << endl;
+        cout << "Reader`s ID:" << "\t" << reader.getID() << endl;
         cout << endl;
-        cout << "Author`s name:" << "\t" << *nameAuthor << endl;
-        cout << "Author`s surname:" << "\t" << *surnameAuthor << endl;
-        cout << "Author`s last name:" << "\t" << *last_nameAuthor << endl;
+        cout << "Author`s name:" << "\t" << author.getName() << endl;
+        cout << "Author`s surname:" << "\t" << author.getLastName() << endl;
+        cout << "Author`s last name:" << "\t" << author.getSurname() << endl;
         cout << endl;
-        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
-        cout << "Book`s price:" << "\t" << *price << endl;
-        cout << "Book`s ID:" << "\t" << *idBook << endl;
+        cout << "Book`s name:" << "\t" << author.getNameBook() << endl;
+        cout << "Book`s price:" << "\t" << author.getPriceBook() << endl;
+        cout << "Book`s ID:" << "\t" << author.getId() << endl;
         delimitation2();
     }
 
@@ -268,8 +301,8 @@ int ShowBookById() {
             if (bookId == *id) {
                 Book book2(*nameOfBook, *price, bookId);
                 Author author2(*nameAu, *surnameAu, *last_nameAu, book2);
-                delimitation2();
                 cout << "This book was taken by:" << endl;
+                delimitation2();
                 cout << "Reader`s name:" << "\t" << *name2 << endl;
                 cout << "Reader`s surname:" << "\t" << *surname2 << endl;
                 cout << "Reader`s last name:" << "\t" << *last_name2 << endl;
@@ -289,7 +322,7 @@ int ShowBookById() {
     return 0;
 }
 
-void ShowBooksByAuthor() {// тут я закінчив
+void ShowBooksByAuthor() {
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};

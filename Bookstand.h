@@ -23,7 +23,12 @@ public:
     friend istream &operator >>(istream &is, Bookstand &obj);
     Bookstand(const Bookstand &other);
     Bookstand(Bookstand &&other);
-    int getId() const;
+
+    string getNameBook() ;
+    double getPriceBook();
+    int getIdBook();
+
+    int getIdBookstand() const;
     void setId(int id);
 
     [[maybe_unused]] Book getBook();
