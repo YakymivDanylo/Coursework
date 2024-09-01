@@ -13,6 +13,7 @@
 #include "SameID.h"
 #include "WrongInputData.h"
 #include "InvalidInput.h"
+#include "BookIsInFile.h"
 #include "chrono"
 
 using namespace std;
@@ -91,7 +92,7 @@ void addAuthorAndBook() {
 }
 
 
-void addBookstand() {
+void addBookstand() {// доробити, щоб не можна було додавати одну й туж книжку два рази
 
     unique_ptr<string> name {new string {"unknwon"}};
     unique_ptr<double> price {new double {0}};
@@ -106,21 +107,37 @@ void addBookstand() {
     cin >> *bookId;
 
     int counter = 0;
+    int counter1 =0 ;
     ifstream booksFile(R"(D:\Coursework\Database\Books.txt)");
+    ifstream bookstandFile(R"(D:\Coursework\Database\Bookstands.txt)");
     ofstream foutbookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios_base::app);
 
     if (booksFile.is_open()) {
-        while (booksFile >> *name>>*price>>*id) {
-            if (*bookId == *id) {
-                Book book1(*name, *price, *bookId);
-                Bookstand bookstand(bookstandId, book1);
-                    foutbookstand<<bookstand<<endl;
-                counter++;
+        while(bookstandFile>>bookstandId>>*name>>*price>>*id){
+            if(*bookId==*id){
+                counter1++;
             }
         }
-        booksFile.close();
-        if (counter == 0) {
-            cerr << "There is no book with this ID or this book is already in the bookstand!" << endl;
+        bookstandFile.close();
+
+        if(counter1 != 0){
+            cout<<"This book is already in the bookstand!"<<endl;
+//            throw BookIsInFile();
+        }
+        else {
+
+            while (booksFile >> *name >> *price >> *id) {
+                if (*bookId == *id) {
+                    Book book1(*name, *price, *bookId);
+                    Bookstand bookstand(bookstandId, book1);
+                    foutbookstand << bookstand << endl;
+                    counter++;
+                }
+            }
+            booksFile.close();
+            if (counter == 0) {
+                cout << "There is no book with this ID!" << endl;
+            }
         }
 
     } else {
@@ -843,6 +860,9 @@ int main() {
     }
     catch (InvalidInput &e) {
         cerr << e.what();
+    }
+    catch (BookIsInFile &e){
+        cerr<<e.what();
     }
     return 0;
 }
