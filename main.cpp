@@ -122,6 +122,7 @@ void addBookstand() {// доробити, щоб не можна було дод
 
         if(counter1 != 0){
             cout<<"This book is already in the bookstand!"<<endl;
+            cout<<"Please change ID of the book which you want to add to the bookstand!"<<endl;
 //            throw BookIsInFile();
         }
         else {
@@ -135,6 +136,7 @@ void addBookstand() {// доробити, щоб не можна було дод
                 }
             }
             booksFile.close();
+            cout<<"Book with ID:\t"<<bookstandId<<"\twas successfully added"<<endl;
             if (counter == 0) {
                 cout << "There is no book with this ID!" << endl;
             }
@@ -332,14 +334,22 @@ void ShowBooksByAuthor() {
     Book book;
     Author author;
     int counter = 0;
-    delimitation();
+    int counterBook = 1;
+//    delimitation();
     while (finAB >> author) {
+        delimitation2();
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
-            cout << book;
+//            cout << book;
+            cout<<"Book number:\t"<<counterBook++<<endl;
+            cout<<endl;
+            cout<<"Book`s name:\t"<<book.getName()<<endl;
+            cout<<"Book`s price:\t"<<book.getPrice()<<endl;
+            cout<<"Book`s ID:\t"<<book.getId()<<endl;
             counter++;
         }
     }
+    delimitation2();
     finAB.close();
     if (counter == 0) {
         cerr << "There is no author with this name!" << endl;
@@ -558,7 +568,7 @@ void takeBook() {
 
 //    cout << "Book with ID " << *idOfBook << " was taken by " << *name << " " << *surname << " " << *last_name << " "
 //         << *idR << endl;
-    cout << "Book with ID\t" << *idOfBook << "\twas taken by\t" << reader1.getName() << "\t" << reader1.getSurname() << "\t" << reader1.getLastName() << "\t"
+    cout << "Book with ID " << *idOfBook << "was taken by " << reader1.getName() << " " << reader1.getSurname() << " " << reader1.getLastName() << "  "
          << reader1.getID() << endl;
 
 }
