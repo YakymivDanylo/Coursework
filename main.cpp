@@ -12,6 +12,7 @@
 #include "WrongChoice.h"
 #include "WrongPassword.h"
 #include "SameID.h"
+#include "InvalidInputString.h"
 #include "InvalidInputInt.h"
 #include "WrongInputData.h"
 #include "InvalidInput.h"
@@ -36,7 +37,7 @@ void addAuthorAndBook() {
     if(cin.fail() || name->find_first_of("0123456789") != string::npos){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw InvalidInputString();
     }
 
     unique_ptr<string> surname{new string{"unknown"}};
@@ -45,7 +46,7 @@ void addAuthorAndBook() {
     if(cin.fail() || surname->find_first_of("0123456789") != string::npos){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw InvalidInputString();
     }
 
     unique_ptr<string> last_name{new string{"unknown"}};
@@ -54,7 +55,7 @@ void addAuthorAndBook() {
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw InvalidInputString();
     }
 
     unique_ptr<string> bookName{new string{"unknown"}};
@@ -63,7 +64,7 @@ void addAuthorAndBook() {
     if (cin.fail() || bookName->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw InvalidInputString();
     }
 
 
@@ -115,7 +116,7 @@ void addAuthorAndBook() {
 }
 
 
-void addBookstand() {// доробити, щоб не можна було додавати одну й туж книжку два рази
+void addBookstand() {
 
     unique_ptr<string> name {new string {"unknwon"}};
     unique_ptr<double> price {new double {0}};
@@ -127,7 +128,11 @@ void addBookstand() {// доробити, щоб не можна було дод
     bookstandId = rand();
 
     cout << "Enter ID of the book: ";
-    cin >> *bookId;
+    if(!(cin >> *bookId)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     int counter = 0;
     int counter1 =0 ;
@@ -146,7 +151,6 @@ void addBookstand() {// доробити, щоб не можна було дод
         if(counter1 != 0){
             cout<<"This book is already in the bookstand!"<<endl;
             cout<<"Please change ID of the book which you want to add to the bookstand!"<<endl;
-//            throw BookIsInFile();
         }
         else {
 
@@ -503,15 +507,38 @@ void takeBook() {
 
     cout << "Enter your name: ";
     cin >> *name;
+    if(cin.fail() || name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
     cout << "Enter your surname: ";
     cin >> *surname;
+    if(cin.fail() || surname->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
     cout << "Enter your last name: ";
     cin >> *last_name;
+    if(cin.fail() || last_name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
     cout << "Create your own ID and remember it!\n If you have one enter it.\n";
     cout << "Enter your ID:";
-    cin >> *idR;
+    if(!(cin >> *idR)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
     cout << "Enter book`s ID which you want to take: ";
-    cin >> *idOfBook;
+    if(!(cin >> *idOfBook)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     Reader reader1(*name,*surname,*last_name,*idR);
 
@@ -893,6 +920,9 @@ int main() {
         cerr << e.what();
     }
     catch (BookIsInFile &e){
+        cerr<<e.what();
+    }
+    catch (InvalidInputString &e){
         cerr<<e.what();
     }
     catch (InvalidInputInt &e){
