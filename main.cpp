@@ -410,12 +410,33 @@ void showMyBooks() {
 
     cout << "Enter your name: ";
     cin >> *name;
+    if(cin.fail() || name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
     cout << "Enter your surname: ";
     cin >> *surname;
+    if(cin.fail() || surname->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
     cout << "Enter your last name: ";
     cin >> *last_name;
+    if(cin.fail() || last_name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
     cout << "Enter your ID: ";
-    cin >> *idR;
+
+    if(!(cin >> *idR)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
     cout << endl;
     ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
     Book book;
@@ -533,6 +554,7 @@ void takeBook() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputInt();
     }
+
     cout << "Enter book`s ID which you want to take: ";
     if(!(cin >> *idOfBook)){
         cin.clear();
@@ -648,14 +670,43 @@ void returnBook() {
 
     cout << "Enter your name: ";
     cin >> *name;
+    if(cin.fail() || name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
     cout << "Enter your surname: ";
     cin >> *surname;
+    if(cin.fail() || surname->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
     cout << "Enter your last name: ";
     cin >> *last_name;
+    if(cin.fail() || last_name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
     cout << "Enter your ID: ";
     cin >> *idR;
+    if(!(cin >> *idR)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
     cout << "Enter book`s ID which you want to return: ";
     cin >> *idOfBook;
+    if(!(cin >> *idOfBook)){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     Reader reader1(*name,*surname,*last_name,*idR);
 

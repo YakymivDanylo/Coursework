@@ -2728,3 +2728,76 @@ Thu Sep 12 18:07:05 2024
 	::	Book object was deleted.
 Thu Sep 12 18:07:05 2024
 	::	Book object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:31:08 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:31:08 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:31:08 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:31:08 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Sep 12 18:31:08 2024
+	::	Reader object was created with parameters: 
+	name: unknown
+	surname: unknown
+	lastname: unknown
+	ID: 0
+Thu Sep 12 18:31:08 2024
+	::	Reader object was created with parameters: 
+	name: asd
+	surname: asda
+	lastname: asd
+	ID: 2342
+Thu Sep 12 18:31:08 2024
+	::	Reader object was created with parameters: 
+	name: unknown
+	surname: unknown
+	lastname: unknown
+	ID: 0
+Thu Sep 12 18:31:08 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:31:08 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Sep 12 18:31:08 2024
+	::	Book object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Author object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Book object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Book object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Reader object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Reader object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Reader object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Author object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Book object was deleted.
+Thu Sep 12 18:31:08 2024
+	::	Book object was deleted.
