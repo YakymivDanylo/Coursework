@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include <limits>
 #include <memory>
 #include "fstream"
@@ -11,6 +12,7 @@
 #include "WrongChoice.h"
 #include "WrongPassword.h"
 #include "SameID.h"
+#include "InvalidInputInt.h"
 #include "WrongInputData.h"
 #include "InvalidInput.h"
 #include "BookIsInFile.h"
@@ -31,18 +33,39 @@ void addAuthorAndBook() {
     unique_ptr<string> name{new string{"unknown"}};
     cout << "Enter the author`s name: ";
     cin >> *name;
+    if(cin.fail() || name->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     unique_ptr<string> surname{new string{"unknown"}};
     cout << "Enter the author`s surname: ";
     cin >> *surname;
+    if(cin.fail() || surname->find_first_of("0123456789") != string::npos){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     unique_ptr<string> last_name{new string{"unknown"}};
     cout << "Enter the author`s last name: ";
     cin >> *last_name;
+    if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
 
     unique_ptr<string> bookName{new string{"unknown"}};
     cout << "Enter the book`s name: ";
     cin >> *bookName;
+    if (cin.fail() || bookName->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
 
     unique_ptr<double> bookPrice{new double{0.0}};
     cout << "Enter the book`s price: ";
@@ -870,6 +893,9 @@ int main() {
         cerr << e.what();
     }
     catch (BookIsInFile &e){
+        cerr<<e.what();
+    }
+    catch (InvalidInputInt &e){
         cerr<<e.what();
     }
     return 0;

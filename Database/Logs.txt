@@ -2710,3 +2710,21 @@ Thu Sep 12 17:45:27 2024
 	::	Book object was deleted.
 Thu Sep 12 17:45:27 2024
 	::	Book object was deleted.
+Thu Sep 12 18:07:05 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Thu Sep 12 18:07:05 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Thu Sep 12 18:07:05 2024
+	::	Book object was deleted.
+Thu Sep 12 18:07:05 2024
+	::	Author object was deleted.
+Thu Sep 12 18:07:05 2024
+	::	Book object was deleted.
+Thu Sep 12 18:07:05 2024
+	::	Book object was deleted.
