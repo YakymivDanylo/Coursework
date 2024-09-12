@@ -282,7 +282,11 @@ int ShowBookById() {
     Author author;
     int bookId;
     cout << "Enter ID of the book: ";
-    cin >> bookId;
+    if (!(cin >> bookId)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInput();
+    }
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
     if (book) {
         cout << "Here is your book:" << endl;
@@ -344,10 +348,26 @@ void ShowBooksByAuthor() {
     unique_ptr<string> last_name{new string{"unknown"}};
     cout << "Enter author`s name: ";
     cin >> *name;
+    if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInput();
+    }
     cout << "Enter author`s surname: ";
     cin >> *surname;
+    if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInput();
+    }
     cout << "Enter author`s last name: ";
     cin >> *last_name;
+    if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInput();
+    }
+
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
     Author author;
@@ -939,12 +959,17 @@ int main() {
             case 3://Instructions
             {
                 cout << "Instructions" << endl;
+                ifstream finIn(R"(D:\Coursework\Database\Instruction.txt)");
+                string line;
+                 while(getline(finIn,line)){
+                     cout<<line<<endl;
+                 }
+                 finIn.close();
                 delimitation();
                 break;
             }
             case 0: {
                 exit(0);
-                delimitation();
             }
 
         }
