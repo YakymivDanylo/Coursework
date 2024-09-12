@@ -306,13 +306,13 @@ int ShowBookById() {
                 cout << "Reader`s last name:" << "\t" << reader1.getLastName() << endl;
                 cout << "Reader`s ID:" << "\t" << reader1.getID() << endl;
                 cout << endl;
-                cout << "Author`s name:" << "\t" << author2.getName() << endl;
-                cout << "Author`s surname:" << "\t" << author2.getSurname() << endl;
-                cout << "Author`s last name:" << "\t" << author2.getLastName() << endl;
+                cout << "Author`s name:" << "\t" << author1.getName() << endl;
+                cout << "Author`s surname:" << "\t" << author1.getSurname() << endl;
+                cout << "Author`s last name:" << "\t" << author1.getLastName() << endl;
                 cout << endl;
-                cout << "Book`s name:" << "\t" << author2.getNameBook() << endl;
-                cout << "Book`s price:" << "\t" << author2.getPriceBook() << endl;
-                cout << "Book`s ID:" << "\t" << author2.getId() << endl;
+                cout << "Book`s name:" << "\t" << author1.getNameBook() << endl;
+                cout << "Book`s price:" << "\t" << author1.getPriceBook() << endl;
+                cout << "Book`s ID:" << "\t" << author1.getId() << endl;
                 delimitation2();
             }
         }
@@ -335,12 +335,10 @@ void ShowBooksByAuthor() {
     Author author;
     int counter = 0;
     int counterBook = 1;
-//    delimitation();
     while (finAB >> author) {
         delimitation2();
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
-//            cout << book;
             cout<<"Book number:\t"<<counterBook++<<endl;
             cout<<endl;
             cout<<"Book`s name:\t"<<book.getName()<<endl;
@@ -349,8 +347,8 @@ void ShowBooksByAuthor() {
             counter++;
         }
     }
-    delimitation2();
     finAB.close();
+    delimitation2();
     if (counter == 0) {
         cerr << "There is no author with this name!" << endl;
         cerr << "Check if you entered the name correctly!" << endl;
