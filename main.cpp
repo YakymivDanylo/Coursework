@@ -163,7 +163,7 @@ void addBookstand() {
                 }
             }
             booksFile.close();
-            cout<<"Book with ID:\t"<<bookstandId<<"\twas successfully added"<<endl;
+            cout<<"Book with ID:\t"<<bookId<<"\twas successfully added"<<endl;
             if (counter == 0) {
                 cout << "There is no book with this ID!" << endl;
             }
@@ -178,29 +178,20 @@ void addBookstand() {
 
 void ShowBooks() {
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
+    ifstream finBookstand(R"(D:\Coursework\Database\Bookstands.txt)");
     unique_ptr<string> name{new string{"unknown"}};
     unique_ptr<string> nameOfBook{new string{"unknown"}};
     unique_ptr<string> surname{new string{"unknown"}};
     unique_ptr<string> last_name{new string{"unknown"}};
     unique_ptr<double> price{new double{0}};
     unique_ptr<int> id{new int{0}};
+    unique_ptr<int> bookstandID{new int{0}};
     Book book(*nameOfBook, *price, *id);
     Author author(*name, *surname, *last_name, book);
+    Bookstand bookstand(*bookstandID, book);
     int counter = 1;
     delimitation2();
-//    while (fin >> *name >> *surname >> *last_name >> *nameOfBook >> *price >> *id) {
-//        cout << "Book number: " << counter++ << endl;
-//        cout << endl;
-//        cout << "Author`s name:" << "\t" << *name << endl;
-//        cout << "Author`s surname:" << "\t" << *surname << endl;
-//        cout << "Author`s last name:" << "\t" << *last_name << endl;
-//        cout << endl;
-//        cout << "Book`s name:" << "\t" << *nameOfBook << endl;
-//        cout << "Book`s price:" << "\t" << *price << endl;
-//        cout << "Book`s id:" << "\t" << *id << endl;
-//        cout << endl;
-//        delimitation2();
-//    }
+
     while (fin >> author) {
         cout << "Book number: " << counter++ << endl;
         cout << endl;
