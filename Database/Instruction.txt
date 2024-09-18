@@ -1,1 +1,6 @@
-welcome back
+Welcome!
+You have reached the instructions section.
+When using the program, use the numbers to select the functions you want to use for example: "1","2" and so on.
+When entering any data to use the program, for example: first name, last name, etc., if they consist of more than one word - use the lowercase underscore “_”.
+If you enter incorrect data, the program will let you know about it.
+

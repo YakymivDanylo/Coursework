@@ -162,7 +162,7 @@ void addBookstand() {
                 }
             }
             booksFile.close();
-            cout << "Book with ID:\t" << bookId << "\twas successfully added" << endl;
+            cout << "Book with ID:\t" << *bookId << "\twas successfully added" << endl;
             if (counter == 0) {
                 cout << "There is no book with this ID!" << endl;
             }
@@ -478,6 +478,99 @@ void showMyBooks() {
 
     }
 }
+void deleteBook(){
+    string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
+    string filenameBook = R"(D:\Coursework\Database\Books.txt)";
+    string filenameBookstand = R"(D:\Coursework\Database\Bookstands.txt)";
+
+    unique_ptr<string> nameAu{new string{" "}};
+    unique_ptr<string> surnameAu{new string{" "}};
+    unique_ptr<string> last_nameAu{new string{" "}};
+
+    unique_ptr<string> nameOfBook{new string{" "}};
+    unique_ptr<double> price{new double{0.0}};
+    unique_ptr<int> id{new int{0}};
+    unique_ptr<int> idOfBook{new int{0}};
+    unique_ptr<int> idBs{new int{0}};
+
+    cout << "Enter book`s ID which you want to delete: ";
+    if (!(cin >> *idOfBook)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
+
+//    ifstream finAuthor(filenameAuthor);
+//
+//    while (finAuthor >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
+//        if (*idOfBook == *id) {
+//
+//            Book book(*nameOfBook, *price, *idOfBook);
+//            Author author(*nameAu, *surnameAu, *last_nameAu, book);
+//
+//            ofstream foutDelete("deleteAuthor", ios_base::app);
+//            foutDelete << author.getName() << " " << author.getSurname() << " "
+//                       << author.getLastName() << " " << author.getNameBook() << " " << author.getPriceBook() << " "
+//                       << author.getId() << endl;
+//            foutDelete.close();
+//        }
+//
+//    }
+//    finAuthor.close();
+//    remove("deleteAuthor.txt");
+
+    ifstream finAuthor1(filenameAuthor);
+    ofstream foutAuthor("tempAuthor.txt");
+    while (finAuthor1 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
+        if (*idOfBook != *id) {
+            Book book(*nameOfBook, *price, *id);
+            Author author(*nameAu, *surnameAu, *last_nameAu, book);
+            foutAuthor << author.getName() << " " << author.getSurname() << " " << author.getLastName() << " "
+                       << author.getNameBook() << " " << author.getPriceBook() << " " << author.getId() << endl;
+
+        }
+    }
+    foutAuthor.close();
+    finAuthor1.close();
+
+    remove(filenameAuthor.c_str());
+    rename("tempAuthor.txt", filenameAuthor.c_str());
+
+    ifstream finBook(filenameBook);
+    ofstream foutBook("tempBook.txt");
+    while (finBook >> *nameOfBook >> *price >> *id) {
+        if (*idOfBook != *id) {
+            Book book(*nameOfBook, *price, *id);
+            foutBook << book.getName() << " " << book.getPrice() << " " << book.getId() << endl;
+        }
+    }
+    foutBook.close();
+    finBook.close();
+
+    remove(filenameBook.c_str());
+    rename("tempBook.txt", filenameBook.c_str());
+
+    ifstream finBookstand(filenameBookstand);
+    ofstream foutBookstand("tempBookstand.txt");
+    while (finBookstand >> *idBs >> *nameOfBook >> *price >> *id) {
+        if (*idOfBook != *id) {
+            Book book(*nameOfBook, *price, *id);
+            Bookstand bookstand(*idBs, book);
+            foutBookstand << bookstand.getIdBookstand() << " " << bookstand.getNameBook() << " "
+                          << bookstand.getPriceBook() << " " << bookstand.getIdBook() << endl;
+        }
+    }
+    foutBookstand.close();
+    finBookstand.close();
+
+    remove(filenameBookstand.c_str());
+    rename("tempBookstand.txt", filenameBookstand.c_str());
+
+
+    cout << "Book with ID " << *idOfBook << " was deleted " <<endl;
+
+}
 
 
 void takeBook() {
@@ -772,15 +865,16 @@ int main() {
                             try {
                                 cout << "Successful access!" << endl;
                                 while (true) {
-                                    cout << "Choose what you want to do" << endl;
-                                    cout << "1. Add the book" << endl;
-                                    cout << "2. Add the book to the bookstand " << endl;
-                                    cout << "3. Show books" << endl;
-                                    cout << "4. Show readers" << endl;
-                                    cout << "5. Show book by its ID" << endl;
-                                    cout << "6. Show bookstands" << endl;
-                                    cout << "7. Show books by author`s full name " << endl;
-                                    cout << "0. Exit" << endl << endl;
+                                    cout << "Choose what you want to do." << endl;
+                                    cout << "1. Add the book." << endl;
+                                    cout << "2. Add the book to the bookstand." << endl;
+                                    cout << "3. Show books." << endl;
+                                    cout << "4. Show readers." << endl;
+                                    cout << "5. Show book by its ID." << endl;
+                                    cout << "6. Show bookstands." << endl;
+                                    cout << "7. Show books by author`s full name." << endl;
+                                    cout << "8. Delete book by its ID." << endl;
+                                    cout << "0. Exit." << endl << endl;
                                     int choiceAd;
                                     cin >> choiceAd;
                                     delimitation();
@@ -789,7 +883,7 @@ int main() {
                                     }
                                     if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
                                         choiceAd != 4 &&
-                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7)
+                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8)
                                         throw WrongChoice();
                                     switch (choiceAd) {
                                         case 1: {
@@ -829,6 +923,11 @@ int main() {
                                             delimitation();
                                             break;
 
+                                        }
+                                        case 8: {
+                                            deleteBook();
+                                            delimitation();
+                                            break;
                                         }
                                         case 0: {
                                             delimitation();
