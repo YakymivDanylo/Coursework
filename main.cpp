@@ -927,25 +927,17 @@ struct AuthorBookData {
     int idBookstand;
 };
 
-void deleteBook() {
-    unique_ptr<int> idBook{new int{0}};
-    cout << "Enter ID of the book which you want to delete: ";
-    if (!(cin >> *idBook)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
-    }
-
+void deleteBook(int IdBook) {
     vector<AuthorBookData> authors;
-    vector<AuthorBookData> deletedAuthors;
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
 
-    if(!finAuthorBook.is_open()){
+    if (!finAuthorBook.is_open()) {
         cerr << "Error opening file: Author+Book.txt" << endl;
         return;
     }
+
     string line;
-    while(getline(finAuthorBook,line)){
+    while (getline(finAuthorBook, line)) {
         istringstream iss(line);
         AuthorBookData author;
         iss >> author.nameAuthor >> author.surnameAuthor >> author.last_nameAuthor >> author.nameBook >> author.priceBook >> author.idBook;
@@ -953,50 +945,31 @@ void deleteBook() {
     }
     finAuthorBook.close();
 
-    vector<AuthorBookData> newAuthorBook;
-    vector<AuthorBookData> deleteAuthors;
+    // Find the index of the book to delete
+    auto it = find_if(authors.begin(), authors.end(),
+                      [IdBook](const AuthorBookData& a) { return a.idBook == IdBook; });
 
-    bool foundAny = false;
-    for(const AuthorBookData &author : authors){
-        bool found = false;
-        if(author.idBook == *idBook){
-            found= true;
-            foundAny=true;
-            deletedAuthors.push_back(author);
-            break;
+    if (it != authors.end()) {
+        authors.erase(it); // Delete the book if found
+
+        ofstream foutAuthor(R"(D:\Coursework\Database\Author+Book.txt)", ios::out | ios::trunc);
+        if (!foutAuthor.is_open()) {
+            cerr << "Error opening file: Author+Book.txt" << endl;
+            return;
         }
-        if(!found){
-            newAuthorBook.push_back(author);
+
+        for (const AuthorBookData& author : authors) {
+            foutAuthor << author.nameAuthor << " " << author.surnameAuthor << " "
+                       << author.last_nameAuthor << " " << author.nameBook << " "
+                       << author.priceBook << " " << author.idBook << endl;
         }
-    }
-    if(!foundAny){
-        cout<<"Author and book with ID "<<*idBook<<" not found"<<endl;
-        return;
-    }
+        foutAuthor.close();
 
-    ofstream foutAuthor(R"(D:\Coursework\Database\Author+Book.txt)",ios::out | ios::trunc);
-    if(!foutAuthor.is_open()){
-        cerr<<"Error opening file: Author+Book.txt"<<endl;
-        return;
+        cout << "Book with ID " << IdBook << " was successfully deleted." << endl;
+    } else {
+        cout << "Book with ID " << IdBook << " not found." << endl;
     }
-    for(const AuthorBookData & author : newAuthorBook){
-        foutAuthor << author.nameAuthor << " " << author.surnameAuthor << " " << author.last_nameAuthor << " " << author.nameBook << " " << author.priceBook << " " << author.idBook << endl;
-    }
-    foutAuthor.close();
-
-    string filenameDeleted = R"(D:\Coursework\Database\Deleted_books.txt)";
-    ofstream foutDelete(filenameDeleted,ios::app);
-    for(const AuthorBookData &author : deletedAuthors){
-        foutDelete<<author.nameAuthor<<" "<<author.surnameAuthor<<" "<<author.last_nameAuthor<<" "<<author.nameBook<<" "<<author.priceBook<<" "<<author.idBook<<endl;
-    }
-    foutDelete.close();
-
-    remove(filenameDeleted.c_str());
-     cout<<"Author and book with ID "<<*idBook<<" was successfully deleted."<<endl;
-
-
 }
-
 
 void changeAuthorBook() {
     unique_ptr<int> idBook{new int{0}};
@@ -1045,7 +1018,7 @@ void changeAuthorBook() {
                 cout << "5. Book`s price" << endl;
                 cout << "6. Book`s ID" << endl;
                 cout << "0. Exit" << endl;
-
+                delimitation2();
                 int choice;
                 if (!(cin >> choice)) {
                     cin.clear();
@@ -1233,7 +1206,14 @@ int main() {
 
                                         }
                                         case 8: {
-                                            deleteBook();
+                                            int idBook;
+                                            cout << "Enter ID of the book which you want to delete: ";
+                                            if (!(cin >> idBook)) {
+                                                cin.clear();
+                                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                                throw InvalidInputInt();
+                                            }
+                                            deleteBook(idBook);
                                             delimitation();
                                             break;
                                         }
