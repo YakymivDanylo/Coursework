@@ -28,9 +28,9 @@ public:
     string getLastName() override;
 
     void setNameReader(const string& newName);
-    void setSurnameAuthor(const string& newSurname);
-    void setLastNameAuthor(const string& newLastName);
-    void setId(int newId);
+    void setSurnameReader(const string& newSurname);
+    void setLastNameReader(const string& newLastName);
+    void setIdReader(int newId);
 
     int getID();
     void getReader() const;

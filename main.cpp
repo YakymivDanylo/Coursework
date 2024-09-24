@@ -540,24 +540,6 @@ void deleteBook(){
     }
 
 
-//    ifstream finAuthor(filenameAuthor);
-//
-//    while (finAuthor >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
-//        if (*idOfBook == *id) {
-//
-//            Book book(*nameOfBook, *price, *idOfBook);
-//            Author author(*nameAu, *surnameAu, *last_nameAu, book);
-//
-//            ofstream foutDelete("deleteAuthor", ios_base::app);
-//            foutDelete << author.getName() << " " << author.getSurname() << " "
-//                       << author.getLastName() << " " << author.getNameBook() << " " << author.getPriceBook() << " "
-//                       << author.getId() << endl;
-//            foutDelete.close();
-//        }
-//
-//    }
-//    finAuthor.close();
-//    remove("deleteAuthor.txt");
 
     ifstream finAuthor1(filenameAuthor);
     ofstream foutAuthor("tempAuthor.txt");
@@ -672,15 +654,43 @@ void takeBook() {
         throw InvalidInputInt();
     }
 
-    Reader reader1(*name, *surname, *last_name, *idR);
+    Reader reader1;/*(*name, *surname, *last_name, *idR);*/
+    reader1.setNameReader(*name);
+    reader1.setSurnameReader(*surname);
+    reader1.setLastNameReader(*last_name);
+    reader1.setIdReader(*idR);
+
+    Book book1;
+    book1.setNameBook(*nameOfBook);
+    book1.setPriceBook(*price);
+    book1.setIDBook(*idOfBook);
+
+    Author author1;
+    author1.setNameAuthor(*nameAu);
+    author1.setSurnameAuthor(*surnameAu);
+    author1.setLastNameAuthor(*last_nameAu);
+    author1.setBookAuthor(book1);
 
     ifstream finAuthor(filenameAuthor);
-    while (finAuthor >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook == *id) {
+    while (finAuthor >> author1) {
+        if (author1.getId() == *id) {
 
-            Book book(*nameOfBook, *price, *idOfBook);
-            Author author(*nameAu, *surnameAu, *last_nameAu, book);
-            Reader reader(*name, *surname, *last_name, *idR);
+            Book book;
+            book.setNameBook(*nameOfBook);
+            book.setPriceBook(*price);
+            book.setIDBook(*idOfBook);
+
+            Author author;
+            author.setNameAuthor(*nameAu);
+            author.setSurnameAuthor(*surnameAu);
+            author.setLastNameAuthor(*last_nameAu);
+            author.setBookAuthor(book);
+
+            Reader reader;
+            reader.setNameReader(*name);
+            reader.setSurnameReader(*surname);
+            reader.setLastNameReader(*last_name);
+            reader.setIdReader(*idR);
 
             ofstream foutReader(filenameReader, ios_base::app);
             foutReader << reader.getName() << " " << reader.getSurname() << " " << reader.getLastName() << " "
@@ -696,8 +706,8 @@ void takeBook() {
 
     ifstream finAuthor1(filenameAuthor);
     ofstream foutAuthor("tempAuthor.txt");
-    while (finAuthor1 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
+    while (finAuthor1 >> author1) {
+        if (author1.getId() != *id) {
 
             Book book(*nameOfBook, *price, *id);
             Author author(*nameAu, *surnameAu, *last_nameAu, book);
@@ -715,10 +725,12 @@ void takeBook() {
     ifstream finBook(filenameBook);
     ofstream foutBook("tempBook.txt");
     while (finBook >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
-            Book book(*nameOfBook, *price, *id);
-
-            foutBook << book.getName() << " " << book.getPrice() << " " << book.getId() << endl;
+        if (author1.getId() != *id) {
+            Book book2;
+            book2.setNameBook(*nameOfBook);
+            book2.setPriceBook(*price);
+            book2.setIDBook(*id);
+            foutBook << book2.getName() << " " << book2.getPrice() << " " << book2.getId() << endl;
         }
     }
     foutBook.close();
@@ -731,7 +743,7 @@ void takeBook() {
     ifstream finBookstand(filenameBookstand);
     ofstream foutBookstand("tempBookstand.txt");
     while (finBookstand >> *idBs >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
+        if (author1.getId() != *id) {
             Book book(*nameOfBook, *price, *id);
             Bookstand bookstand(*idBs, book);
             foutBookstand << bookstand.getIdBookstand() << " " << bookstand.getNameBook() << " "
