@@ -872,11 +872,12 @@ struct AuthorBookData {
     string nameAuthor, surnameAuthor, last_nameAuthor, nameBook;
     double priceBook;
     int idBook;
+    int idBookstand;
 };
 
 void changeAuthorBook() {
     unique_ptr<int> idBook{new int{0}};
-    cout<<"Enter ID of the book which you want to change: ";
+    cout << "Enter ID of the book which you want to change: ";
     if (!(cin >> *idBook)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -913,16 +914,16 @@ void changeAuthorBook() {
             delimitation2();
             while (true) {
                 delimitation2();
-                 cout<<"Choose what field do you want to change?"<<endl;
-                 cout<<"1. Author`s name"<<endl;
-                 cout<<"2. Author`s surname"<<endl;
-                 cout<<"3. Author`s last name"<<endl;
-                 cout<<"4. Book`s name"<<endl;
-                 cout<<"5. Book`s price"<<endl;
-                 cout<<"6. Book`s ID"<<endl;
-                 cout<<"0. Exit"<<endl;
+                cout << "Choose what field do you want to change?" << endl;
+                cout << "1. Author`s name" << endl;
+                cout << "2. Author`s surname" << endl;
+                cout << "3. Author`s last name" << endl;
+                cout << "4. Book`s name" << endl;
+                cout << "5. Book`s price" << endl;
+                cout << "6. Book`s ID" << endl;
+                cout << "0. Exit" << endl;
 
-                 int choice;
+                int choice;
                 if (!(cin >> choice)) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -931,63 +932,76 @@ void changeAuthorBook() {
 
                 switch (choice) {
                     case 1: {
-                    cout<<"Enter new name: ";
-                    cin>>authors.nameAuthor;
+                        cout << "Enter new name: ";
+                        cin >> authors.nameAuthor;
                         break;
                     }
                     case 2: {
-                        cout<<"Enter new surname: ";
-                    cin>>authors.surnameAuthor;
+                        cout << "Enter new surname: ";
+                        cin >> authors.surnameAuthor;
                         break;
                     }
                     case 3: {
-                    cout<<"Enter new last name: ";
-                    cin>>authors.last_nameAuthor;
+                        cout << "Enter new last name: ";
+                        cin >> authors.last_nameAuthor;
                         break;
                     }
                     case 4: {
-                        cout<<"Enter new book`s name: ";
-                        cin>>authors.nameBook;
+                        cout << "Enter new book`s name: ";
+                        cin >> authors.nameBook;
                         break;
                     }
                     case 5: {
-                        cout<<"Enter new book`s price: ";
-                        cin>>authors.priceBook;
+                        cout << "Enter new book`s price: ";
+                        cin >> authors.priceBook;
                         break;
                     }
                     case 6: {
-                        cout<<"Enter new book`s ID: ";
-                        cin>>authors.idBook;
+                        cout << "Enter new book`s ID: ";
+                        cin >> authors.idBook;
                         break;
                     }
                     case 0: {
-                        ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
-                        ofstream foutBook(R"(D:\Coursework\Database\Books.txt)");
-                        if(!foutAuthorBook.is_open()){
-                            cerr<<"Error opening file: Author+Book.txt"<<endl;
+                        ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios::out | ios::trunc);
+                        ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios::out | ios::trunc);
+                        ofstream foutBookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios::out | ios::trunc);
+                        if (!foutAuthorBook.is_open()) {
+                            cerr << "Error opening file: Author+Book.txt" << endl;
                             return;
                         }
-                        for(const AuthorBookData &authors : author_book){
-                            foutAuthorBook<<authors.nameAuthor<<" "<<authors.surnameAuthor<<" "<<authors.last_nameAuthor<<" "<<authors.nameBook<<" "<<authors.priceBook<<" "<<authors.idBook<<endl;
-                            foutBook<<authors.nameBook<<" "<<authors.priceBook<<" "<<authors.idBook<<endl;
+                        if (!foutBook.is_open()) {
+                            cerr << "Error opening file: Book.txt" << endl;
+                            return;
+                        }
+                        if (!foutBookstand.is_open()) {
+                            cerr << "Error opening file: Bookstand.txt" << endl;
+                            return;
+                        }
+
+                        for (const AuthorBookData &authors: author_book) {
+                            foutAuthorBook << authors.nameAuthor << " " << authors.surnameAuthor << " "
+                                           << authors.last_nameAuthor << " " << authors.nameBook << " "
+                                           << authors.priceBook << " " << authors.idBook << endl;
+                            foutBook << authors.nameBook << " " << authors.priceBook << " " << authors.idBook << endl;
+                            foutBookstand << authors.idBookstand << " " << authors.nameBook << " " << authors.priceBook
+                                          << " " << authors.idBook << endl;
                         }
                         foutAuthorBook.close();
                         foutBook.close();
-                        cout<<"Updated information for author and book with ID "<<*idBook<<":"<<endl;
-                        cout<<"Author`s name: "<<authors.nameAuthor<<endl;
-                        cout<<"Author`s surname: "<<authors.surnameAuthor<<endl;
-                        cout<<"Author`s last name: "<<authors.last_nameAuthor<<endl;
-                        cout<<"Book`s name: "<<authors.nameBook<<endl;
-                        cout<<"Book`s price: "<<authors.priceBook<<endl;
-                        cout<<"Book`s ID: "<<authors.idBook<<endl;
+                        foutBookstand.close();
+                        cout << "Updated information for author and book with ID " << *idBook << ":" << endl;
+                        cout << "Author`s name: " << authors.nameAuthor << endl;
+                        cout << "Author`s surname: " << authors.surnameAuthor << endl;
+                        cout << "Author`s last name: " << authors.last_nameAuthor << endl;
+                        cout << "Book`s name: " << authors.nameBook << endl;
+                        cout << "Book`s price: " << authors.priceBook << endl;
+                        cout << "Book`s ID: " << authors.idBook << endl;
                     }
-                    return;
-                    default:{
-                        cout<<"Invalid choice."<<endl;
+                        return;
+                    default: {
+                        cout << "Invalid choice." << endl;
                     }
                 }
-
-
 
             }
 
@@ -1053,7 +1067,8 @@ int main() {
                                     }
                                     if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
                                         choiceAd != 4 &&
-                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 && choiceAd != 9)
+                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 &&
+                                        choiceAd != 9)
                                         throw WrongChoice();
                                     switch (choiceAd) {
                                         case 1: {
@@ -1099,7 +1114,7 @@ int main() {
                                             delimitation();
                                             break;
                                         }
-                                        case 9:{
+                                        case 9: {
                                             changeAuthorBook();
                                             delimitation();
                                             break;
