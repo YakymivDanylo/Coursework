@@ -31,6 +31,9 @@ void delimitation2() {
 
 void addAuthorAndBook() {
 
+    Book book0;
+    Author author0;
+
     unique_ptr<string> name{new string{"unknown"}};
     cout << "Enter the author`s name: ";
     cin >> *name;
@@ -39,6 +42,7 @@ void addAuthorAndBook() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputString();
     }
+    author0.setNameAuthor(*name);
 
     unique_ptr<string> surname{new string{"unknown"}};
     cout << "Enter the author`s surname: ";
@@ -48,6 +52,8 @@ void addAuthorAndBook() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputString();
     }
+    author0.setSurnameAuthor(*surname);
+
 
     unique_ptr<string> last_name{new string{"unknown"}};
     cout << "Enter the author`s last name: ";
@@ -57,6 +63,7 @@ void addAuthorAndBook() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputString();
     }
+    author0.setLastNameAuthor(*last_name);
 
     unique_ptr<string> bookName{new string{"unknown"}};
     cout << "Enter the book`s name: ";
@@ -66,51 +73,75 @@ void addAuthorAndBook() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputString();
     }
+    book0.setNameBook(*bookName);
 
 
     unique_ptr<double> bookPrice{new double{0.0}};
     cout << "Enter the book`s price: ";
     cin >> *bookPrice;
+    book0.setPriceBook(*bookPrice);
 
     int bookID;
     srand(time(0));
     bookID = rand();
 
+    book0.setIDBook(bookID);
+    author0.setBookAuthor(book0);
+
     ifstream finB(R"(D:\Coursework\Database\Author+Book.txt)");
 
     unique_ptr<string> name1{new string{"unknown"}};
 
-
     unique_ptr<string> surname1{new string{"unknown"}};
-
 
     unique_ptr<string> last_name1{new string{"unknown"}};
 
-
     unique_ptr<string> bookName1{new string{"unknown"}};
-
 
     unique_ptr<double> bookPrice1{new double{0.0}};
 
     unique_ptr<int> bookID1{new int{0}};
+    Book book1;
+    Author author1;
+
+    book1.setNameBook(*bookName1);
+    book1.setPriceBook(*bookPrice1);
+    book1.setIDBook(*bookID1);
+
+    author1.setNameAuthor(*name1);
+    author1.setSurnameAuthor(*surname1);
+    author1.setLastNameAuthor(*last_name1);
+    author1.setBookAuthor(book1);
 
 
-    while (finB >> *name1 >> *surname1 >> *last_name1 >> *bookName1 >> *bookPrice1 >> *bookID1) {
-        if (bookID == *bookID1) {
+//    while (finB >> *name1 >> *surname1 >> *last_name1 >> *bookName1 >> *bookPrice1 >> *bookID1) {
+//        if (author0.getId() == *bookID1) {
+//            throw SameID();
+//        }
+//    }
+//    finB.close();
+    while (finB >> author1) {
+        if (author0.getId() == author1.getId()) {
             throw SameID();
         }
-        Book book(*bookName, *bookPrice, bookID);
-        Author author(*name, *surname, *last_name, book);
     }
     finB.close();
 
 
+//    ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
+//    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << bookID
+//           << endl;
+//    foutAB.close();
+//    ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
+//    foutB << *bookName << " " << *bookPrice << " " << bookID << endl;
+//    foutB.close();
+
     ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << bookID
+    foutAB << author0.getName() << " " << author0.getSurname() << " " << author0.getLastName() << " " << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId()
            << endl;
     foutAB.close();
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-    foutB << *bookName << " " << *bookPrice << " " << bookID << endl;
+    foutB << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId() << endl;
     foutB.close();
 
 }
