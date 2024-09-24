@@ -1,4 +1,0 @@
-Roman Yakymiv Volodymyrovich 655 name1 surname1 last_name1 book5 20 5056
-Danylo Yakymiv Romanovich 777 name2 surname2 last_name2 book5 20 15127
-Danylo Yakymiv Romanovich 777 name2 surname2 last_name2 book4 35 27753
-Maksym Hrushko Mykolayiovich 2366 name1 surname1 last_name1 book1 25 19151
