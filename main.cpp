@@ -144,10 +144,9 @@ void addBookstand() {
 
     unique_ptr<int> bookId{new int{0}};
 
-    int bookstandId;
 
     srand(time(0));
-    bookstandId = rand();
+    int bookstandId = rand();
 
 
     cout << "Enter ID of the book: ";
@@ -156,14 +155,6 @@ void addBookstand() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputInt();
     }
-    Book book;
-    Bookstand bookstand;
-    book.setNameBook(*name);
-    book.setPriceBook(*price);
-    book.setIDBook(*bookId);
-
-    bookstand.setBookstandId(bookstandId);
-    bookstand.setBook(book);
 
     int counter = 0;
     int counter1 = 0;
@@ -173,7 +164,7 @@ void addBookstand() {
 
     if (booksFile.is_open()) {
         while (bookstandFile >> bookstandId >> *name >> *price >> *id) {
-            if (bookstand.getIdBook() == *id) {
+            if (*bookId == *id) {
                 counter1++;
             }
         }
@@ -185,13 +176,13 @@ void addBookstand() {
         } else {
 
             while (booksFile >> *name >> *price >> *id) {
-                if (bookstand.getIdBook() == *id) {
+                if (*bookId == *id) {
                     Book book1;
                     Bookstand bookstand1;
 
                     book1.setNameBook(*name);
                     book1.setPriceBook(*price);
-                    book1.setIDBook(bookstand.getIdBook());
+                    book1.setIDBook(*bookId);
                     bookstand1.setBookstandId(bookstandId);
                     bookstand1.setBook(book1);
 
@@ -200,7 +191,7 @@ void addBookstand() {
                 }
             }
             booksFile.close();
-            cout << "Book with ID:\t" << bookstand.getIdBook() << "\twas successfully added" << endl;
+            cout << "Book with ID:\t" << *bookId << "\twas successfully added" << endl;
             if (counter == 0) {
                 cout << "There is no book with this ID!" << endl;
             }
