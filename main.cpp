@@ -868,6 +868,152 @@ void returnBook() {
 
 }
 
+struct ReaderData {
+    string nameAuthor, surnameAuthor, last_nameAuthor, nameBook;
+    string nameReader, surnameReader, last_nameReader;
+    int idBook, idReader;
+    double priceBook;
+};
+
+void changeReader() {
+    unique_ptr<string> name{new string{"unknown"}};
+    unique_ptr<string> surname{new string{"unknown"}};
+    unique_ptr<string> last_name{new string{"unknown"}};
+    unique_ptr<int> idReader{new int{0}};
+
+    cout << "Enter your name: ";
+    cin >> *name;
+    if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
+    cout << "Enter your surname: ";
+    cin >> *surname;
+    if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
+    cout << "Enter your last name: ";
+    cin >> *last_name;
+    if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputString();
+    }
+
+    cout << "Enter your ID: ";
+    cin >> *idReader;
+    if (!(cin >> *idReader)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+    vector<ReaderData> readers;
+    ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
+
+    if (!finReader.is_open()) {
+        cerr << "Error opening file: Reader.txt" << endl;
+        return;
+    }
+    string line;
+    while (getline(finReader, line)) {
+        istringstream iss(line);
+        ReaderData reader;
+        iss >> reader.nameReader >> reader.surnameReader >> reader.last_nameReader >> reader.idReader
+            >> reader.nameAuthor >> reader.surnameAuthor >> reader.last_nameAuthor >> reader.nameBook
+            >> reader.priceBook >> reader.idBook;
+        readers.push_back(reader);
+    }
+    finReader.close();
+
+    bool found = false;
+    for (ReaderData &reader: readers) {
+        if (reader.idReader == *idReader && reader.nameReader == *name && reader.surnameReader == *surname &&
+            reader.last_nameReader == *last_name) {
+            found = true;
+            delimitation2();
+            cout << "Current information for reader with ID " << *idReader << ":" << endl;
+            cout << "Reader`s name: " << reader.nameReader << endl;
+            cout << "Reader`s surname: " << reader.surnameReader << endl;
+            cout << "Reader`s last name: " << reader.last_nameReader << endl;
+            cout<<endl;
+            cout << "Author`s name: " << reader.nameAuthor << endl;
+            cout << "Author`s surname: " << reader.surnameAuthor << endl;
+            cout << "Author`s last name: " << reader.last_nameAuthor << endl;
+            cout<<endl;
+            cout << "Book`s name: " << reader.nameBook << endl;
+            cout << "Book`s price: " << reader.priceBook << endl;
+            cout << "Book`s ID: " << reader.idBook << endl;
+            cout<<endl;
+            while (true) {
+                delimitation2();
+                cout << "What field do you want to change?" << endl;
+                cout << "1.Reader`s name" << endl;
+                cout << "2.Reader`s surname" << endl;
+                cout << "3.Reader`s last name" << endl;
+                cout << "0.Exit" << endl;
+
+                int choice;
+                if (!(cin >> choice)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    throw InvalidInputInt();
+                }
+                switch (choice) {
+                    case 1: {
+                        cout << "Enter new name: ";
+                        cin >> reader.nameReader;
+                        break;
+                    }
+                    case 2: {
+                        cout << "Enter new surname: ";
+                        cin >> reader.surnameReader;
+                        break;
+                    }
+                    case 3: {
+                        cout << "Enter new last name: ";
+                        cin >> reader.last_nameReader;
+                        break;
+                    }
+                    case 0:{
+                        ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)",ios::out | ios::trunc);
+                        if (!foutReader.is_open()) {
+                            cerr << "Error opening file: Reader.txt" << endl;
+                            return;
+                        }
+
+                        for(const ReaderData &reader : readers){
+                            foutReader << reader.nameReader << " " << reader.surnameReader << " " <<reader.last_nameReader<<" "<<reader.idReader<<" "<<reader.nameAuthor<<" "<<reader.surnameAuthor<<" "<<reader.last_nameAuthor<<" "<<reader.nameBook<<" "<<reader.priceBook<<" "<<reader.idBook<<endl;
+                        }
+                        foutReader.close();
+                        cout<<"Updated information for reader with ID "<< idReader<<":"<<endl;
+                        cout << "Reader`s name: " << reader.nameReader << endl;
+                        cout << "Reader`s surname: " << reader.surnameReader << endl;
+                        cout << "Reader`s last name: " << reader.last_nameReader << endl;
+                        cout << "Author`s name: " << reader.nameAuthor << endl;
+                        cout << "Author`s surname: " << reader.surnameAuthor << endl;
+                        cout << "Author`s last name: " << reader.last_nameAuthor << endl;
+                        cout << "Book`s name: " << reader.nameBook << endl;
+                        cout << "Book`s price: " << reader.priceBook << endl;
+                        cout << "Book`s ID: " << reader.idBook << endl;
+                    }
+                        return;
+                    default:
+                        cout<<"Invalid input!"<<endl;
+                }
+            }
+        }
+    }
+    if (!found) {
+        cout << "Reader with ID " << *idReader << " not found." << endl;
+    }
+    delimitation();
+}
+
 struct AuthorBookData {
     string nameAuthor, surnameAuthor, last_nameAuthor, nameBook;
     double priceBook;
@@ -999,7 +1145,7 @@ void changeAuthorBook() {
                     }
                         return;
                     default: {
-                        cout << "Invalid choice." << endl;
+                        cout << "Invalid choice!" << endl;
                     }
                 }
 
@@ -1160,6 +1306,7 @@ int main() {
                         cout << "3. Take a book " << endl;
                         cout << "4. Return a book " << endl;
                         cout << "5. Show my books " << endl;
+                        cout << "6. Change my information " << endl;
                         cout << "0. Exit " << endl << endl;
                         int choiceC;
                         cin >> choiceC;
@@ -1168,7 +1315,7 @@ int main() {
                         }
                         cout << endl;
                         if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
-                            choiceC != 0)
+                            choiceC != 0 && choiceC != 6)
                             throw WrongChoice();
                         switch (choiceC) {
 
@@ -1194,6 +1341,11 @@ int main() {
                             }
                             case 5: {
                                 showMyBooks();
+                                delimitation();
+                                break;
+                            }
+                            case 6:{
+                                changeReader();
                                 delimitation();
                                 break;
                             }

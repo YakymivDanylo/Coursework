@@ -1,2 +1,1 @@
-name_one surname_one last_name book 55 7198
 name_two surname_two last_name_two book_two 110 7250
