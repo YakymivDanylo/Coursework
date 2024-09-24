@@ -129,6 +129,7 @@ void addAuthorAndBook() {
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
     foutB << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId() << endl;
     foutB.close();
+    cout<<"Book was successfully added"<<endl;
 
 }
 
@@ -518,101 +519,6 @@ void showMyBooks() {
 
     }
 }
-
-void deleteBook() {
-    string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
-    string filenameBook = R"(D:\Coursework\Database\Books.txt)";
-    string filenameBookstand = R"(D:\Coursework\Database\Bookstands.txt)";
-
-    unique_ptr<string> nameAu{new string{" "}};
-    unique_ptr<string> surnameAu{new string{" "}};
-    unique_ptr<string> last_nameAu{new string{" "}};
-
-    unique_ptr<string> nameOfBook{new string{" "}};
-    unique_ptr<double> price{new double{0.0}};
-    unique_ptr<int> id{new int{0}};
-    unique_ptr<int> idOfBook{new int{0}};
-    unique_ptr<int> idBs{new int{0}};
-
-    cout << "Enter book`s ID which you want to delete: ";
-    if (!(cin >> *idOfBook)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
-    }
-
-
-//    ifstream finAuthor(filenameAuthor);
-//
-//    while (finAuthor >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
-//        if (*idOfBook == *id) {
-//
-//            Book book(*nameOfBook, *price, *idOfBook);
-//            Author author(*nameAu, *surnameAu, *last_nameAu, book);
-//
-//            ofstream foutDelete("deleteAuthor", ios_base::app);
-//            foutDelete << author.getName() << " " << author.getSurname() << " "
-//                       << author.getLastName() << " " << author.getNameBook() << " " << author.getPriceBook() << " "
-//                       << author.getId() << endl;
-//            foutDelete.close();
-//        }
-//
-//    }
-//    finAuthor.close();
-//    remove("deleteAuthor.txt");
-
-    ifstream finAuthor1(filenameAuthor);
-    ofstream foutAuthor("tempAuthor.txt");
-    while (finAuthor1 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
-            Book book(*nameOfBook, *price, *id);
-            Author author(*nameAu, *surnameAu, *last_nameAu, book);
-            foutAuthor << author.getName() << " " << author.getSurname() << " " << author.getLastName() << " "
-                       << author.getNameBook() << " " << author.getPriceBook() << " " << author.getId() << endl;
-
-        }
-    }
-    foutAuthor.close();
-    finAuthor1.close();
-
-    remove(filenameAuthor.c_str());
-    rename("tempAuthor.txt", filenameAuthor.c_str());
-
-    ifstream finBook(filenameBook);
-    ofstream foutBook("tempBook.txt");
-    while (finBook >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
-            Book book(*nameOfBook, *price, *id);
-            foutBook << book.getName() << " " << book.getPrice() << " " << book.getId() << endl;
-        }
-    }
-    foutBook.close();
-    finBook.close();
-
-    remove(filenameBook.c_str());
-    rename("tempBook.txt", filenameBook.c_str());
-
-    ifstream finBookstand(filenameBookstand);
-    ofstream foutBookstand("tempBookstand.txt");
-    while (finBookstand >> *idBs >> *nameOfBook >> *price >> *id) {
-        if (*idOfBook != *id) {
-            Book book(*nameOfBook, *price, *id);
-            Bookstand bookstand(*idBs, book);
-            foutBookstand << bookstand.getIdBookstand() << " " << bookstand.getNameBook() << " "
-                          << bookstand.getPriceBook() << " " << bookstand.getIdBook() << endl;
-        }
-    }
-    foutBookstand.close();
-    finBookstand.close();
-
-    remove(filenameBookstand.c_str());
-    rename("tempBookstand.txt", filenameBookstand.c_str());
-
-
-    cout << "Book with ID " << *idOfBook << " was deleted " << endl;
-
-}
-
 
 void takeBook() {
     string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
@@ -1020,6 +926,72 @@ struct AuthorBookData {
     int idBook;
     int idBookstand;
 };
+
+void deleteBook() {
+    unique_ptr<int> idBook{new int{0}};
+    cout << "Enter ID of the book which you want to delete: ";
+    if (!(cin >> *idBook)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
+    vector<AuthorBookData> authors;
+    vector<AuthorBookData> deletedAuthors;
+    ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
+
+    if(!finAuthorBook.is_open()){
+        cerr << "Error opening file: Author+Book.txt" << endl;
+        return;
+    }
+    string line;
+    while(getline(finAuthorBook,line)){
+        istringstream iss(line);
+        AuthorBookData author;
+        iss >> author.nameAuthor >> author.surnameAuthor >> author.last_nameAuthor >> author.nameBook >> author.priceBook >> author.idBook;
+        authors.push_back(author);
+    }
+    finAuthorBook.close();
+
+    vector<AuthorBookData> newAuthorBook;
+    vector<AuthorBookData> deleteAuthors;
+    bool found = false;
+    bool foundAny = false;
+    for(const AuthorBookData &author : authors){
+        if(author.idBook == *idBook){
+            found=true;
+            deletedAuthors.push_back(author);
+            break;
+        }
+        if(!found){
+            newAuthorBook.push_back(author);
+        }
+    }
+
+
+
+    ofstream foutAuthor(R"(D:\Coursework\Database\Author+Book.txt)",ios::out | ios::trunc);
+    if(!foutAuthor.is_open()){
+        cerr<<"Error opening file: Author+Book.txt"<<endl;
+        return;
+    }
+    for(const AuthorBookData & author : newAuthorBook){
+        foutAuthor << author.nameAuthor << " " << author.surnameAuthor << " " << author.last_nameAuthor << " " << author.nameBook << " " << author.priceBook << " " << author.idBook << endl;
+    }
+    foutAuthor.close();
+
+    string filenameDeleted = R"(D:\Coursework\Database\Deleted_books.txt)";
+    ofstream foutDelete(filenameDeleted,ios::app);
+    for(const AuthorBookData &author : deletedAuthors){
+        foutDelete<<author.nameAuthor<<" "<<author.surnameAuthor<<" "<<author.last_nameAuthor<<" "<<author.nameBook<<" "<<author.priceBook<<" "<<author.idBook<<endl;
+    }
+    foutDelete.close();
+    remove(filenameDeleted.c_str());
+     cout<<"Author and book with ID "<<*idBook<<" was successfully deleted."<<endl;
+
+
+}
+
 
 void changeAuthorBook() {
     unique_ptr<int> idBook{new int{0}};
