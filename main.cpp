@@ -955,11 +955,13 @@ void deleteBook() {
 
     vector<AuthorBookData> newAuthorBook;
     vector<AuthorBookData> deleteAuthors;
-    bool found = false;
+
     bool foundAny = false;
     for(const AuthorBookData &author : authors){
+        bool found = false;
         if(author.idBook == *idBook){
-            found=true;
+            found= true;
+            foundAny=true;
             deletedAuthors.push_back(author);
             break;
         }
@@ -967,8 +969,10 @@ void deleteBook() {
             newAuthorBook.push_back(author);
         }
     }
-
-
+    if(!foundAny){
+        cout<<"Author and book with ID "<<*idBook<<" not found"<<endl;
+        return;
+    }
 
     ofstream foutAuthor(R"(D:\Coursework\Database\Author+Book.txt)",ios::out | ios::trunc);
     if(!foutAuthor.is_open()){
@@ -986,6 +990,7 @@ void deleteBook() {
         foutDelete<<author.nameAuthor<<" "<<author.surnameAuthor<<" "<<author.last_nameAuthor<<" "<<author.nameBook<<" "<<author.priceBook<<" "<<author.idBook<<endl;
     }
     foutDelete.close();
+
     remove(filenameDeleted.c_str());
      cout<<"Author and book with ID "<<*idBook<<" was successfully deleted."<<endl;
 
