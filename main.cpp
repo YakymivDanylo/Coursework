@@ -122,7 +122,8 @@ void addAuthorAndBook() {
     finB.close();
 
     ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-    foutAB << author0.getName() << " " << author0.getSurname() << " " << author0.getLastName() << " " << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId()
+    foutAB << author0.getName() << " " << author0.getSurname() << " " << author0.getLastName() << " "
+           << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId()
            << endl;
     foutAB.close();
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
@@ -311,65 +312,65 @@ int ShowBookById() {
     Author author;
     int bookId;
     cout << "Enter ID of the book: ";
-        if (!(cin >> bookId)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            throw InvalidInput();
-        }
+    if (!(cin >> bookId)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInput();
+    }
 
-        unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
-        if (book) {
-            cout << "Here is your book:" << endl;
-            cout << "Book`s name:" << "\t" << book->getName() << endl;
-            cout << "Book`s price:" << "\t" << book->getPrice() << endl;
-            cout << "Book`s ID:" << "\t" << book->getId() << endl;
-        } else {
-            cout << "Book with this ID was not found" << endl;
+    unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
+    if (book) {
+        cout << "Here is your book:" << endl;
+        cout << "Book`s name:" << "\t" << book->getName() << endl;
+        cout << "Book`s price:" << "\t" << book->getPrice() << endl;
+        cout << "Book`s ID:" << "\t" << book->getId() << endl;
+    } else {
+        cout << "Book with this ID was not found" << endl;
 
-            unique_ptr<string> name{new string{"unknown"}};
-            unique_ptr<string> surname{new string{"unknown"}};
-            unique_ptr<string> last_name{new string{"unknown"}};
-            unique_ptr<int> idR{new int{0}};
+        unique_ptr<string> name{new string{"unknown"}};
+        unique_ptr<string> surname{new string{"unknown"}};
+        unique_ptr<string> last_name{new string{"unknown"}};
+        unique_ptr<int> idR{new int{0}};
 
-            Reader reader1(*name, *surname, *last_name, *idR);
+        Reader reader1(*name, *surname, *last_name, *idR);
 
-            unique_ptr<string> nameOfBook{new string{"unknown"}};
-            unique_ptr<double> price{new double{0}};
-            unique_ptr<int> id{new int{0}};
+        unique_ptr<string> nameOfBook{new string{"unknown"}};
+        unique_ptr<double> price{new double{0}};
+        unique_ptr<int> id{new int{0}};
 
-            Book book3(*nameOfBook, *price, *id);
+        Book book3(*nameOfBook, *price, *id);
 
-            unique_ptr<string> nameAu{new string{"unknown"}};
-            unique_ptr<string> surnameAu{new string{"unknown"}};
-            unique_ptr<string> last_nameAu{new string{"unknown"}};
+        unique_ptr<string> nameAu{new string{"unknown"}};
+        unique_ptr<string> surnameAu{new string{"unknown"}};
+        unique_ptr<string> last_nameAu{new string{"unknown"}};
 
-            Author author1(*nameAu, *surnameAu, *last_nameAu, book3);
+        Author author1(*nameAu, *surnameAu, *last_nameAu, book3);
 
-            ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
+        ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
 
-            while (finR >> reader1 >> author1) {
-                if (bookId == author1.getId()) {
-                    Book book2(*nameOfBook, *price, bookId);
-                    Author author2(*nameAu, *surnameAu, *last_nameAu, book2);
-                    cout << "This book was taken by:" << endl;
-                    delimitation2();
-                    cout << "Reader`s name:" << "\t" << reader1.getName() << endl;
-                    cout << "Reader`s surname:" << "\t" << reader1.getSurname() << endl;
-                    cout << "Reader`s last name:" << "\t" << reader1.getLastName() << endl;
-                    cout << "Reader`s ID:" << "\t" << reader1.getID() << endl;
-                    cout << endl;
-                    cout << "Author`s name:" << "\t" << author1.getName() << endl;
-                    cout << "Author`s surname:" << "\t" << author1.getSurname() << endl;
-                    cout << "Author`s last name:" << "\t" << author1.getLastName() << endl;
-                    cout << endl;
-                    cout << "Book`s name:" << "\t" << author1.getNameBook() << endl;
-                    cout << "Book`s price:" << "\t" << author1.getPriceBook() << endl;
-                    cout << "Book`s ID:" << "\t" << author1.getId() << endl;
-                    delimitation2();
-                }
+        while (finR >> reader1 >> author1) {
+            if (bookId == author1.getId()) {
+                Book book2(*nameOfBook, *price, bookId);
+                Author author2(*nameAu, *surnameAu, *last_nameAu, book2);
+                cout << "This book was taken by:" << endl;
+                delimitation2();
+                cout << "Reader`s name:" << "\t" << reader1.getName() << endl;
+                cout << "Reader`s surname:" << "\t" << reader1.getSurname() << endl;
+                cout << "Reader`s last name:" << "\t" << reader1.getLastName() << endl;
+                cout << "Reader`s ID:" << "\t" << reader1.getID() << endl;
+                cout << endl;
+                cout << "Author`s name:" << "\t" << author1.getName() << endl;
+                cout << "Author`s surname:" << "\t" << author1.getSurname() << endl;
+                cout << "Author`s last name:" << "\t" << author1.getLastName() << endl;
+                cout << endl;
+                cout << "Book`s name:" << "\t" << author1.getNameBook() << endl;
+                cout << "Book`s price:" << "\t" << author1.getPriceBook() << endl;
+                cout << "Book`s ID:" << "\t" << author1.getId() << endl;
+                delimitation2();
             }
-
         }
+
+    }
 
     return 0;
 }
@@ -517,7 +518,8 @@ void showMyBooks() {
 
     }
 }
-void deleteBook(){
+
+void deleteBook() {
     string filenameAuthor = R"(D:\Coursework\Database\Author+Book.txt)";
     string filenameBook = R"(D:\Coursework\Database\Books.txt)";
     string filenameBookstand = R"(D:\Coursework\Database\Bookstands.txt)";
@@ -607,7 +609,7 @@ void deleteBook(){
     rename("tempBookstand.txt", filenameBookstand.c_str());
 
 
-    cout << "Book with ID " << *idOfBook << " was deleted " <<endl;
+    cout << "Book with ID " << *idOfBook << " was deleted " << endl;
 
 }
 
@@ -866,6 +868,137 @@ void returnBook() {
 
 }
 
+struct AuthorBookData {
+    string nameAuthor, surnameAuthor, last_nameAuthor, nameBook;
+    double priceBook;
+    int idBook;
+};
+
+void changeAuthorBook() {
+    unique_ptr<int> idBook{new int{0}};
+    cout<<"Enter ID of the book which you want to change: ";
+    if (!(cin >> *idBook)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
+    vector<AuthorBookData> author_book;
+    ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
+    if (!finAuthorBook.is_open()) {
+        cerr << "Error opening file: Author+Book.txt" << endl;
+        return;
+    }
+    string line;
+    while (getline(finAuthorBook, line)) {
+        istringstream iss(line);
+        AuthorBookData authors;
+        iss >> authors.nameAuthor >> authors.surnameAuthor >> authors.last_nameAuthor >> authors.nameBook
+            >> authors.priceBook >> authors.idBook;
+        author_book.push_back(authors);
+    }
+    finAuthorBook.close();
+    bool found = false;
+    for (AuthorBookData &authors: author_book) {
+        if (authors.idBook == *idBook) {
+            found = true;
+            delimitation2();
+            cout << "Current inforamtion for the author and his book with ID " << *idBook << ":" << endl;
+            cout << "Author`s name: " << authors.nameAuthor << endl;
+            cout << "Author`s surname: " << authors.surnameAuthor << endl;
+            cout << "Author`s last name: " << authors.last_nameAuthor << endl;
+            cout << "Book`s name: " << authors.nameBook << endl;
+            cout << "Book`s price: " << authors.priceBook << endl;
+            cout << "Book`s ID: " << authors.idBook << endl;
+            delimitation2();
+            while (true) {
+                delimitation2();
+                 cout<<"Choose what field do you want to change?"<<endl;
+                 cout<<"1. Author`s name"<<endl;
+                 cout<<"2. Author`s surname"<<endl;
+                 cout<<"3. Author`s last name"<<endl;
+                 cout<<"4. Book`s name"<<endl;
+                 cout<<"5. Book`s price"<<endl;
+                 cout<<"6. Book`s ID"<<endl;
+                 cout<<"0. Exit"<<endl;
+
+                 int choice;
+                if (!(cin >> choice)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    throw InvalidInputInt();
+                }
+
+                switch (choice) {
+                    case 1: {
+                    cout<<"Enter new name: ";
+                    cin>>authors.nameAuthor;
+                        break;
+                    }
+                    case 2: {
+                        cout<<"Enter new surname: ";
+                    cin>>authors.surnameAuthor;
+                        break;
+                    }
+                    case 3: {
+                    cout<<"Enter new last name: ";
+                    cin>>authors.last_nameAuthor;
+                        break;
+                    }
+                    case 4: {
+                        cout<<"Enter new book`s name: ";
+                        cin>>authors.nameBook;
+                        break;
+                    }
+                    case 5: {
+                        cout<<"Enter new book`s price: ";
+                        cin>>authors.priceBook;
+                        break;
+                    }
+                    case 6: {
+                        cout<<"Enter new book`s ID: ";
+                        cin>>authors.idBook;
+                        break;
+                    }
+                    case 0: {
+                        ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
+                        ofstream foutBook(R"(D:\Coursework\Database\Books.txt)");
+                        if(!foutAuthorBook.is_open()){
+                            cerr<<"Error opening file: Author+Book.txt"<<endl;
+                            return;
+                        }
+                        for(const AuthorBookData &authors : author_book){
+                            foutAuthorBook<<authors.nameAuthor<<" "<<authors.surnameAuthor<<" "<<authors.last_nameAuthor<<" "<<authors.nameBook<<" "<<authors.priceBook<<" "<<authors.idBook<<endl;
+                            foutBook<<authors.nameBook<<" "<<authors.priceBook<<" "<<authors.idBook<<endl;
+                        }
+                        foutAuthorBook.close();
+                        foutBook.close();
+                        cout<<"Updated information for author and book with ID "<<*idBook<<":"<<endl;
+                        cout<<"Author`s name: "<<authors.nameAuthor<<endl;
+                        cout<<"Author`s surname: "<<authors.surnameAuthor<<endl;
+                        cout<<"Author`s last name: "<<authors.last_nameAuthor<<endl;
+                        cout<<"Book`s name: "<<authors.nameBook<<endl;
+                        cout<<"Book`s price: "<<authors.priceBook<<endl;
+                        cout<<"Book`s ID: "<<authors.idBook<<endl;
+                    }
+                    return;
+                    default:{
+                        cout<<"Invalid choice."<<endl;
+                    }
+                }
+
+
+
+            }
+
+        }
+    }
+    if (!found) {
+        cout << "Author and book with ID " << *idBook << " not found." << endl;
+    }
+    delimitation();
+}
+
 
 int main() {
 
@@ -910,6 +1043,7 @@ int main() {
                                     cout << "6. Show bookstands." << endl;
                                     cout << "7. Show books by author`s full name." << endl;
                                     cout << "8. Delete book by its ID." << endl;
+                                    cout << "9. Change author and its book by ID." << endl;
                                     cout << "0. Exit." << endl << endl;
                                     int choiceAd;
                                     cin >> choiceAd;
@@ -919,7 +1053,7 @@ int main() {
                                     }
                                     if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
                                         choiceAd != 4 &&
-                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8)
+                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 && choiceAd != 9)
                                         throw WrongChoice();
                                     switch (choiceAd) {
                                         case 1: {
@@ -962,6 +1096,11 @@ int main() {
                                         }
                                         case 8: {
                                             deleteBook();
+                                            delimitation();
+                                            break;
+                                        }
+                                        case 9:{
+                                            changeAuthorBook();
                                             delimitation();
                                             break;
                                         }
