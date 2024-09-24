@@ -27,9 +27,11 @@ public:
     string getNameBook() ;
     double getPriceBook();
     int getIdBook();
-
     int getIdBookstand() const;
-    void setId(int id);
+
+    void setBookstandId(int newIdBookstand);
+    void setBook(Book newBook);
+
 
     [[maybe_unused]] Book getBook();
 

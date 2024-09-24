@@ -57,7 +57,21 @@ string Reader::getSurname() {return surname;}
 string Reader::getLastName() {return  last_name;}
 int Reader::getID() {return  idR;}
 
+void Reader::setNameReader(const std::string &newName) {
+    name = newName;
+}
 
+void Reader::setSurnameAuthor(const std::string &newSurname) {
+    surname = newSurname;
+}
+
+void Reader::setLastNameAuthor(const std::string &newLastName) {
+    last_name = newLastName;
+}
+
+void Reader::setId(int newId) {
+    idR = newId;
+}
 
 
 [[maybe_unused]] bool Reader::search() {

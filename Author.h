@@ -34,6 +34,10 @@ public:
     int getId();
     void write_log();
 
+    void setNameAuthor(const string& newName);
+    void setSurnameAuthor(const string& newSurname);
+    void setLastNameAuthor(const string& newLastName);
+    void setBookAuthor(const Book& newBook);
 
     void addBook(const Book& book);
 };

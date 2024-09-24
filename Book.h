@@ -29,6 +29,11 @@ public:
     double getPrice() const;
     int getId() const ;
     void getBook() const;
+    void setNameBook(const string& newName);
+    void setPriceBook(double newPrice);
+    void setIDBook(int newID);
+
+
     void write_log();
 
     unique_ptr<Book> findBookById(const string filename,int bookId){

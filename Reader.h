@@ -13,7 +13,7 @@ using namespace std;
 class Reader: public Person{
 private:
     int idR;
-//    Book books;
+
 public:
     Reader();
     Reader( string name, string surname, string last_name, int idR);
@@ -26,6 +26,12 @@ public:
     string getName() override;
     string getSurname() override;
     string getLastName() override;
+
+    void setNameReader(const string& newName);
+    void setSurnameAuthor(const string& newSurname);
+    void setLastNameAuthor(const string& newLastName);
+    void setId(int newId);
+
     int getID();
     void getReader() const;
     [[maybe_unused]] bool search();

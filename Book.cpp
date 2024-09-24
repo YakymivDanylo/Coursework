@@ -74,6 +74,18 @@ void Book::getBook() const {
     cout << " " << name << " " << price << " " << id << endl;
 }
 
+void Book::setNameBook(const std::string &newName) {
+    name = newName;
+}
+
+void Book::setPriceBook(double newPrice) {
+    price = newPrice;
+}
+
+void Book::setIDBook(int newID) {
+    id = newID;
+}
+
 void Book::write_log() {
     ofstream foutLog(R"(D:\Coursework\Database\Logs.txt)",ios_base::app);
     auto now = chrono::system_clock::now();

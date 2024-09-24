@@ -59,7 +59,14 @@ Bookstand::Bookstand(Bookstand &&other)
 
 [[maybe_unused]] int Bookstand::getIdBookstand() const { return id; }
 
-[[maybe_unused]] void Bookstand::setId(int id) { this->id = id; }
+void Bookstand::setBookstandId(int newIdBookstand) {
+    id = newIdBookstand;
+}
+
+void Bookstand::setBook(Book newBook) {
+    book = newBook;
+}
+
 
 [[maybe_unused]] void Bookstand::getBookstand() const {
     cout << "ID of the bookstand: " << id << endl;

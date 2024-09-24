@@ -84,6 +84,22 @@ int Author::getId() {
     return book.getId();
 }
 
+void Author::setNameAuthor(const std::string &newName) {
+    name = newName;
+}
+
+void Author::setSurnameAuthor(const std::string &newSurname) {
+    surname = newSurname;
+}
+
+void Author::setLastNameAuthor(const std::string &newLastName) {
+    last_name = newLastName;
+}
+
+void Author::setBookAuthor(const Book &newBook) {
+    book = newBook;
+}
+
 
 void Author::write_log() {
 
