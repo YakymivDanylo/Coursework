@@ -114,27 +114,12 @@ void addAuthorAndBook() {
     author1.setBookAuthor(book1);
 
 
-//    while (finB >> *name1 >> *surname1 >> *last_name1 >> *bookName1 >> *bookPrice1 >> *bookID1) {
-//        if (author0.getId() == *bookID1) {
-//            throw SameID();
-//        }
-//    }
-//    finB.close();
     while (finB >> author1) {
         if (author0.getId() == author1.getId()) {
             throw SameID();
         }
     }
     finB.close();
-
-
-//    ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
-//    foutAB << *name << " " << *surname << " " << *last_name << " " << *bookName << " " << *bookPrice << " " << bookID
-//           << endl;
-//    foutAB.close();
-//    ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
-//    foutB << *bookName << " " << *bookPrice << " " << bookID << endl;
-//    foutB.close();
 
     ofstream foutAB(R"(D:\Coursework\Database\Author+Book.txt)", ios_base::app);
     foutAB << author0.getName() << " " << author0.getSurname() << " " << author0.getLastName() << " " << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId()
@@ -150,13 +135,18 @@ void addAuthorAndBook() {
 void addBookstand() {
 
     unique_ptr<string> name{new string{"unknwon"}};
+
     unique_ptr<double> price{new double{0}};
+
     unique_ptr<int> id{new int{0}};
+
     unique_ptr<int> bookId{new int{0}};
+
     int bookstandId;
 
     srand(time(0));
     bookstandId = rand();
+
 
     cout << "Enter ID of the book: ";
     if (!(cin >> *bookId)) {
@@ -164,6 +154,14 @@ void addBookstand() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInputInt();
     }
+    Book book;
+    Bookstand bookstand;
+    book.setNameBook(*name);
+    book.setPriceBook(*price);
+    book.setIDBook(*bookId);
+
+    bookstand.setBookstandId(bookstandId);
+    bookstand.setBook(book);
 
     int counter = 0;
     int counter1 = 0;
@@ -173,7 +171,7 @@ void addBookstand() {
 
     if (booksFile.is_open()) {
         while (bookstandFile >> bookstandId >> *name >> *price >> *id) {
-            if (*bookId == *id) {
+            if (bookstand.getIdBook() == *id) {
                 counter1++;
             }
         }
@@ -185,15 +183,22 @@ void addBookstand() {
         } else {
 
             while (booksFile >> *name >> *price >> *id) {
-                if (*bookId == *id) {
-                    Book book1(*name, *price, *bookId);
-                    Bookstand bookstand(bookstandId, book1);
-                    foutbookstand << bookstand << endl;
+                if (bookstand.getIdBook() == *id) {
+                    Book book1;
+                    Bookstand bookstand1;
+
+                    book1.setNameBook(*name);
+                    book1.setPriceBook(*price);
+                    book1.setIDBook(bookstand.getIdBook());
+                    bookstand1.setBookstandId(bookstandId);
+                    bookstand1.setBook(book1);
+
+                    foutbookstand << bookstand1 << endl;
                     counter++;
                 }
             }
             booksFile.close();
-            cout << "Book with ID:\t" << *bookId << "\twas successfully added" << endl;
+            cout << "Book with ID:\t" << bookstand.getIdBook() << "\twas successfully added" << endl;
             if (counter == 0) {
                 cout << "There is no book with this ID!" << endl;
             }
