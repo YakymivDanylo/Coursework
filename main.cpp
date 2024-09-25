@@ -918,6 +918,66 @@ struct AuthorBookData {
     int idBookstand;
 };
 
+bool comparePriceAsc(const AuthorBookData &a, const AuthorBookData &b){
+    return a.priceBook < b.priceBook;
+}
+
+bool comparePriceDesc(const AuthorBookData &a, const AuthorBookData &b){
+    return a.priceBook > b.priceBook;
+}
+
+void sortBookByPriceAsc(){
+    vector<AuthorBookData> books;
+    ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
+
+    if(!fin.is_open()){
+        cerr << "Error opening file: Author+Book.txt" << endl;
+        return;
+    }
+
+    string line;
+    while(getline(fin, line)){
+        istringstream iss(line);
+        AuthorBookData book;
+        iss>>book.nameAuthor>>book.surnameAuthor>>book.last_nameAuthor>>book.nameBook>>book.priceBook>>book.idBook;
+        books.push_back(book);
+    }
+    fin.close();
+
+    sort(books.begin(), books.end(), comparePriceAsc);
+    cout<<"Books sorted by price in ascending order:"<<endl;
+    for(const AuthorBookData& book: books){
+        cout<<book.nameAuthor << " " << book.surnameAuthor << " "
+            << book.last_nameAuthor << " - " << book.nameBook << " ($"
+            << book.priceBook << ")" << endl;
+    }
+}
+
+void sortBooksByPriceDesc(){
+    vector<AuthorBookData> books;
+    ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
+
+    if(!fin.is_open()){
+        cerr << "Error opening file: Author+Book.txt" << endl;
+        return;
+    }
+    string line;
+    while (getline(fin, line)) {
+        istringstream iss(line);
+        AuthorBookData book;
+        iss >> book.nameAuthor >> book.surnameAuthor >> book.last_nameAuthor
+            >> book.nameBook >> book.priceBook >> book.idBook;
+        books.push_back(book);
+    }
+    fin.close();
+    sort(books.begin(), books.end(), comparePriceDesc);
+    cout << "Books sorted by price in descending order:" << endl;
+    for (const AuthorBookData& book : books) {
+        cout << book.nameAuthor << " " << book.surnameAuthor << " "
+             << book.last_nameAuthor << " - " << book.nameBook << " ($"
+             << book.priceBook << ")" << endl;
+    }
+}
 void deleteBook(int IdBook) {
     vector<AuthorBookData> authors;
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
@@ -1145,6 +1205,8 @@ int main() {
                                     cout << "7. Show books by author`s full name." << endl;
                                     cout << "8. Delete book by its ID." << endl;
                                     cout << "9. Change author and its book by ID." << endl;
+                                    cout << "10. Sort books by price in ascending order." << endl;
+                                    cout << "11. Sort books by price in descending order." << endl;
                                     cout << "0. Exit." << endl << endl;
                                     int choiceAd;
                                     cin >> choiceAd;
@@ -1155,7 +1217,7 @@ int main() {
                                     if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
                                         choiceAd != 4 &&
                                         choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 &&
-                                        choiceAd != 9)
+                                        choiceAd != 9 && choiceAd != 10 && choiceAd != 11)
                                         throw WrongChoice();
                                     switch (choiceAd) {
                                         case 1: {
@@ -1210,6 +1272,16 @@ int main() {
                                         }
                                         case 9: {
                                             changeAuthorBook();
+                                            delimitation();
+                                            break;
+                                        }
+                                        case 10: {
+                                            sortBookByPriceAsc();
+                                            delimitation();
+                                            break;
+                                        }
+                                        case 11: {
+                                            sortBooksByPriceDesc();
                                             delimitation();
                                             break;
                                         }
