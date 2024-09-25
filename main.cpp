@@ -1081,31 +1081,59 @@ void changeAuthorBook() {
                     case 1: {
                         cout << "Enter new name: ";
                         cin >> authors.nameAuthor;
+                        if (cin.fail() || authors.nameAuthor.find_first_of("0123456789") != string::npos) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputString();
+                        }
                         break;
                     }
                     case 2: {
                         cout << "Enter new surname: ";
                         cin >> authors.surnameAuthor;
+                        if (cin.fail() || authors.surnameAuthor.find_first_of("0123456789") != string::npos) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputString();
+                        }
                         break;
                     }
                     case 3: {
                         cout << "Enter new last name: ";
                         cin >> authors.last_nameAuthor;
+                        if (cin.fail() || authors.last_nameAuthor.find_first_of("0123456789") != string::npos) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputString();
+                        }
                         break;
                     }
                     case 4: {
                         cout << "Enter new book`s name: ";
                         cin >> authors.nameBook;
+                        if (cin.fail() || authors.nameBook.find_first_of("0123456789") != string::npos) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputString();
+                        }
                         break;
                     }
                     case 5: {
                         cout << "Enter new book`s price: ";
-                        cin >> authors.priceBook;
+                        if (!(cin >> authors.priceBook)) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputInt();
+                        }
                         break;
                     }
                     case 6: {
                         cout << "Enter new book`s ID: ";
-                        cin >> authors.idBook;
+                        if (!(cin >> authors.idBook)) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            throw InvalidInputInt();
+                        }
                         break;
                     }
                     case 0: {
