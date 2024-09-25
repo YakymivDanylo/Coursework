@@ -1160,6 +1160,56 @@ void changeAuthorBook() {
     delimitation();
 }
 
+void filterBooksByPriceRange() {
+    double minPrice, maxPrice;
+
+    cout << "Enter the minimum price: ";
+    if (!(cin >> minPrice)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
+    cout << "Enter the maximum price: ";
+    if (!(cin >> maxPrice)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw InvalidInputInt();
+    }
+
+    vector<AuthorBookData> books;
+    ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
+
+    if (!fin.is_open()) {
+        cerr << "Error opening file: Author+Book.txt" << endl;
+        return;
+    }
+
+    string line;
+    while (getline(fin, line)) {
+        istringstream iss(line);
+        AuthorBookData book;
+        iss >> book.nameAuthor >> book.surnameAuthor >> book.last_nameAuthor
+            >> book.nameBook >> book.priceBook >> book.idBook;
+        books.push_back(book);
+    }
+    fin.close();
+
+    cout << "Books within the price range $" << minPrice << " - $" << maxPrice << ":" << endl;
+    bool found = false;
+    for (const AuthorBookData& book : books) {
+        if (book.priceBook >= minPrice && book.priceBook <= maxPrice) {
+            cout << book.nameAuthor << " " << book.surnameAuthor << " "
+                 << book.last_nameAuthor << " - " << book.nameBook << " ($"
+                 << book.priceBook << ")" << endl;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "No books found within the specified price range." << endl;
+    }
+}
 
 int main() {
 
@@ -1207,6 +1257,7 @@ int main() {
                                     cout << "9. Change author and its book by ID." << endl;
                                     cout << "10. Sort books by price in ascending order." << endl;
                                     cout << "11. Sort books by price in descending order." << endl;
+                                    cout << "12. Filter books by price range." << endl;
                                     cout << "0. Exit." << endl << endl;
                                     int choiceAd;
                                     cin >> choiceAd;
@@ -1217,7 +1268,7 @@ int main() {
                                     if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
                                         choiceAd != 4 &&
                                         choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 &&
-                                        choiceAd != 9 && choiceAd != 10 && choiceAd != 11)
+                                        choiceAd != 9 && choiceAd != 10 && choiceAd != 11 && choiceAd != 12)
                                         throw WrongChoice();
                                     switch (choiceAd) {
                                         case 1: {
@@ -1285,6 +1336,11 @@ int main() {
                                             delimitation();
                                             break;
                                         }
+                                        case 12: {
+                                            filterBooksByPriceRange();
+                                            delimitation();
+                                            break;
+                                        }
                                         case 0: {
                                             delimitation();
                                             return 0;
@@ -1327,6 +1383,9 @@ int main() {
                         cout << "4. Return a book " << endl;
                         cout << "5. Show my books " << endl;
                         cout << "6. Change my information " << endl;
+                        cout << "7. Sort books by price in ascending order." << endl;
+                        cout << "8. Sort books by price in descending order." << endl;
+                        cout << "9. Filter books by price range." << endl;
                         cout << "0. Exit " << endl << endl;
                         int choiceC;
                         cin >> choiceC;
@@ -1335,7 +1394,7 @@ int main() {
                         }
                         cout << endl;
                         if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
-                            choiceC != 0 && choiceC != 6)
+                            choiceC != 0 && choiceC != 6 && choiceC != 7 && choiceC != 8 && choiceC != 9)
                             throw WrongChoice();
                         switch (choiceC) {
 
@@ -1369,9 +1428,23 @@ int main() {
                                 delimitation();
                                 break;
                             }
+                            case 7: {
+                                sortBookByPriceAsc();
+                                delimitation();
+                                break;
+                            }
+                            case 8: {
+                                sortBooksByPriceDesc();
+                                delimitation();
+                                break;
+                            }
+                            case 9: {
+                                filterBooksByPriceRange();
+                                delimitation();
+                                break;
+                            }
                             case 0: {
                                 return 0;
-                                delimitation();
                             }
                             default: {
                                 throw WrongChoice();
