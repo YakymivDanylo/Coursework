@@ -392,14 +392,14 @@ void ShowBooksByAuthor() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInput();
     }
-
+    cout<<endl;
+    delimitation2();
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
     Author author;
     int counter = 0;
     int counterBook = 1;
     while (finAB >> author) {
-        delimitation2();
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cout << "Book number:\t" << counterBook++ << endl;
@@ -644,7 +644,7 @@ void takeBook() {
     rename("tempBookstand.txt", filenameBookstand.c_str());
 
 
-    cout << "Book with ID " << *idOfBook << "was taken by " << reader1.getName() << " " << reader1.getSurname() << " "
+    cout << "Book with ID " << *idOfBook << " was taken by " << reader1.getName() << " " << reader1.getSurname() << " "
          << reader1.getLastName() << "  "
          << reader1.getID() << endl;
 
@@ -759,8 +759,8 @@ void returnBook() {
     remove(filenameReader.c_str());
     rename("tempReader.txt", filenameReader.c_str());
 
-    cout << "Book with ID " << *idOfBook << endl;
-    cout << " was successfully returned" << endl;
+    cout << "Book with ID " << *idOfBook<< " was successfully returned" << endl;
+
 
 
 }
@@ -826,7 +826,7 @@ void changeReader() {
         readers.push_back(reader);
     }
     finReader.close();
-
+    cout<<endl;
     bool found = false;
     for (ReaderData &reader: readers) {
         if (reader.idReader == *idReader && reader.nameReader == *name && reader.surnameReader == *surname &&
@@ -887,7 +887,7 @@ void changeReader() {
                             foutReader << reader.nameReader << " " << reader.surnameReader << " " <<reader.last_nameReader<<" "<<reader.idReader<<" "<<reader.nameAuthor<<" "<<reader.surnameAuthor<<" "<<reader.last_nameAuthor<<" "<<reader.nameBook<<" "<<reader.priceBook<<" "<<reader.idBook<<endl;
                         }
                         foutReader.close();
-                        cout<<"Updated information for reader with ID "<< idReader<<":"<<endl;
+                        cout<<"Updated information for reader with ID "<< reader.idReader<<":"<<endl;
                         cout << "Reader`s name: " << reader.nameReader << endl;
                         cout << "Reader`s surname: " << reader.surnameReader << endl;
                         cout << "Reader`s last name: " << reader.last_nameReader << endl;
@@ -1248,7 +1248,7 @@ int main() {
             cout << "Choose what you want to do: " << endl;
             cout << "1. Administrator" << endl;
             cout << "2. Reader" << endl;
-            cout << "3. Instructions" << endl;
+            cout << "3. Instruction" << endl;
             cout << "0. Exit" << endl;
             delimitation();
             int choice;
@@ -1414,13 +1414,16 @@ int main() {
                         cout << "7. Sort books by price in ascending order." << endl;
                         cout << "8. Sort books by price in descending order." << endl;
                         cout << "9. Filter books by price range." << endl;
-                        cout << "0. Exit " << endl << endl;
+                        cout << "0. Exit " << endl;
+                        delimitation();
+                        cout<<endl;
                         int choiceC;
                         cin >> choiceC;
+                        delimitation();
                         if (cin.fail()) {
                             throw InvalidInput();
                         }
-                        cout << endl;
+//                        cout << endl;
                         if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
                             choiceC != 0 && choiceC != 6 && choiceC != 7 && choiceC != 8 && choiceC != 9)
                             throw WrongChoice();
@@ -1484,7 +1487,7 @@ int main() {
                 }
                 case 3://Instructions
                 {
-                    cout << "Instructions" << endl;
+                    cout << "Instruction" << endl;
                     ifstream finIn(R"(D:\Coursework\Database\Instruction.txt)");
                     string line;
                     while (getline(finIn, line)) {

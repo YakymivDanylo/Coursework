@@ -23,10 +23,12 @@ public:
     friend istream &operator >>(istream &is, Author &obj);
     Author(const Author &other);
     Author( Author &&other);
+
     string getName() override;
     string getSurname() override;
     string getLastName() override;
-    void getAuthor() const;
+
+    [[maybe_unused]] void getAuthor() const;
 
     Book getBook() const;
     string getNameBook();

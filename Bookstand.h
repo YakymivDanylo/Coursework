@@ -36,7 +36,7 @@ public:
     [[maybe_unused]] Book getBook();
 
     [[maybe_unused]] void getBookstand () const;
-    void addBook();
+
     void write_log();
 
 

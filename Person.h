@@ -22,6 +22,7 @@ public:
      ~Person() = default;
     friend ostream &operator <<(ostream &os, const Person &obj);
     friend istream &operator >>(istream &is, Person &obj);
+
     virtual string getName()=0;
     virtual string getSurname()=0;
     virtual string getLastName()=0;

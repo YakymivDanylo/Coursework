@@ -25,10 +25,13 @@ public:
     Book operator=(const Book &rhs);
     Book(const Book& other);
     Book( Book&& other);
+
     string getName();
     double getPrice() const;
     int getId() const ;
+
     void getBook() const;
+
     void setNameBook(const string& newName);
     void setPriceBook(double newPrice);
     void setIDBook(int newID);

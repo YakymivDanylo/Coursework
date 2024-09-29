@@ -1,6 +1,8 @@
-Welcome!
-You have reached the instructions section.
-When using the program, use the numbers to select the functions you want to use for example: "1","2" and so on.
-When entering any data to use the program, for example: first name, last name, etc., if they consist of more than one word - use the lowercase underscore “_”.
-If you enter incorrect data, the program will let you know about it.
-
+Welcome to the start menu!
+In this program, you can find a list of available books and rent them if the books are available and you are a regular  Reader.
+If you are an Administrator, you can add books, edit existing ones, and delete them.
+Input to the program must be in English or transliteration of the Ukrainian language into English.
+To make a selection in the program, look at the number to the left of the action you want to select and enter this      number.
+If you need to enter data into the program, for example, a surname or a book title and this title consists of more than one word, then use the lowercase underscore with the words "_".
+Example: "last_name", "The_Da_Vinci_Code".
+If the program does not respond when you enter the reader and book IDs and press “Enter” to receive or return a book, erase and re-enter the IDs.

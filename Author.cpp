@@ -1,6 +1,3 @@
-//
-// Created by danyl on 24.06.2024.
-//
 
 #include "Author.h"
 #include "Book.h"
@@ -55,7 +52,7 @@ string Author::getSurname() { return surname; }
 
 string Author::getLastName() { return last_name; }
 
-void Author::getAuthor() const {
+[[maybe_unused]] void Author::getAuthor() const {
     cout << " " << name << " " << surname << " " << last_name << endl;
     book.getBook();
 }

@@ -23,6 +23,7 @@ public:
     Reader &operator=(const Reader &rhs);
     Reader(const Reader &other);
     Reader( Reader &&other);
+
     string getName() override;
     string getSurname() override;
     string getLastName() override;
