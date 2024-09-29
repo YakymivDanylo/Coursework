@@ -1,6 +1,3 @@
-//
-// Created by danyl on 24.06.2024.
-//
 
 #ifndef COURSEWORK_PERSON_H
 #define COURSEWORK_PERSON_H

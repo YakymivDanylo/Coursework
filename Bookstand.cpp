@@ -1,6 +1,3 @@
-//
-// Created by danyl on 28.06.2024.
-//
 
 #include "Bookstand.h"
 

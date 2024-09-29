@@ -1,6 +1,3 @@
-//
-// Created by danyl on 27.06.2024.
-//
 
 #include "Reader.h"
 Reader::Reader()

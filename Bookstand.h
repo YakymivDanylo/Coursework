@@ -1,6 +1,3 @@
-//
-// Created by danyl on 28.06.2024.
-//
 
 #ifndef COURSEWORK_BOOKSTAND_H
 #define COURSEWORK_BOOKSTAND_H

@@ -1,6 +1,3 @@
-//
-// Created by danyl on 27.06.2024.
-//
 
 #ifndef COURSEWORK_READER_H
 #define COURSEWORK_READER_H

@@ -1,6 +1,3 @@
-//
-// Created by danyl on 24.06.2024.
-//
 
 #ifndef COURSEWORK_AUTHOR_H
 #define COURSEWORK_AUTHOR_H

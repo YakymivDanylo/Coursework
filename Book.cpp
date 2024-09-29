@@ -1,6 +1,3 @@
-//
-// Created by danyl on 24.06.2024.
-//
 
 #include "Book.h"
 #include "iostream"
