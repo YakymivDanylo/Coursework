@@ -1487,7 +1487,7 @@ int main() {
 
                     }
                 }
-                case 3://Instructions
+                case 3:{//Instructions
 
                     InstructionReader instructionReader;
                     string instructions = instructionReader.readData(R"(D:\Coursework\Database\Instruction.txt)");
