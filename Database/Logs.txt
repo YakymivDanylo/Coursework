@@ -6296,3 +6296,30 @@ Sun Sep 29 15:02:57 2024
 	::	Reader object was deleted.
 Sun Sep 29 15:02:57 2024
 	::	Book object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Sun Oct 06 20:29:29 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Sun Oct 06 20:29:29 2024
+	::	Book object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Bookstand object was created with parameters: 
+	id: 0
+Sun Oct 06 20:29:29 2024
+	::	Book object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Bookstand object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Book object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Author object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Book object was deleted.
+Sun Oct 06 20:29:29 2024
+	::	Book object was deleted.

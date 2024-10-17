@@ -18,6 +18,8 @@
 #include "InvalidInput.h"
 #include "BookIsInFile.h"
 #include "chrono"
+#include "FileReader.h"
+#include "InstructionReader.h"
 
 using namespace std;
 
@@ -1486,14 +1488,10 @@ int main() {
                     }
                 }
                 case 3://Instructions
-                {
-                    cout << "Instruction" << endl;
-                    ifstream finIn(R"(D:\Coursework\Database\Instruction.txt)");
-                    string line;
-                    while (getline(finIn, line)) {
-                        cout << line << endl;
-                    }
-                    finIn.close();
+
+                    InstructionReader instructionReader;
+                    string instructions = instructionReader.readData(R"(D:\Coursework\Database\Instruction.txt)");
+                    cout<<instructions<<endl;
                     delimitation();
                     break;
                 }

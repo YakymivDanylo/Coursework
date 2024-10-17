@@ -5,4 +5,4 @@ Input to the program must be in English or transliteration of the Ukrainian lang
 To make a selection in the program, look at the number to the left of the action you want to select and enter this      number.
 If you need to enter data into the program, for example, a surname or a book title and this title consists of more than one word, then use the lowercase underscore with the words "_".
 Example: "last_name", "The_Da_Vinci_Code".
-If the program does not respond when you enter the reader and book IDs and press “Enter” to receive or return a book, erase and re-enter the IDs.
+If the program does not respond when you enter the reader and book IDs and press "Enter" to receive or return a book, erase and re-enter the IDs.

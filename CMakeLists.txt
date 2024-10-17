@@ -18,4 +18,6 @@ add_executable(Coursework main.cpp
         Reader.cpp
         SameID.h
         BookIsInFile.h
+        FileReader.h
+        InstructionReader.h
 )
