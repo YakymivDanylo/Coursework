@@ -131,7 +131,7 @@ void addAuthorAndBook() {
     ofstream foutB(R"(D:\Coursework\Database\Books.txt)", ios_base::app);
     foutB << author0.getNameBook() << " " << author0.getPriceBook() << " " << author0.getId() << endl;
     foutB.close();
-    cout<<"Book was successfully added"<<endl;
+    cout << "Book was successfully added" << endl;
 
 }
 
@@ -182,13 +182,8 @@ void addBookstand() {
                     Book book1;
                     Bookstand bookstand1;
 
-                    book1.setNameBook(*name);
-                    book1.setPriceBook(*price);
-                    book1.setIDBook(*bookId);
-                    bookstand1.setBookstandId(bookstandId);
-                    bookstand1.setBook(book1);
 
-                    foutbookstand << bookstand1 << endl;
+                        foutbookstand<<bookstandId<<" "<<*name<<" "<<*price<<" "<<*bookId<<endl;
                     counter++;
                 }
             }
@@ -394,7 +389,7 @@ void ShowBooksByAuthor() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         throw InvalidInput();
     }
-    cout<<endl;
+    cout << endl;
     delimitation2();
     ifstream finAB(R"(D:\Coursework\Database\Author+Book.txt)");
     Book book;
@@ -402,6 +397,7 @@ void ShowBooksByAuthor() {
     int counter = 0;
     int counterBook = 1;
     while (finAB >> author) {
+        delimitation2();
         if (*name == author.getName() && *surname == author.getSurname() && *last_name == author.getLastName()) {
             book = author.getBook();
             cout << "Book number:\t" << counterBook++ << endl;
@@ -761,8 +757,7 @@ void returnBook() {
     remove(filenameReader.c_str());
     rename("tempReader.txt", filenameReader.c_str());
 
-    cout << "Book with ID " << *idOfBook<< " was successfully returned" << endl;
-
+    cout << "Book with ID " << *idOfBook << " was successfully returned" << endl;
 
 
 }
@@ -828,7 +823,7 @@ void changeReader() {
         readers.push_back(reader);
     }
     finReader.close();
-    cout<<endl;
+    cout << endl;
     bool found = false;
     for (ReaderData &reader: readers) {
         if (reader.idReader == *idReader && reader.nameReader == *name && reader.surnameReader == *surname &&
@@ -839,15 +834,15 @@ void changeReader() {
             cout << "Reader`s name: " << reader.nameReader << endl;
             cout << "Reader`s surname: " << reader.surnameReader << endl;
             cout << "Reader`s last name: " << reader.last_nameReader << endl;
-            cout<<endl;
+            cout << endl;
             cout << "Author`s name: " << reader.nameAuthor << endl;
             cout << "Author`s surname: " << reader.surnameAuthor << endl;
             cout << "Author`s last name: " << reader.last_nameAuthor << endl;
-            cout<<endl;
+            cout << endl;
             cout << "Book`s name: " << reader.nameBook << endl;
             cout << "Book`s price: " << reader.priceBook << endl;
             cout << "Book`s ID: " << reader.idBook << endl;
-            cout<<endl;
+            cout << endl;
             while (true) {
                 delimitation2();
                 cout << "What field do you want to change?" << endl;
@@ -878,18 +873,21 @@ void changeReader() {
                         cin >> reader.last_nameReader;
                         break;
                     }
-                    case 0:{
-                        ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)",ios::out | ios::trunc);
+                    case 0: {
+                        ofstream foutReader(R"(D:\Coursework\Database\Reader.txt)", ios::out | ios::trunc);
                         if (!foutReader.is_open()) {
                             cerr << "Error opening file: Reader.txt" << endl;
                             return;
                         }
 
-                        for(const ReaderData &reader : readers){
-                            foutReader << reader.nameReader << " " << reader.surnameReader << " " <<reader.last_nameReader<<" "<<reader.idReader<<" "<<reader.nameAuthor<<" "<<reader.surnameAuthor<<" "<<reader.last_nameAuthor<<" "<<reader.nameBook<<" "<<reader.priceBook<<" "<<reader.idBook<<endl;
+                        for (const ReaderData &reader: readers) {
+                            foutReader << reader.nameReader << " " << reader.surnameReader << " "
+                                       << reader.last_nameReader << " " << reader.idReader << " " << reader.nameAuthor
+                                       << " " << reader.surnameAuthor << " " << reader.last_nameAuthor << " "
+                                       << reader.nameBook << " " << reader.priceBook << " " << reader.idBook << endl;
                         }
                         foutReader.close();
-                        cout<<"Updated information for reader with ID "<< reader.idReader<<":"<<endl;
+                        cout << "Updated information for reader with ID " << reader.idReader << ":" << endl;
                         cout << "Reader`s name: " << reader.nameReader << endl;
                         cout << "Reader`s surname: " << reader.surnameReader << endl;
                         cout << "Reader`s last name: " << reader.last_nameReader << endl;
@@ -902,7 +900,7 @@ void changeReader() {
                     }
                         return;
                     default:
-                        cout<<"Invalid input!"<<endl;
+                        cout << "Invalid input!" << endl;
                 }
             }
         }
@@ -919,47 +917,60 @@ struct AuthorBookData {
     int idBook;
     int idBookstand;
 };
+struct Books {
+    string nameBook;
+    double priceBook;
+    int idBook;
+};
+struct Bookstands {
+    string name_Book;
+    double price_Book;
+    int id_Book;
+    int id_Bookstand;
+};
 
-bool comparePriceAsc(const AuthorBookData &a, const AuthorBookData &b){
+
+bool comparePriceAsc(const AuthorBookData &a, const AuthorBookData &b) {
     return a.priceBook < b.priceBook;
 }
 
-bool comparePriceDesc(const AuthorBookData &a, const AuthorBookData &b){
+bool comparePriceDesc(const AuthorBookData &a, const AuthorBookData &b) {
     return a.priceBook > b.priceBook;
 }
 
-void sortBookByPriceAsc(){
+void sortBookByPriceAsc() {
     vector<AuthorBookData> books;
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
 
-    if(!fin.is_open()){
+    if (!fin.is_open()) {
         cerr << "Error opening file: Author+Book.txt" << endl;
         return;
     }
 
     string line;
-    while(getline(fin, line)){
+    while (getline(fin, line)) {
         istringstream iss(line);
         AuthorBookData book;
-        iss>>book.nameAuthor>>book.surnameAuthor>>book.last_nameAuthor>>book.nameBook>>book.priceBook>>book.idBook;
+        iss >> book.nameAuthor >> book.surnameAuthor >> book.last_nameAuthor >> book.nameBook >> book.priceBook
+            >> book.idBook;
         books.push_back(book);
     }
     fin.close();
 
     sort(books.begin(), books.end(), comparePriceAsc);
-    cout<<"Books sorted by price in ascending order:"<<endl;
-    for(const AuthorBookData& book: books){
-        cout<<book.nameAuthor << " " << book.surnameAuthor << " "
-            << book.last_nameAuthor << " - " << book.nameBook << " ($"
-            << book.priceBook << ")" << endl;
+    cout << "Books sorted by price in ascending order:" << endl;
+    for (const AuthorBookData &book: books) {
+        cout << book.nameAuthor << " " << book.surnameAuthor << " "
+             << book.last_nameAuthor << " - " << book.nameBook << " ($"
+             << book.priceBook << ")" << endl;
     }
 }
 
-void sortBooksByPriceDesc(){
+void sortBooksByPriceDesc() {
     vector<AuthorBookData> books;
     ifstream fin(R"(D:\Coursework\Database\Author+Book.txt)");
 
-    if(!fin.is_open()){
+    if (!fin.is_open()) {
         cerr << "Error opening file: Author+Book.txt" << endl;
         return;
     }
@@ -974,13 +985,14 @@ void sortBooksByPriceDesc(){
     fin.close();
     sort(books.begin(), books.end(), comparePriceDesc);
     cout << "Books sorted by price in descending order:" << endl;
-    for (const AuthorBookData& book : books) {
+    for (const AuthorBookData &book: books) {
         cout << book.nameAuthor << " " << book.surnameAuthor << " "
              << book.last_nameAuthor << " - " << book.nameBook << " ($"
              << book.priceBook << ")" << endl;
     }
 }
-void deleteBook(int IdBook) {//має бути ще видалення з файлу Book та Bookstand
+
+void deleteBookFromAuthorBook(int IdBook) {
     vector<AuthorBookData> authors;
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
 
@@ -990,28 +1002,28 @@ void deleteBook(int IdBook) {//має бути ще видалення з фай
     }
 
     string line;
+    bool isFind= false;
     while (getline(finAuthorBook, line)) {
         istringstream iss(line);
         AuthorBookData author;
-        iss >> author.nameAuthor >> author.surnameAuthor >> author.last_nameAuthor >> author.nameBook >> author.priceBook >> author.idBook;
-        authors.push_back(author);
+        iss >> author.nameAuthor >> author.surnameAuthor >> author.last_nameAuthor >> author.nameBook
+            >> author.priceBook >> author.idBook;
+        if(author.idBook != IdBook){
+            authors.push_back(author);
+        } else{
+            isFind = true;
+        }
     }
     finAuthorBook.close();
 
-    // Find the index of the book to delete
-    auto it = find_if(authors.begin(), authors.end(),
-                      [IdBook](const AuthorBookData& a) { return a.idBook == IdBook; });
-
-    if (it != authors.end()) {
-        authors.erase(it); // Delete the book if found
-
+    if (isFind) {
         ofstream foutAuthor(R"(D:\Coursework\Database\Author+Book.txt)", ios::out | ios::trunc);
         if (!foutAuthor.is_open()) {
             cerr << "Error opening file: Author+Book.txt" << endl;
             return;
         }
 
-        for (const AuthorBookData& author : authors) {
+        for (const AuthorBookData &author: authors) {
             foutAuthor << author.nameAuthor << " " << author.surnameAuthor << " "
                        << author.last_nameAuthor << " " << author.nameBook << " "
                        << author.priceBook << " " << author.idBook << endl;
@@ -1019,6 +1031,88 @@ void deleteBook(int IdBook) {//має бути ще видалення з фай
         foutAuthor.close();
 
         cout << "Book with ID " << IdBook << " was successfully deleted." << endl;
+    } else {
+        cout << "Book with ID " << IdBook << " not found." << endl;
+    }
+}
+
+void deleteBookFromBookstands(int IdBook) {
+    vector<Bookstands> bookstands;
+    ifstream finBookstands(R"(D:\Coursework\Database\Bookstands.txt)");
+
+    if (!finBookstands.is_open()) {
+        cerr << "Error opening file:Book.txt" << endl;
+        return;
+    }
+
+    string line;
+    bool isFind= false;
+    while (getline(finBookstands, line)) {
+        istringstream iss(line);
+        Bookstands bookstand;
+        iss >> bookstand.id_Bookstand >> bookstand.name_Book >> bookstand.price_Book >> bookstand.id_Book;
+        if(bookstand.id_Book != IdBook){
+            bookstands.push_back(bookstand);
+        }else{
+            isFind = true;
+        }
+    }
+    finBookstands.close();
+
+    if (isFind) {
+        ofstream foutBookstands(R"(D:\Coursework\Database\Bookstands.txt)", ios::out | ios::trunc);
+        if (!foutBookstands.is_open()) {
+            cerr << "Error opening file:Books.txt" << endl;
+            return;
+        }
+
+        for (const Bookstands &bookstand: bookstands) {
+            foutBookstands << bookstand.id_Bookstand << " " << bookstand.name_Book << " " << bookstand.price_Book << " "<< bookstand.id_Book << endl;
+        }
+        foutBookstands.close();
+
+        cout << "Book with ID " << IdBook << " was successfully deleted." << endl;
+    } else {
+        cout << "Book with ID " << IdBook << " not found." << endl;
+    }
+}
+
+void deleteBookFromBooks(int IdBook) {
+    vector<Books> books;
+    ifstream finBooks(R"(D:\Coursework\Database\Books.txt)");
+
+    if (!finBooks.is_open()) {
+        cerr << "Error opening file:Book.txt" << endl;
+        return;
+    }
+
+    string line;
+    bool isFind= false;
+    while (getline(finBooks, line)) {
+        istringstream iss(line);
+        Books book;
+        iss >> book.nameBook >> book.priceBook >> book.idBook;
+        if(book.idBook != IdBook){
+            books.push_back(book);
+        }else{
+            isFind = true;
+        }
+    }
+    finBooks.close();
+
+    if (isFind) {
+
+        ofstream foutBooks(R"(D:\Coursework\Database\Books.txt)", ios::out | ios::trunc);
+        if (!foutBooks.is_open()) {
+            cerr << "Error opening file:Books.txt" << endl;
+            return;
+        }
+
+        for (const Books &book: books) {
+            foutBooks << book.nameBook << " " << book.priceBook << " " << book.idBook << endl;
+        }
+        foutBooks.close();
+
     } else {
         cout << "Book with ID " << IdBook << " not found." << endl;
     }
@@ -1227,7 +1321,7 @@ void filterBooksByPriceRange() {
 
     cout << "Books within the price range $" << minPrice << " - $" << maxPrice << ":" << endl;
     bool found = false;
-    for (const AuthorBookData& book : books) {
+    for (const AuthorBookData &book: books) {
         if (book.priceBook >= minPrice && book.priceBook <= maxPrice) {
             cout << book.nameAuthor << " " << book.surnameAuthor << " "
                  << book.last_nameAuthor << " - " << book.nameBook << " ($"
@@ -1262,7 +1356,7 @@ int main() {
 
             if (choice != 1 && choice != 2 && choice != 3 && choice != 0)
                 throw WrongChoice();
-            switch (choice) {//Admin
+            switch (choice) {
                 case 1: {
                     string password;
                     int k = 0;
@@ -1347,7 +1441,9 @@ int main() {
                                                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                                                 throw InvalidInputInt();
                                             }
-                                            deleteBook(idBook);
+                                            deleteBookFromAuthorBook(idBook);
+                                            deleteBookFromBooks(idBook);
+                                            deleteBookFromBookstands(idBook);
                                             delimitation();
                                             break;
                                         }
@@ -1418,14 +1514,14 @@ int main() {
                         cout << "9. Filter books by price range." << endl;
                         cout << "0. Exit " << endl;
                         delimitation();
-                        cout<<endl;
+                        cout << endl;
                         int choiceC;
                         cin >> choiceC;
                         delimitation();
                         if (cin.fail()) {
                             throw InvalidInput();
                         }
-//                        cout << endl;
+
                         if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
                             choiceC != 0 && choiceC != 6 && choiceC != 7 && choiceC != 8 && choiceC != 9)
                             throw WrongChoice();
@@ -1456,7 +1552,7 @@ int main() {
                                 delimitation();
                                 break;
                             }
-                            case 6:{
+                            case 6: {
                                 changeReader();
                                 delimitation();
                                 break;
@@ -1487,10 +1583,10 @@ int main() {
 
                     }
                 }
-                case 3:{//Instructions
+                case 3: {
                     InstructionReader instructionReader;
                     string instructions = instructionReader.readData(R"(D:\Coursework\Database\Instruction.txt)");
-                    cout<<instructions<<endl;
+                    cout << instructions << endl;
                     delimitation();
                     break;
                 }
