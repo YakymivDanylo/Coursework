@@ -980,7 +980,7 @@ void sortBooksByPriceDesc(){
              << book.priceBook << ")" << endl;
     }
 }
-void deleteBook(int IdBook) {
+void deleteBook(int IdBook) {//має бути ще видалення з файлу Book та Bookstand
     vector<AuthorBookData> authors;
     ifstream finAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)");
 
