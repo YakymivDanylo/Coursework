@@ -1,3 +1,5 @@
 Den Gerhard Brown The_Da_Vinci_Code 400 2291
 name surname last_name book 300 3911
-Den Gerhard Brown Digital_Fortress 200 2001
+Den Gerhard Brown Angels_&_Demons 500 16327
+Den Gerhard Brown Digital_Fortress 200 16405
+Susan Eloise Hinton The_Outsiders 300 16581
