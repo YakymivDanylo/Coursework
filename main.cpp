@@ -83,7 +83,8 @@ void addAuthorAndBook() {
     if (!(cin >> *bookPrice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
     book0.setPriceBook(*bookPrice);
 
     int bookID;
@@ -158,7 +159,8 @@ void addBookstand() {
     if (!(cin >> *bookId)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     int counter = 0;
     int counter1 = 0;
@@ -680,35 +682,40 @@ void returnBook() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     cout << "Enter your surname: ";
     cin >> *surname;
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     cout << "Enter your last name: ";
     cin >> *last_name;
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     cout << "Enter your ID: ";
     cin >> *idR;
     if (!(cin >> *idR)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     cout << "Enter book`s ID which you want to return: ";
     cin >> *idOfBook;
     if (!(cin >> *idOfBook)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw runtime_error("Check what you entered!");    }
+        throw runtime_error("Check what you entered!");
+    }
 
     ifstream finReader(filenameReader);
     while (finReader >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
@@ -1154,126 +1161,132 @@ void changeAuthorBook() {
             cout << "Book`s ID: " << authors.idBook << endl;
             delimitation2();
             while (true) {
-                delimitation2();
-                cout << "Choose what field do you want to change?" << endl;
-                cout << "1. Author`s name" << endl;
-                cout << "2. Author`s surname" << endl;
-                cout << "3. Author`s last name" << endl;
-                cout << "4. Book`s name" << endl;
-                cout << "5. Book`s price" << endl;
-                cout << "6. Book`s ID" << endl;
-                cout << "0. Exit" << endl;
-                delimitation2();
-                int choice;
-                if (!(cin >> choice)) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    throw runtime_error("Check what you entered!");
-                }
+                try {
+                    delimitation2();
+                    cout << "Choose what field do you want to change?" << endl;
+                    cout << "1. Author`s name" << endl;
+                    cout << "2. Author`s surname" << endl;
+                    cout << "3. Author`s last name" << endl;
+                    cout << "4. Book`s name" << endl;
+                    cout << "5. Book`s price" << endl;
+                    cout << "6. Book`s ID" << endl;
+                    cout << "0. Exit" << endl;
+                    delimitation2();
+                    int choice;
+                    if (!(cin >> choice)) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Check what you entered!");
+                    }
 
-                switch (choice) {
-                    case 1: {
-                        cout << "Enter new name: ";
-                        cin >> authors.nameAuthor;
-                        if (cin.fail() || authors.nameAuthor.find_first_of("0123456789") != string::npos) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                    switch (choice) {
+                        case 1: {
+                            cout << "Enter new name: ";
+                            cin >> authors.nameAuthor;
+                            if (cin.fail() || authors.nameAuthor.find_first_of("0123456789") != string::npos) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 2: {
-                        cout << "Enter new surname: ";
-                        cin >> authors.surnameAuthor;
-                        if (cin.fail() || authors.surnameAuthor.find_first_of("0123456789") != string::npos) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                        case 2: {
+                            cout << "Enter new surname: ";
+                            cin >> authors.surnameAuthor;
+                            if (cin.fail() || authors.surnameAuthor.find_first_of("0123456789") != string::npos) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 3: {
-                        cout << "Enter new last name: ";
-                        cin >> authors.last_nameAuthor;
-                        if (cin.fail() || authors.last_nameAuthor.find_first_of("0123456789") != string::npos) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                        case 3: {
+                            cout << "Enter new last name: ";
+                            cin >> authors.last_nameAuthor;
+                            if (cin.fail() || authors.last_nameAuthor.find_first_of("0123456789") != string::npos) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 4: {
-                        cout << "Enter new book`s name: ";
-                        cin >> authors.nameBook;
-                        if (cin.fail() || authors.nameBook.find_first_of("0123456789") != string::npos) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                        case 4: {
+                            cout << "Enter new book`s name: ";
+                            cin >> authors.nameBook;
+                            if (cin.fail() || authors.nameBook.find_first_of("0123456789") != string::npos) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 5: {
-                        cout << "Enter new book`s price: ";
-                        if (!(cin >> authors.priceBook)) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                        case 5: {
+                            cout << "Enter new book`s price: ";
+                            if (!(cin >> authors.priceBook)) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 6: {
-                        cout << "Enter new book`s ID: ";
-                        if (!(cin >> authors.idBook)) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw runtime_error("Check what you entered!");
+                        case 6: {
+                            cout << "Enter new book`s ID: ";
+                            if (!(cin >> authors.idBook)) {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                throw runtime_error("Check what you entered!");
+                            }
+                            break;
                         }
-                        break;
-                    }
-                    case 0: {
-                        ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios::out | ios::trunc);
-                        ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios::out | ios::trunc);
-                        ofstream foutBookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios::out | ios::trunc);
-                        if (!foutAuthorBook.is_open()) {
-                            cerr << "Error opening file: Author+Book.txt" << endl;
-                            return;
-                        }
-                        if (!foutBook.is_open()) {
-                            cerr << "Error opening file: Book.txt" << endl;
-                            return;
-                        }
-                        if (!foutBookstand.is_open()) {
-                            cerr << "Error opening file: Bookstand.txt" << endl;
-                            return;
-                        }
+                        case 0: {
+                            ofstream foutAuthorBook(R"(D:\Coursework\Database\Author+Book.txt)", ios::out | ios::trunc);
+                            ofstream foutBook(R"(D:\Coursework\Database\Books.txt)", ios::out | ios::trunc);
+                            ofstream foutBookstand(R"(D:\Coursework\Database\Bookstands.txt)", ios::out | ios::trunc);
+                            if (!foutAuthorBook.is_open()) {
+                                cerr << "Error opening file: Author+Book.txt" << endl;
+                                return;
+                            }
+                            if (!foutBook.is_open()) {
+                                cerr << "Error opening file: Book.txt" << endl;
+                                return;
+                            }
+                            if (!foutBookstand.is_open()) {
+                                cerr << "Error opening file: Bookstand.txt" << endl;
+                                return;
+                            }
 
-                        for (const AuthorBookData &authors: author_book) {
-                            foutAuthorBook << authors.nameAuthor << " " << authors.surnameAuthor << " "
-                                           << authors.last_nameAuthor << " " << authors.nameBook << " "
-                                           << authors.priceBook << " " << authors.idBook << endl;
-                            foutBook << authors.nameBook << " " << authors.priceBook << " " << authors.idBook << endl;
-                            foutBookstand << authors.idBookstand << " " << authors.nameBook << " " << authors.priceBook
-                                          << " " << authors.idBook << endl;
+                            for (const AuthorBookData &authors: author_book) {
+                                foutAuthorBook << authors.nameAuthor << " " << authors.surnameAuthor << " "
+                                               << authors.last_nameAuthor << " " << authors.nameBook << " "
+                                               << authors.priceBook << " " << authors.idBook << endl;
+                                foutBook << authors.nameBook << " " << authors.priceBook << " " << authors.idBook
+                                         << endl;
+                                foutBookstand << authors.idBookstand << " " << authors.nameBook << " "
+                                              << authors.priceBook
+                                              << " " << authors.idBook << endl;
+                            }
+                            foutAuthorBook.close();
+                            foutBook.close();
+                            foutBookstand.close();
+                            cout << "Updated information for author and book with ID " << *idBook << ":" << endl;
+                            cout << "Author`s name: " << authors.nameAuthor << endl;
+                            cout << "Author`s surname: " << authors.surnameAuthor << endl;
+                            cout << "Author`s last name: " << authors.last_nameAuthor << endl;
+                            cout << "Book`s name: " << authors.nameBook << endl;
+                            cout << "Book`s price: " << authors.priceBook << endl;
+                            cout << "Book`s ID: " << authors.idBook << endl;
                         }
-                        foutAuthorBook.close();
-                        foutBook.close();
-                        foutBookstand.close();
-                        cout << "Updated information for author and book with ID " << *idBook << ":" << endl;
-                        cout << "Author`s name: " << authors.nameAuthor << endl;
-                        cout << "Author`s surname: " << authors.surnameAuthor << endl;
-                        cout << "Author`s last name: " << authors.last_nameAuthor << endl;
-                        cout << "Book`s name: " << authors.nameBook << endl;
-                        cout << "Book`s price: " << authors.priceBook << endl;
-                        cout << "Book`s ID: " << authors.idBook << endl;
+                            return;
+                        default: {
+                            cout << "Invalid choice!" << endl;
+                        }
                     }
-                        return;
-                    default: {
-                        cout << "Invalid choice!" << endl;
-                    }
+
+                }catch (runtime_error& e){
+                    cerr<<e.what()<<endl;
                 }
 
             }
-
         }
     }
     if (!found) {

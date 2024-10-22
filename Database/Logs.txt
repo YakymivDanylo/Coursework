@@ -4095,3 +4095,84 @@ Tue Oct 22 13:35:59 2024
 	::	Reader object was deleted.
 Tue Oct 22 13:35:59 2024
 	::	Book object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Oct 22 16:32:43 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Tue Oct 22 16:32:43 2024
+	::	Book object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Bookstand object was created with parameters: 
+	id: 0
+Tue Oct 22 16:32:43 2024
+	::	Book object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Bookstand object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Book object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Author object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Book object was deleted.
+Tue Oct 22 16:32:43 2024
+	::	Book object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Oct 22 16:43:00 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Tue Oct 22 16:43:00 2024
+	::	Book object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Bookstand object was created with parameters: 
+	id: 0
+Tue Oct 22 16:43:00 2024
+	::	Book object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Bookstand object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Book object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Author object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Book object was deleted.
+Tue Oct 22 16:43:00 2024
+	::	Book object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Book object was created with parameters: 
+	name of the book: unknown
+	price: 0
+	id: 0
+Tue Oct 22 16:45:35 2024
+	::	Author object was created with parameters: 
+	name: unknown
+	surname: unknown
+	surname: unknown
+Tue Oct 22 16:45:35 2024
+	::	Book object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Bookstand object was created with parameters: 
+	id: 0
+Tue Oct 22 16:45:35 2024
+	::	Book object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Bookstand object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Book object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Author object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Book object was deleted.
+Tue Oct 22 16:45:35 2024
+	::	Book object was deleted.
