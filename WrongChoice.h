@@ -4,14 +4,10 @@
 
 #ifndef COURSEWORK_WRONGCHOICE_H
 #define COURSEWORK_WRONGCHOICE_H
-#include "iostream"
-class WrongChoice: public std::exception{
+#include <iostream>
+class WrongChoice: public runtime_error{
 public:
-    WrongChoice()=default;
-    ~WrongChoice()=default;
-    const char *what() const noexcept override{
-        return "Wrong choice! Check what you choose! ";
-    }
+    WrongChoice(): runtime_error("Wrong choice! Check what you choose! "){}
 };
 
 

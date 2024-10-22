@@ -42,7 +42,7 @@ void addAuthorAndBook() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     author0.setNameAuthor(*name);
 
@@ -52,7 +52,7 @@ void addAuthorAndBook() {
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     author0.setSurnameAuthor(*surname);
 
@@ -63,7 +63,7 @@ void addAuthorAndBook() {
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     author0.setLastNameAuthor(*last_name);
 
@@ -73,14 +73,17 @@ void addAuthorAndBook() {
     if (cin.fail() || bookName->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     book0.setNameBook(*bookName);
 
 
     unique_ptr<double> bookPrice{new double{0.0}};
     cout << "Enter the book`s price: ";
-    cin >> *bookPrice;
+    if (!(cin >> *bookPrice)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        throw runtime_error("Check what you entered!");    }
     book0.setPriceBook(*bookPrice);
 
     int bookID;
@@ -118,7 +121,7 @@ void addAuthorAndBook() {
 
     while (finB >> author1) {
         if (author0.getId() == author1.getId()) {
-            throw SameID();
+            throw runtime_error("There is already book with this ID!");
         }
     }
     finB.close();
@@ -155,8 +158,7 @@ void addBookstand() {
     if (!(cin >> *bookId)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     int counter = 0;
     int counter1 = 0;
@@ -183,7 +185,7 @@ void addBookstand() {
                     Bookstand bookstand1;
 
 
-                        foutbookstand<<bookstandId<<" "<<*name<<" "<<*price<<" "<<*bookId<<endl;
+                    foutbookstand << bookstandId << " " << *name << " " << *price << " " << *bookId << endl;
                     counter++;
                 }
             }
@@ -304,7 +306,7 @@ int ShowBookById() {
     if (!(cin >> bookId)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInput();
+        throw runtime_error("Check that the ID is entered correctly!");
     }
 
     unique_ptr<Book> book = book1.findBookById(R"(D:\Coursework\Database\Books.txt)", bookId);
@@ -373,21 +375,21 @@ void ShowBooksByAuthor() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInput();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter author`s surname: ";
     cin >> *surname;
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInput();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter author`s last name: ";
     cin >> *last_name;
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInput();
+        throw runtime_error("Check what you entered!");
     }
     cout << endl;
     delimitation2();
@@ -445,14 +447,14 @@ void showMyBooks() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter your surname: ";
     cin >> *surname;
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter your last name: ";
@@ -460,14 +462,14 @@ void showMyBooks() {
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter your ID: ";
 
     if (!(cin >> *idR)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
     cout << endl;
     ifstream finR(R"(D:\Coursework\Database\Reader.txt)");
@@ -538,35 +540,35 @@ void takeBook() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter your surname: ";
     cin >> *surname;
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Enter your last name: ";
     cin >> *last_name;
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
     cout << "Create your own ID and remember it!\n If you have one enter it.\n";
     cout << "Enter your ID:";
     if (!(cin >> *idR)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter book`s ID which you want to take: ";
     if (!(cin >> *idOfBook)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
 
     Reader reader1(*name, *surname, *last_name, *idR);
@@ -678,40 +680,35 @@ void returnBook() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     cout << "Enter your surname: ";
     cin >> *surname;
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     cout << "Enter your last name: ";
     cin >> *last_name;
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     cout << "Enter your ID: ";
     cin >> *idR;
     if (!(cin >> *idR)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     cout << "Enter book`s ID which you want to return: ";
     cin >> *idOfBook;
     if (!(cin >> *idOfBook)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
-    }
+        throw runtime_error("Check what you entered!");    }
 
     ifstream finReader(filenameReader);
     while (finReader >> *name >> *surname >> *last_name >> *idR2 >> *nameAu >> *surnameAu >> *last_nameAu >> *nameOfBook
@@ -780,7 +777,7 @@ void changeReader() {
     if (cin.fail() || name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter your surname: ";
@@ -788,7 +785,7 @@ void changeReader() {
     if (cin.fail() || surname->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter your last name: ";
@@ -796,7 +793,7 @@ void changeReader() {
     if (cin.fail() || last_name->find_first_of("0123456789") != string::npos) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputString();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter your ID: ";
@@ -804,7 +801,7 @@ void changeReader() {
     if (!(cin >> *idReader)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
     vector<ReaderData> readers;
     ifstream finReader(R"(D:\Coursework\Database\Reader.txt)");
@@ -855,7 +852,7 @@ void changeReader() {
                 if (!(cin >> choice)) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    throw InvalidInputInt();
+                    throw runtime_error("Check what you entered!");
                 }
                 switch (choice) {
                     case 1: {
@@ -1002,15 +999,15 @@ void deleteBookFromAuthorBook(int IdBook) {
     }
 
     string line;
-    bool isFind= false;
+    bool isFind = false;
     while (getline(finAuthorBook, line)) {
         istringstream iss(line);
         AuthorBookData author;
         iss >> author.nameAuthor >> author.surnameAuthor >> author.last_nameAuthor >> author.nameBook
             >> author.priceBook >> author.idBook;
-        if(author.idBook != IdBook){
+        if (author.idBook != IdBook) {
             authors.push_back(author);
-        } else{
+        } else {
             isFind = true;
         }
     }
@@ -1046,14 +1043,14 @@ void deleteBookFromBookstands(int IdBook) {
     }
 
     string line;
-    bool isFind= false;
+    bool isFind = false;
     while (getline(finBookstands, line)) {
         istringstream iss(line);
         Bookstands bookstand;
         iss >> bookstand.id_Bookstand >> bookstand.name_Book >> bookstand.price_Book >> bookstand.id_Book;
-        if(bookstand.id_Book != IdBook){
+        if (bookstand.id_Book != IdBook) {
             bookstands.push_back(bookstand);
-        }else{
+        } else {
             isFind = true;
         }
     }
@@ -1067,7 +1064,8 @@ void deleteBookFromBookstands(int IdBook) {
         }
 
         for (const Bookstands &bookstand: bookstands) {
-            foutBookstands << bookstand.id_Bookstand << " " << bookstand.name_Book << " " << bookstand.price_Book << " "<< bookstand.id_Book << endl;
+            foutBookstands << bookstand.id_Bookstand << " " << bookstand.name_Book << " " << bookstand.price_Book << " "
+                           << bookstand.id_Book << endl;
         }
         foutBookstands.close();
 
@@ -1087,14 +1085,14 @@ void deleteBookFromBooks(int IdBook) {
     }
 
     string line;
-    bool isFind= false;
+    bool isFind = false;
     while (getline(finBooks, line)) {
         istringstream iss(line);
         Books book;
         iss >> book.nameBook >> book.priceBook >> book.idBook;
-        if(book.idBook != IdBook){
+        if (book.idBook != IdBook) {
             books.push_back(book);
-        }else{
+        } else {
             isFind = true;
         }
     }
@@ -1124,7 +1122,7 @@ void changeAuthorBook() {
     if (!(cin >> *idBook)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
 
     vector<AuthorBookData> author_book;
@@ -1170,7 +1168,7 @@ void changeAuthorBook() {
                 if (!(cin >> choice)) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    throw InvalidInputInt();
+                    throw runtime_error("Check what you entered!");
                 }
 
                 switch (choice) {
@@ -1180,7 +1178,7 @@ void changeAuthorBook() {
                         if (cin.fail() || authors.nameAuthor.find_first_of("0123456789") != string::npos) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputString();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1190,7 +1188,7 @@ void changeAuthorBook() {
                         if (cin.fail() || authors.surnameAuthor.find_first_of("0123456789") != string::npos) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputString();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1200,7 +1198,7 @@ void changeAuthorBook() {
                         if (cin.fail() || authors.last_nameAuthor.find_first_of("0123456789") != string::npos) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputString();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1210,7 +1208,7 @@ void changeAuthorBook() {
                         if (cin.fail() || authors.nameBook.find_first_of("0123456789") != string::npos) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputString();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1219,7 +1217,7 @@ void changeAuthorBook() {
                         if (!(cin >> authors.priceBook)) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputInt();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1228,7 +1226,7 @@ void changeAuthorBook() {
                         if (!(cin >> authors.idBook)) {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            throw InvalidInputInt();
+                            throw runtime_error("Check what you entered!");
                         }
                         break;
                     }
@@ -1291,14 +1289,14 @@ void filterBooksByPriceRange() {
     if (!(cin >> minPrice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
 
     cout << "Enter the maximum price: ";
     if (!(cin >> maxPrice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        throw InvalidInputInt();
+        throw runtime_error("Check what you entered!");
     }
 
     vector<AuthorBookData> books;
@@ -1350,277 +1348,327 @@ int main() {
             int choice;
             cin >> choice;
             if (cin.fail()) {
-                throw InvalidInput();
+                throw runtime_error("Check what you entered!");
             }
             delimitation();
 
-            if (choice != 1 && choice != 2 && choice != 3 && choice != 0)
-                throw WrongChoice();
-            switch (choice) {
-                case 1: {
-                    string password;
-                    int k = 0;
-                    while (k < 3) {
-                        cout << endl;
-                        cout << "Enter password" << endl;
-                        cin >> password;
-                        delimitation();
-                        if (password == "123") {
-                            try {
-                                cout << "Successful access!" << endl;
-                                while (true) {
-                                    cout << "Choose what you want to do." << endl;
-                                    cout << "1. Add the book." << endl;
-                                    cout << "2. Add the book to the bookstand." << endl;
-                                    cout << "3. Show books." << endl;
-                                    cout << "4. Show readers." << endl;
-                                    cout << "5. Show book by its ID." << endl;
-                                    cout << "6. Show bookstands." << endl;
-                                    cout << "7. Show books by author`s full name." << endl;
-                                    cout << "8. Delete book by its ID." << endl;
-                                    cout << "9. Change author and its book by ID." << endl;
-                                    cout << "10. Sort books by price in ascending order." << endl;
-                                    cout << "11. Sort books by price in descending order." << endl;
-                                    cout << "12. Filter books by price range." << endl;
-                                    cout << "0. Exit." << endl << endl;
-                                    int choiceAd;
-                                    cin >> choiceAd;
-                                    delimitation();
-                                    if (cin.fail()) {
-                                        throw InvalidInput();
-                                    }
-                                    if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
-                                        choiceAd != 4 &&
-                                        choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 &&
-                                        choiceAd != 9 && choiceAd != 10 && choiceAd != 11 && choiceAd != 12)
-                                        throw WrongChoice();
-                                    switch (choiceAd) {
-                                        case 1: {
-                                            addAuthorAndBook();
-                                            delimitation();
-                                            break;
+            try {
+                if (choice != 1 && choice != 2 && choice != 3 && choice != 0)
+                    throw runtime_error("Check what you chose!");
+                switch (choice) {
+                    case 1: {
+                        string password;
+                        int k = 0;
+                        while (k < 3) {
+                            cout << endl;
+                            cout << "Enter password" << endl;
+                            cin >> password;
+                            delimitation();
+                            if (password == "123") {
+                                try {
+                                    cout << "Successful access!" << endl;
+                                    while (true) {
+                                        cout << "Choose what you want to do." << endl;
+                                        cout << "1. Add the book." << endl;
+                                        cout << "2. Add the book to the bookstand." << endl;
+                                        cout << "3. Show books." << endl;
+                                        cout << "4. Show readers." << endl;
+                                        cout << "5. Show book by its ID." << endl;
+                                        cout << "6. Show bookstands." << endl;
+                                        cout << "7. Show books by author`s full name." << endl;
+                                        cout << "8. Delete book by its ID." << endl;
+                                        cout << "9. Change author and its book by ID." << endl;
+                                        cout << "10. Sort books by price in ascending order." << endl;
+                                        cout << "11. Sort books by price in descending order." << endl;
+                                        cout << "12. Filter books by price range." << endl;
+                                        cout << "0. Exit." << endl << endl;
+                                        int choiceAd;
+                                        cin >> choiceAd;
+                                        delimitation();
+                                        if (cin.fail()) {
+                                            throw InvalidInput();
                                         }
-                                        case 2: {
-                                            addBookstand();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 3: {
-                                            ShowBooks();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 4: {
-                                            ShowReaders();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 5: {
-                                            ShowBookById();
-                                            delimitation();
-                                            break;
+                                        try {
+                                            if (choiceAd != 1 && choiceAd != 2 && choiceAd != 3 && choiceAd != 0 &&
+                                                choiceAd != 4 &&
+                                                choiceAd != 5 && choiceAd != 6 && choiceAd != 7 && choiceAd != 8 &&
+                                                choiceAd != 9 && choiceAd != 10 && choiceAd != 11 && choiceAd != 12)
+                                                throw runtime_error("Check what you chose!");
+                                            switch (choiceAd) {
+                                                case 1: {
+                                                    addAuthorAndBook();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 2: {
+                                                    addBookstand();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 3: {
+                                                    ShowBooks();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 4: {
+                                                    ShowReaders();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 5: {
+                                                    ShowBookById();
+                                                    delimitation();
+                                                    break;
 
-                                        }
-                                        case 6: {
-                                            ShowBookstands();
-                                            delimitation();
-                                            break;
+                                                }
+                                                case 6: {
+                                                    ShowBookstands();
+                                                    delimitation();
+                                                    break;
 
-                                        }
-                                        case 7: {
-                                            ShowBooksByAuthor();
-                                            delimitation();
-                                            break;
+                                                }
+                                                case 7: {
+                                                    ShowBooksByAuthor();
+                                                    delimitation();
+                                                    break;
 
-                                        }
-                                        case 8: {
-                                            int idBook;
-                                            cout << "Enter ID of the book which you want to delete: ";
-                                            if (!(cin >> idBook)) {
-                                                cin.clear();
-                                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                                throw InvalidInputInt();
+                                                }
+                                                case 8: {
+                                                    int idBook;
+                                                    cout << "Enter ID of the book which you want to delete: ";
+                                                    if (!(cin >> idBook)) {
+                                                        cin.clear();
+                                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                                        throw runtime_error("Check what you chose!");
+                                                    }
+                                                    deleteBookFromAuthorBook(idBook);
+                                                    deleteBookFromBooks(idBook);
+                                                    deleteBookFromBookstands(idBook);
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 9: {
+                                                    changeAuthorBook();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 10: {
+                                                    sortBookByPriceAsc();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 11: {
+                                                    sortBooksByPriceDesc();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 12: {
+                                                    filterBooksByPriceRange();
+                                                    delimitation();
+                                                    break;
+                                                }
+                                                case 0: {
+                                                    delimitation();
+                                                    return 0;
+                                                }
+                                                default: {
+                                                    cout << endl;
+                                                    throw WrongChoice();
+                                                }
                                             }
-                                            deleteBookFromAuthorBook(idBook);
-                                            deleteBookFromBooks(idBook);
-                                            deleteBookFromBookstands(idBook);
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 9: {
-                                            changeAuthorBook();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 10: {
-                                            sortBookByPriceAsc();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 11: {
-                                            sortBooksByPriceDesc();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 12: {
-                                            filterBooksByPriceRange();
-                                            delimitation();
-                                            break;
-                                        }
-                                        case 0: {
-                                            delimitation();
-                                            return 0;
-                                        }
-                                        default: {
-                                            cout << endl;
-                                            throw WrongChoice();
+                                        } catch (runtime_error &e) {
+                                            cerr << e.what() << endl;
                                         }
                                     }
                                 }
-                            }
-                            catch (WrongChoice &Choice) {
-                                cerr << Choice.what();
-                            }
-                            catch (SameID &ID) {
-                                cerr << ID.what();
-                            }
+                                catch (WrongChoice &Choice) {
+                                    cerr << Choice.what();
+                                }
+                                catch (SameID &ID) {
+                                    cerr << ID.what();
+                                }
 
-                        } else {
-                            cout << "Wrong password !" << endl;
-                            cout << "Check what you entered !" << endl;
+                            } else {
+                                cout << "Wrong password !" << endl;
+                                cout << "Check what you entered !" << endl;
+                                delimitation();
+                                k++;
+                            }
+                        }
+                        if (k == 3) {
+                            cout << "You have reached the maximum number of attempts! The program ends!" << endl;
                             delimitation();
-                            k++;
+                            return 1;
+                        }
+                        break;
+                    }
+                    case 2: {
+                        cout << "Welcome" << endl;
+                        while (true) {
+                            try {
+                                cout << "Choose what you want to do " << endl;
+                                cout << "1. Show Books " << endl;
+                                cout << "2. Show books by author`s full name " << endl;
+                                cout << "3. Take a book " << endl;
+                                cout << "4. Return a book " << endl;
+                                cout << "5. Show my books " << endl;
+                                cout << "6. Change my information " << endl;
+                                cout << "7. Sort books by price in ascending order." << endl;
+                                cout << "8. Sort books by price in descending order." << endl;
+                                cout << "9. Filter books by price range." << endl;
+                                cout << "0. Exit " << endl;
+                                delimitation();
+                                cout << endl;
+                                int choiceC;
+                                cin >> choiceC;
+                                delimitation();
+                                if (cin.fail()) {
+                                    throw runtime_error("Check what you chose!");
+                                }
+
+                                if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
+                                    choiceC != 0 && choiceC != 6 && choiceC != 7 && choiceC != 8 && choiceC != 9)
+                                    throw WrongChoice();
+                                switch (choiceC) {
+
+                                    case 1: {
+                                        ShowBooks();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 2: {
+                                        ShowBooksByAuthor();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 3: {
+                                        takeBook();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 4: {
+                                        returnBook();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 5: {
+                                        showMyBooks();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 6: {
+                                        changeReader();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 7: {
+                                        sortBookByPriceAsc();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 8: {
+                                        sortBooksByPriceDesc();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 9: {
+                                        filterBooksByPriceRange();
+                                        delimitation();
+                                        break;
+                                    }
+                                    case 0: {
+                                        return 0;
+                                    }
+                                    default: {
+                                        throw WrongChoice();
+                                    }
+
+                                }
+                            } catch (runtime_error &e) {
+                                cerr << e.what() << endl;
+                            }
+
                         }
                     }
-                    if (k == 3) {
-                        cout << "You have reached the maximum number of attempts! The program ends!" << endl;
+                    case 3: {
+                        InstructionReader instructionReader;
+                        string instructions = instructionReader.readData(R"(D:\Coursework\Database\Instruction.txt)");
+                        cout << instructions << endl;
                         delimitation();
-                        return 1;
+                        break;
                     }
-                    break;
-                }
-                case 2: {
-                    cout << "Welcome" << endl;
-                    while (true) {
-                        cout << "Choose what you want to do " << endl;
-                        cout << "1. Show Books " << endl;
-                        cout << "2. Show books by author`s full name " << endl;
-                        cout << "3. Take a book " << endl;
-                        cout << "4. Return a book " << endl;
-                        cout << "5. Show my books " << endl;
-                        cout << "6. Change my information " << endl;
-                        cout << "7. Sort books by price in ascending order." << endl;
-                        cout << "8. Sort books by price in descending order." << endl;
-                        cout << "9. Filter books by price range." << endl;
-                        cout << "0. Exit " << endl;
-                        delimitation();
+                    case 0: {
+                        exit(0);
+                    }
+                    default: {
                         cout << endl;
-                        int choiceC;
-                        cin >> choiceC;
-                        delimitation();
-                        if (cin.fail()) {
-                            throw InvalidInput();
-                        }
-
-                        if (choiceC != 1 && choiceC != 2 && choiceC != 3 && choiceC != 4 && choiceC != 5 &&
-                            choiceC != 0 && choiceC != 6 && choiceC != 7 && choiceC != 8 && choiceC != 9)
-                            throw WrongChoice();
-                        switch (choiceC) {
-
-                            case 1: {
-                                ShowBooks();
-                                delimitation();
-                                break;
-                            }
-                            case 2: {
-                                ShowBooksByAuthor();
-                                delimitation();
-                                break;
-                            }
-                            case 3: {
-                                takeBook();
-                                delimitation();
-                                break;
-                            }
-                            case 4: {
-                                returnBook();
-                                delimitation();
-                                break;
-                            }
-                            case 5: {
-                                showMyBooks();
-                                delimitation();
-                                break;
-                            }
-                            case 6: {
-                                changeReader();
-                                delimitation();
-                                break;
-                            }
-                            case 7: {
-                                sortBookByPriceAsc();
-                                delimitation();
-                                break;
-                            }
-                            case 8: {
-                                sortBooksByPriceDesc();
-                                delimitation();
-                                break;
-                            }
-                            case 9: {
-                                filterBooksByPriceRange();
-                                delimitation();
-                                break;
-                            }
-                            case 0: {
-                                return 0;
-                            }
-                            default: {
-                                throw WrongChoice();
-                            }
-
-                        }
-
+                        throw WrongChoice();
                     }
-                }
-                case 3: {
-                    InstructionReader instructionReader;
-                    string instructions = instructionReader.readData(R"(D:\Coursework\Database\Instruction.txt)");
-                    cout << instructions << endl;
-                    delimitation();
-                    break;
-                }
-                case 0: {
-                    exit(0);
-                }
-                default: {
-                    cout << endl;
-                    throw WrongChoice();
-                }
 
+                }
             }
+            catch (runtime_error &e) {
+                cerr << e.what() << endl;
+            }
+
         }
+
     }
-    catch (WrongChoice &Choice) {
-        cerr << Choice.what();
+    catch (
+            WrongChoice &Choice
+    ) {
+        cerr << Choice.
+
+                what();
+
     }
-    catch (SameID &ID) {
-        cerr << ID.what();
+    catch (
+            SameID &ID
+    ) {
+        cerr << ID.
+
+                what();
+
     }
-    catch (WrongInputData &Data) {
-        cerr << Data.what();
+    catch (
+            WrongInputData &Data
+    ) {
+        cerr << Data.
+
+                what();
+
     }
-    catch (InvalidInput &e) {
-        cerr << e.what();
+    catch (
+            InvalidInput &e
+    ) {
+        cerr << e.
+
+                what();
+
     }
-    catch (BookIsInFile &e) {
-        cerr << e.what();
+    catch (
+            BookIsInFile &e
+    ) {
+        cerr << e.
+
+                what();
+
     }
-    catch (InvalidInputString &e) {
-        cerr << e.what();
+    catch (
+            InvalidInputString &e
+    ) {
+        cerr << e.
+
+                what();
+
     }
-    catch (InvalidInputInt &e) {
-        cerr << e.what();
+    catch (
+            InvalidInputInt &e
+    ) {
+        cerr << e.
+
+                what();
+
     }
 
     return 0;
